@@ -2,17 +2,175 @@
 <html>
 <head>
 	<title>WebAR Project</title>
-	
+
 	<!-- Import the component -->
 	<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
-	<!-- <a ref="ar" href="assets/ios/model.usdz">
-		<img src="assets/images/ARButton.png">
-	</a> -->
+	<!DOCTYPE html>
+<html>
+<head>
+	<title>iOS</title>
+</head>
+<body>
+	<model-viewer src="assets/android/model.gltf" poster="assets/images/ARButton.png" shadow-intensity="1" ar ar-scale="fixed" camera-controls alt="A 3D model carousel" ios-src="assets/ios/model.usdz">
+  
+	    <button slot="ar-button" id="ar-button">
+	    	View in your space
+	    </button>
 
+	    <div id="ar-prompt">
+	    	<img src="assets/images/ARButton.png">
+	    </div>
 
-	<!-- Use it like any other HTML element -->
-	<model-viewer alt="Astronaut model" src="assets/android/model.gltf" ios-src="assets/ios/model.usdz" ar>
+	    <div class="slider">
+		    <div class="slides">
+		      <button class="slide selected" onclick="switchSrc(this, 'Chair')" style="background-image: url('assets/images/ARButton.png');">
+
+		      </button><button class="slide" onclick="switchSrc(this, 'Mixer')" style="background-image: url('assets/images/ARButton.png');">
+
+		      </button><button class="slide" onclick="switchSrc(this, 'GeoPlanter')" style="background-image: url('assets/images/ARButton.png');">
+		      
+		      </button><button class="slide" onclick="switchSrc(this, 'ToyTrain')" style="background-image: url('assets/images/ARButton.png');">
+		      
+		      </button><button class="slide" onclick="switchSrc(this, 'Canoe')" style="background-image: url('assets/images/ARButton.png');">    
+		    </button></div>
+	    </div>
+	</model-viewer>
+
+	<script type="module">
+		  const modelViewer = document.querySelector("model-viewer");
+
+		  window.switchSrc = (element, name) => {
+		    modelViewer.src = 'assets/android/model.gltf';
+		    modelViewer.poster = 'assets/images/ARButton.png';
+		    const slides = document.querySelectorAll(".slide");
+		    slides.forEach((element) => {element.classList.remove("selected");});
+		    element.classList.add("selected");
+		  };
+
+		  document.querySelector(".slider").addEventListener('beforexrselect', (ev) => {
+		    // Keep slider interactions from affecting the XR scene.
+		    ev.preventDefault();
+		  });
+	</script>
+
+	<style>
+	  /* This keeps child nodes hidden while the element loads */
+	  :not(:defined) > * {
+	    display: none;
+	  }
+
+	  model-viewer {
+	    background-color: #eee;
+	    overflow-x: hidden;
+	    --poster-color: #eee;
+	  }
+
+	  #ar-button {
+	    background-image: url(assets/images/ARButton.png);
+	    background-repeat: no-repeat;
+	    background-size: 20px 20px;
+	    background-position: 12px 50%;
+	    background-color: #fff;
+	    position: absolute;
+	    left: 50%;
+	    transform: translateX(-50%);
+	    white-space: nowrap;
+	    bottom: 132px;
+	    padding: 0px 16px 0px 40px;
+	    font-family: Roboto Regular, Helvetica Neue, sans-serif;
+	    font-size: 14px;
+	    color:#4285f4;
+	    height: 36px;
+	    line-height: 36px;
+	    border-radius: 18px;
+	    border: 1px solid #DADCE0;
+	  }
+
+	  #ar-button:active {
+	    background-color: #E8EAED;
+	  }
+
+	  #ar-button:focus {
+	    outline: none;
+	  }
+
+	  #ar-button:focus-visible {
+	    outline: 1px solid #4285f4;
+	  }
+
+	  @keyframes circle {
+	    from { transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg); }
+	    to   { transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg); }
+	  }
+
+	  @keyframes elongate {
+	    from { transform: translateX(100px); }
+	    to   { transform: translateX(-100px); }
+	  }
+
+	  model-viewer > #ar-prompt {
+	    position: absolute;
+	    left: 50%;
+	    bottom: 175px;
+	    animation: elongate 2s infinite ease-in-out alternate;
+	    display: none;
+	  }
+
+	  model-viewer[ar-status="session-started"] > #ar-prompt {
+	    display: block;
+	  }
+
+	  model-viewer > #ar-prompt > img {
+	    animation: circle 4s linear infinite;
+	  }
+
+	  .slider {
+	    width: 100%;
+	    text-align: center;
+	    overflow: hidden;
+	    position: absolute;
+	    bottom: 16px;
+	  }
+
+	  .slides {
+	    display: flex;
+	    overflow-x: auto;
+	    scroll-snap-type: x mandatory;
+	    scroll-behavior: smooth;
+	    -webkit-overflow-scrolling: touch;
+	  }
+
+	  .slide {
+	    scroll-snap-align: start;
+	    flex-shrink: 0;
+	    width: 100px;
+	    height: 100px;
+	    background-size: contain;
+	    background-repeat: no-repeat;
+	    background-position: center;
+	    background-color: #fff;
+	    margin-right: 10px;
+	    border-radius: 10px;
+	    border: none;
+	    display: flex;
+	  }
+
+	  .slide.selected {
+	    border: 2px solid #4285f4;
+	  }
+
+	  .slide:focus {
+	    outline: none;
+	  }
+
+	  .slide:focus-visible {
+	    outline: 1px solid #4285f4;
+	  }
+
+	</style>
+</body>
+</html>
 </body>
 </html>
