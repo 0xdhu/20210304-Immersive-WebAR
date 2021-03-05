@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+	<a id="ar-link" rel="ar" href="https://example.com/cool-model.usdz#applePayButtonType=pay....etc">  <button>ABC</button></a>
+
+	<script type="text/javascript">
+		const linkElement = document.getElementById("ar-link");
+
+		linkElement.addEventListener("message", function (event) {   
+		    if (event.data == "_apple_ar_quicklook_button_tapped") {
+		        alert("Paid");
+		    }
+		}, false);
+	</script>
+</body>
+</html>
