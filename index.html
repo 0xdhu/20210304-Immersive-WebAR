@@ -18,10 +18,10 @@
 	<!-- <model-viewer alt="Astronaut model" src="assets/android/model.gltf" ios-src="assets/ios/model.usdz" ar> -->
 
 	<script type="text/javascript">		
-		const android_browser = '/src/android.html';
-		const ios_browser = '/assets/ios/model.usdz';
+		const android_browser = 'src/android.html';
+		const ios_browser = 'assets/ios/model.usdz';
 
-		const ios_custom_button = '/src/button.html&customHeight=small';
+		const ios_custom_button = 'src/button.html&customHeight=small';
 
 		const warningText = "You need to browse on iPhone/iPad or Android";
 
@@ -38,7 +38,7 @@
 		        /iPad/i,
 		    ];
 
-		    let domain = "https://"+ url_domain();
+		    let domain = "https://"+ url_domain() + "/20210304-Immersive-WebAR/";
 		    // alert(domain);
 
 		    toMatch.some((toMatchItem) => {
