@@ -4,11 +4,18 @@
 	<title></title>
 </head>
 <body>
-	<div style="position: relative;">
-		<iframe src="../assets/ios/model.usdz"></iframe>
-		<div style="position: absolute;top: 0;z-index: 99999">
-			<h1>GGGGG</h1>
-		</div>
-	</div>
+	<a id="ar-link" rel="ar" href="https://monkeymax-svg.github.io/20210304-Immersive-WebAR/assets/ios/model.usdz#applePayButtonType=buy&checkoutTitle=Adidas%20Stan%20Smith&checkoutSubtitle=Classic%20trainers&price=$80">
+		<img src="https://roxanajula.com/wp-content/uploads/2020/09/Adidas_Originals_Stan_Smith.jpg">
+	</a>
+
+	<script type="text/javascript">
+		const linkElement = document.getElementById("ar-link");
+
+		linkElement.addEventListener("message", function (event) {   
+		    if (event.data == "_apple_ar_quicklook_button_tapped") {
+		        alert("Paid");
+		    }
+		}, false);
+	</script>
 </body>
 </html>
