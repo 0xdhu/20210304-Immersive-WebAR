@@ -51,8 +51,9 @@
 		    		} 
 		    		// iOS Platform
 		    		else if(String(toMatchItem) === "/iPhone/i" || String(toMatchItem) === "/iPad/i") {
+		    			location.href = domain + 'src/ios.html';
 		    			// Navigate to ios page
-		    			location.href = domain + ios_browser + '#custom=' + domain + ios_custom_button;
+		    			// location.href = domain + ios_browser + '#custom=' + domain + ios_custom_button;
 		    		}
 		    	}	
 		    });
