@@ -9,6 +9,7 @@ const base_url = () => {
 
 // check if your ios mobile browser support AR
 const is_ARkit_support = () => {
+	alert("is ARkit support");
 	const a = document.createElement("a");
 	if (a.relList.supports("ar")) {
 	  // AR is available.
@@ -18,6 +19,7 @@ const is_ARkit_support = () => {
 
 // check if your android mobile browser support AR
 const is_ARcore_support = () => {
+	alert("is AR core support");
 	if (navigator.xr) {
 	  	navigator.xr.isSessionSupported('immersive-vr')
 	  	.then((isSupported) => {
@@ -45,14 +47,15 @@ const warningText = "You need to browse this website on iPhone/iPad or Android";
 
 // check if your mobile is android/iphone/ipad or not
 const checkPlatform = () => {
+    alert("check Platform");
     const toMatch = [
         /Android/i,
         /iPhone/i,
         /iPad/i,
     ];
 
-    // let baseURL = base_url() + "/20210304-Immersive-WebAR/";
-
+    let baseURL = base_url() + "/20210304-Immersive-WebAR/";
+    alert(baseURL);
     let isMobile = false;
 
     // check each platform
@@ -66,9 +69,9 @@ const checkPlatform = () => {
     			isMobile = true;
     			// Navigate to android page
     			if(is_ARcore_support()) {
-	    			location.href += android_browser;
+	    			location.href = baseURL + android_browser;
 	    		} else {
-	    			location.href += android_arnosupport_browser;
+	    			location.href = baseURL + android_arnosupport_browser;
 	    		}
     		} 
 
@@ -77,8 +80,10 @@ const checkPlatform = () => {
     			isMobile = true;
     			// Navigate to iOS page
     			if(is_ARkit_support()) {
-    				location.href += ios_browser;
+    				location.href = baseURL + ios_browser;
     			}
+    		} else {
+    			alert("Nothing");
     		}
     	}	
     });
