@@ -2,67 +2,19 @@
 <html>
 <head>
 	<title>WebAR Project</title>
-
-	<!-- Import the component -->
-	<!-- <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script> -->
 </head>
 <body>
-	<!-- <a ref="ar" href="assets/ios/model.usdz">
-		<img src="assets/images/ARButton.png">
-	</a> -->
 	<div>
 		<h1 id="warning"></h1>
 	</div>
 
-	<!-- Use it like any other HTML element -->
-	<!-- <model-viewer alt="Astronaut model" src="assets/android/model.gltf" ios-src="assets/ios/model.usdz" ar> -->
+	<script src="assets/js/main.js"/>
 
 	<script type="text/javascript">		
-		const android_browser = 'src/android.html';
-		const ios_browser = 'assets/ios/model.usdz';
-
-		const ios_custom_button = 'src/button.html&customHeight=small';
-
-		const warningText = "You need to browse on iPhone/iPad or Android";
-
-		const url_domain = () => {
-		  var    a      = document.createElement('a');
-		         a.href = location.href;
-		  return a.hostname;
-		}
-
-		const detectPlatform = () => {
-		    const toMatch = [
-		        /Android/i,
-		        /iPhone/i,
-		        /iPad/i,
-		    ];
-
-		    let domain = "https://"+ url_domain() + "/20210304-Immersive-WebAR/";
-		    // alert(domain);
-
-		    toMatch.some((toMatchItem) => {
-		    	// check if current platform match to this param
-		    	if(navigator.userAgent.match(toMatchItem)) {
-		    		// Android Platform
-		    		if(String(toMatchItem) === "/Android/i") {
-		    			// Navigate to android page
-		    			location.href += android_browser;
-		    		} 
-		    		// iOS Platform
-		    		else if(String(toMatchItem) === "/iPhone/i" || String(toMatchItem) === "/iPad/i") {
-		    			location.href = domain + 'src/ios.html';
-		    			// Navigate to ios page
-		    			// location.href = domain + ios_browser + '#custom=' + domain + ios_custom_button;
-		    		}
-		    	}	
-		    });
-
-		    document.getElementById('warning').innerHTML = warningText;
-		}
+		
 
 		document.addEventListener("DOMContentLoaded", function(event) {
-			detectPlatform();
+			checkPlatform();
 		});
 
 	</script>
