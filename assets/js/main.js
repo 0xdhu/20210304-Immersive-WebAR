@@ -54,7 +54,7 @@ const checkPlatform = () => {
     ];
 
     let baseURL = base_url() + "/20210304-Immersive-WebAR/";
-    alert(baseURL);
+    // alert(baseURL);
     let isMobile = false;
 
     // check each platform
