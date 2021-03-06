@@ -7,11 +7,12 @@
 
 	  	<!-- I will use aframe for this kind of AR -->
 	    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+
+    	<!-- <script>
+        THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'
+    	</script> -->
 	    <script src="https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
     	<script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-    	<script>
-        THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'
-    	</script>
   	</head>
   	<body>
     	<a-scene 
@@ -19,10 +20,20 @@
 	        embedded
 	        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'
 	    >
-	      	<a-box></a-box>
-  			<a-camera></a-camera>
+	    	<!-- import texture -->
+	    	<a-assets>
+				<img id="texture" src="../../assets/images/one.png">
+			</a-assets>
+
+			<!-- Basic box. -->
+			<a-box color="tomato" depth="2" height="4" width="0.5"></a-box>
+
+			<!-- Textured box. -->
+  			<a-camera src="#texture"></a-camera>
 	      	<!-- <a-camera rotation-reader></a-camera> -->
     	</a-scene>
+
+
 
   	</body>
 </html>

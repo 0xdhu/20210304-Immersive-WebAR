@@ -47,7 +47,6 @@ const warningText = "You need to browse this website on iPhone/iPad or Android";
 
 // check if your mobile is android/iphone/ipad or not
 const checkPlatform = () => {
-    alert("check Platform");
     const toMatch = [
         /Android/i,
         /iPhone/i,
@@ -88,5 +87,5 @@ const checkPlatform = () => {
     	}	
     });
 
-    if(isMobile) document.getElementById('warning').innerHTML = warningText;
+    if(!isMobile) document.getElementById('warning').innerHTML = warningText;
 }
