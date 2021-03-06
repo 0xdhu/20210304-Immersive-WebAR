@@ -22,12 +22,12 @@
 	        embedded
 	        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'
 	    >
-	    	<a-assets>
+	    	<a-assets crossorigin="anonymous">
 		    	<img id="my-image" src="../../assets/images/one.jpg">
 		  	</a-assets>
 
 		  	<!-- Using the asset management system. -->
-		  	<a-image src="#my-image"></a-image>
+		  	<a-image src="#my-image" crossorigin="anonymous"></a-image>
 
   			<a-camera></a-camera>
 	      	<!-- <a-camera rotation-reader></a-camera> -->
