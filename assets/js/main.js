@@ -19,7 +19,7 @@ const is_ARkit_support = () => {
 
 // check if your android mobile browser support AR
 const is_ARcore_support = () => {
-	alert("is AR core support");
+	// alert("is AR core support");
 	if (navigator.xr) {
 	  	navigator.xr.isSessionSupported('immersive-vr')
 	  	.then((isSupported) => {
