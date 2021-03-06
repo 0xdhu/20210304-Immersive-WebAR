@@ -7,50 +7,18 @@
     	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 		<title>Android WEBAR - AR is not supported</title>
 
+		<!-- Custom Css -->
+		<link rel="stylesheet" type="text/css" href="../../assets/css/android/noar_style.css">
+
+		<!-- Core AR JS Library -->
 	    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 	    <!-- we import arjs version without NFT but with marker + location based support -->
 	    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-	    <script>
-		    window.onload = function () {
-		      	document
-		        .querySelector(".say-hi-button")
-		        .addEventListener("click", function () {
-		          	// alert("Hi there!");
-		          	changeImageArray();
-		        });
-		    };
 
-		    const changeImageArray = () => {
-		    	document
-		        .querySelector(".a-custombox")
-		        .setAttribute("color", "green");
-		    }
-		</script>
-
-	    <style type="text/css">
-			.buttons {
-		      position: absolute;
-		      bottom: 0;
-		      left: 0;
-		      width: 100%;
-		      height: 5em;
-		      display: flex;
-		      justify-content: center;
-		      align-items: center;
-		      z-index: 10;
-		    }
-
-		    .say-hi-button {
-		      padding: 0.25em;
-		      border-radius: 4px;
-		      border: none;
-		      background: white;
-		      color: black;
-		      width: 4em;
-		      height: 2em;
-		    }
-	    </style>
+	    <!-- Custom Javascript -->
+	    <script src="../../assets/js/android/noar_script.js"></script>
 	</head>
+
     <body style="margin : 0px; overflow: hidden;">
     	<!-- minimal loader shown until image descriptors are loaded -->
 		<div class="buttons">
@@ -60,15 +28,16 @@
         <a-scene 
         	vr-mode-ui='enabled: false'
         	embedded 
+        	gesture-detector
         	arjs='sourceType: webcam; debugUIEnabled: false'
         >
-	        <a-box class="a-custombox" color="yellow" position="1 1 1" scale="0.1 0.1 0.1"></a-box>
+	        <a-box class="a-custombox" color="yellow" position="1 1 1" scale="0.1 0.1 0.1" gesture-handler="minScale: 0.25; maxScale: 10"></a-box>
 
-	        <a-image src="../../assets/images/ARButton.png" position="1 0 0" rotation="0 50 0"></a-image>
+	        <a-image class="image" src="../../assets/images/ARButton.png" position="1 0 0" rotation="0 50 0"></a-image>
 
-	        <a-image src="../../assets/images/ARButton.png" position="0 1 1" rotation="0 180 0"></a-image>
+	        <a-image class="image" src="../../assets/images/ARButton.png" position="0 1 1" rotation="0 180 0"></a-image>
 
-	        <a-image src="../../assets/images/ARButton.png" position="1 0 1" rotation="0 120 0"></a-image>
+	        <a-image class="image" src="../../assets/images/ARButton.png" position="1 0 1" rotation="0 120 0"></a-image>
 
         	<a-camera></a-camera>
         </a-scene>
