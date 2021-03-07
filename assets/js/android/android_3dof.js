@@ -29,6 +29,9 @@ const addImageEntries = () => {
   for(var i = 0; i < totalImages; i++) {
     var elem = document.createElement('a-image');
 
+    elem.setAttribute("width", 6.4);
+    elem.setAttribute("height", 4);
+
     var idx = i % imagesPerScene;
     var angle = 360 * idx / imagesPerScene;
     var radian = toRadians(angle);
@@ -45,8 +48,6 @@ const addImageEntries = () => {
     elem.setAttribute("radian", radian);
     elem.setAttribute("src", imageURL + "Pic" + (i + 1) + ".jpg");
     elem.setAttribute("preload", true);
-    elem.setAttribute("width", 12.8);
-    elem.setAttribute("height", 8);
 
     scene.appendChild(elem);
   }
@@ -71,9 +72,9 @@ const changeImageArray = (sceneNumber) => {
     let radian = elem.getAttribute("radian");
 
 
-    elem.object3D.position.x = Math.sin(parseFloat(radian)) * initialDistance;
+    elem.object3D.position.x = Math.cos(parseFloat(radian)) * initialDistance;
     elem.object3D.position.y = 0;
-    elem.object3D.position.z = Math.cos(parseFloat(radian)) * initialDistance;
+    elem.object3D.position.z = Math.sin(parseFloat(radian)) * initialDistance;
 
 
     console.log(typeof(radian) + radian + " " + elem.object3D.position.x + " " + elem.object3D.position.z);
