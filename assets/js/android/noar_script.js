@@ -31,7 +31,7 @@ AFRAME.registerComponent('soundhandler', {
     let distance = camPos.distanceTo(spherePos);
 
     console.log(distance);
-    if (distance < 0.5) {
+    if (distance < 0.8) {
       // camera closer than 5m, do something
       entity.components.sound.playSound();
     } else {

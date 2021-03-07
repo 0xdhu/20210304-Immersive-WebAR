@@ -53,7 +53,7 @@ AFRAME.registerComponent("gesture-handler", {
   handleScale: function (event) {
     if (this.isVisible) {
       // Position management <<<<<<<<<<<<      
-      this.scaleFactor *= 1 - event.detail.spreadChange / (event.detail.startSpread * 4);
+      this.scaleFactor *= 1 - event.detail.spreadChange / (event.detail.startSpread * 8);
 
       this.scaleFactor = Math.min(
         Math.max(this.scaleFactor, this.data.minScale),
