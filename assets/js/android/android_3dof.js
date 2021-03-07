@@ -42,10 +42,15 @@ window.onload = function () {
       imgElems.forEach((elem) => {
         // elem.setAttribute("raycaster-live", "false");
         elem.setAttribute("gesture-handler", "enabled: false");
+
+        // set elems as default = `1`
+        elem.object3D.scale.x = 1;
+        elem.object3D.scale.y = 1;
+        elem.object3D.scale.z = 1;
       })
 
       // imgElem.setAttribute("raycaster-live", "true");
-      elem.setAttribute("gesture-handler", "enabled: true");
+      imgElem.setAttribute("gesture-handler", "enabled: true");
     });
   });
 
