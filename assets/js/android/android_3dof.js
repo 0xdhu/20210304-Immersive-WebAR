@@ -47,7 +47,6 @@ const addImageEntries = () => {
     elem.setAttribute("id", "image"+i);
     elem.setAttribute("radian", radian);
     elem.setAttribute("src", imageURL + "Pic" + (i + 1) + ".jpg");
-    elem.setAttribute("preload", true);
 
     scene.appendChild(elem);
   }
