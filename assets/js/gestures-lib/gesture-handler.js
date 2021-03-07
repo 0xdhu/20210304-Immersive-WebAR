@@ -66,7 +66,7 @@ AFRAME.registerComponent("gesture-handler", {
       
       // Scale management <<<<<<<<<<<<<<<
       this.scaleFactor *=
-        1 + event.detail.spreadChange / (event.detail.startSpread * 8);
+        1 + event.detail.spreadChange / (event.detail.startSpread * 4);
 
 
       this.scaleFactor = Math.min(

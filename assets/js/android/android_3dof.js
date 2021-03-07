@@ -40,10 +40,12 @@ window.onload = function () {
 
       // reset all images entry as none selected
       imgElems.forEach((elem) => {
-        elem.setAttribute("raycaster-live", "false");
+        // elem.setAttribute("raycaster-live", "false");
+        elem.setAttribute("gesture-handler", "enabled: false");
       })
-      
-      imgElem.setAttribute("raycaster-live", "true");
+
+      // imgElem.setAttribute("raycaster-live", "true");
+      elem.setAttribute("gesture-handler", "enabled: true");
     });
   });
 
@@ -83,7 +85,7 @@ const addImageEntries = () => {
     // gesture handler
     elem.setAttribute("gesture-handler", "minScale: 1; maxScale: 2");
     // only if true, gesture-handler work on this object.
-    elem.setAttribute("raycaster-live", "false");
+    // elem.setAttribute("raycaster-live", "false");
     // add class's attribute
     elem.setAttribute("class", "clickable");
 
