@@ -35,16 +35,26 @@
         	gesture-detector
         	arjs='sourceType: webcam; debugUIEnabled: false'
         >
-	        <a-box class="a-custombox clickable" color="yellow" position="1 1 1" scale="0.1 0.1 0.1" gesture-handler="minScale: 0.25; maxScale: 1.5"></a-box>
+        	<!-- Texts -->
+	        <a-box class="a-custombox clickable" color="yellow" position="1 1 1" scale="0.1 0.1 0.1" gesture-handler="minScale: 0.2; maxScale: 1" soundhandler></a-box>
 
-	        <a-image class="image" src="../../assets/images/ARButton.png" position="1 0 0" rotation="0 50 0"  shadow></a-image>
+	        <!-- Images Start -->
+	        <a-image class="image" src="../../assets/images/ARButton.png" position="1 0 0" rotation="0 50 0"></a-image>
  
-	        <a-image class="image" src="../../assets/images/ARButton.png" position="0 1 1" rotation="0 180 0" shadow></a-image>
+	        <a-image class="image" src="../../assets/images/ARButton.png" position="0 1 1" rotation="0 180 0"></a-image>
  
-	        <a-image class="image" src="../../assets/images/ARButton.png" position="1 0 1" rotation="0 120 0" shadow></a-image>
+	        <a-image class="image" src="../../assets/images/ARButton.png" position="1 0 1" rotation="0 120 0"></a-image>
+	        <!-- Images End -->
 
-        	<!-- <a-camera reverse-mouse-drag="false" wasd-controls-enabled="false" touchEnabled="false"></a-camera> -->
-        	<!-- <a-entity camera look-controls="hmdEnabled : false; touchEnabled : false; mouseEnabled : false" position="0 1.6 0"></a-entity> -->
+	        <!-- Audios Start-->
+			<a-assets>
+	            <audio id="sound" src="../../assets/audios/L1.mp3" preload="auto"></audio>
+	        </a-assets>
+
+	        <a-entity sound="src: #sound" autoplay="false"></a-entity>
+	        <!-- Audios End -->
+
+	        <!-- AR Camera and Raycaster -->
         	<a-camera camera="fov: 80;" id="camera" rotation-reader position="0 1.6 0" listener look-controls="reverseMouseDrag:true; touchEnabled: false">
         		<a-entity class="raycaster"
 					position="0 0 -1"
@@ -52,16 +62,23 @@
 					cursor="fuse: true; fuseTimeout: 500"
 					geometry="primitive: ring"
 					material="color: black; shader: flat" 
-					raycaster="interval:1000; objects: .clickable; recursive: false">
+					raycaster="interval:1000; objects: .clickable; ">
+					<!-- recursive: false -->
         		</a-entity>
 			</a-camera>
+			<!-- AR Camera End -->
         </a-scene>
 
         <script>
 	    	var box = document.querySelector('a-box');
 	    	box.addEventListener('click', function () {
+	    		// sound component
 	        	alert('box clicked');
 	      	});
+
+	      	box.addEventListener('hover', function() {
+	      		box.setAttribute("gesture-handler", "minScale: 0.25; maxScale: 1.5;");
+	      	})
 	    </script>
     </body>
 </html>
