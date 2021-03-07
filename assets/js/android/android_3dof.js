@@ -33,9 +33,9 @@ const addImageEntries = () => {
     var angle = 360 * idx / imagesPerScene;
     var radian = toRadians(angle);
 
-    elem.object3D.position.x = 1000;
-    elem.object3D.position.y = 100;
-    elem.object3D.position.z = 1000;
+    // elem.object3D.position.x = 1000;
+    // elem.object3D.position.y = 100;
+    // elem.object3D.position.z = 1000;
 
     elem.object3D.rotation.x = 0;
     elem.object3D.rotation.y = angle - 90;
@@ -44,6 +44,7 @@ const addImageEntries = () => {
     elem.setAttribute("id", "image"+i);
     elem.setAttribute("radian", radian);
     elem.setAttribute("src", imageURL + "Pic" + (i + 1) + ".jpg");
+    elem.setAttribute("preload", true);
 
     scene.appendChild(elem);
   }
@@ -61,6 +62,8 @@ const changeImageArray = (sceneNumber) => {
   let startnum = sceneNumber * imagesPerScene;
   let endnum = Math.min(startnum + imagesPerScene, totalImages);
 
+  resetImagePosition();
+
   for(let i = startnum; i < endnum; i++) {
     let elem = document.querySelector("#image" + i);
     let radian = elem.getAttribute("radian");
@@ -68,6 +71,17 @@ const changeImageArray = (sceneNumber) => {
     elem.object3D.position.x = Math.cos(radian) * initialDistance;
     elem.object3D.position.y = 0;
     elem.object3D.position.z = Math.sin(radian) * initialDistance;
+  }
+}
+
+const resetImagePosition = () => {
+  for(let i = 0; i < totalImages; i++) {
+    let elem = document.querySelector("#image" + i);
+    let radian = elem.getAttribute("radian");
+
+    elem.object3D.position.x = 1000;
+    elem.object3D.position.y = 1000;
+    elem.object3D.position.z = 1000;
   }
 }
 
