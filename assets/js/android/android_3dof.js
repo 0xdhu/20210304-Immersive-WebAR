@@ -45,8 +45,8 @@ const addImageEntries = () => {
     elem.setAttribute("radian", radian);
     elem.setAttribute("src", imageURL + "Pic" + (i + 1) + ".jpg");
     elem.setAttribute("preload", true);
-    elem.setAttribute("width", 3.2);
-    elem.setAttribute("height", 2);
+    elem.setAttribute("width", 12.8);
+    elem.setAttribute("height", 8);
 
     scene.appendChild(elem);
   }
@@ -70,11 +70,11 @@ const changeImageArray = (sceneNumber) => {
     let elem = document.querySelector("#image" + i);
     let radian = elem.getAttribute("radian");
 
-    console.log(typeof(radian));
-    
-    elem.object3D.position.x = Math.cos(radian) * initialDistance;
+    console.log(typeof(radian) + radian);
+
+    elem.object3D.position.x = Math.cos(parseFloat(radian)) * initialDistance;
     elem.object3D.position.y = 0;
-    elem.object3D.position.z = Math.sin(radian) * initialDistance;
+    elem.object3D.position.z = Math.sin(parseFloat(radian)) * initialDistance;
   }
 }
 
