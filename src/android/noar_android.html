@@ -39,7 +39,7 @@
 	        <a-box class="a-custombox clickable" color="yellow" position="1 1 1" scale="0.1 0.1 0.1" gesture-handler="minScale: 0.2; maxScale: 1" soundhandler></a-box>
 
 	        <!-- Images Start -->
-	        <a-image class="image" src="../../assets/images/ARButton.png" position="1 0 0" rotation="0 50 0"></a-image>
+	        <a-image class="image" src="../../assets/images/ARButton.png" position="1.4 0 1.4" rotation="0 50 0"></a-image>
  
 	        <a-image class="image" src="../../assets/images/ARButton.png" position="0 1 1" rotation="0 180 0"></a-image>
  
@@ -73,11 +73,11 @@
 	    	var box = document.querySelector('a-box');
 	    	box.addEventListener('click', function () {
 	    		// sound component
-	        	alert('box clicked');
+	        	// alert('box clicked');
 	      	});
 
 	      	box.addEventListener('hover', function() {
-	      		box.setAttribute("gesture-handler", "minScale: 0.25; maxScale: 1.5;");
+	      		// box.setAttribute("gesture-handler", "minScale: 0.25; maxScale: 1.5;");
 	      	})
 	    </script>
     </body>
