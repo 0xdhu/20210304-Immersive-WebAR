@@ -35,18 +35,33 @@
         	gesture-detector
         	arjs='sourceType: webcam; debugUIEnabled: false'
         >
-	        <a-box class="a-custombox" color="yellow" position="1 1 1" scale="0.1 0.1 0.1" gesture-handler="minScale: 0.25; maxScale: 10" raycaster="objects: .collidable"></a-box>
+	        <a-box class="a-custombox clickable" color="yellow" position="1 1 1" scale="0.1 0.1 0.1" gesture-handler="minScale: 0.25; maxScale: 1.5"></a-box>
 
 	        <a-image class="image" src="../../assets/images/ARButton.png" position="1 0 0" rotation="0 50 0"  shadow></a-image>
- shadow
+ 
 	        <a-image class="image" src="../../assets/images/ARButton.png" position="0 1 1" rotation="0 180 0" shadow></a-image>
- shadow
+ 
 	        <a-image class="image" src="../../assets/images/ARButton.png" position="1 0 1" rotation="0 120 0" shadow></a-image>
 
         	<!-- <a-camera reverse-mouse-drag="false" wasd-controls-enabled="false" touchEnabled="false"></a-camera> -->
         	<!-- <a-entity camera look-controls="hmdEnabled : false; touchEnabled : false; mouseEnabled : false" position="0 1.6 0"></a-entity> -->
-        	<a-camera camera="fov: 80;" id="camera" rotation-reader position="0 1.6 0" listener look-controls="reverseMouseDrag:true; touchEnabled: false" raycaster="showLine: true; far: 100; lineColor: red; lineOpacity: 0.5">
+        	<a-camera camera="fov: 80;" id="camera" rotation-reader position="0 1.6 0" listener look-controls="reverseMouseDrag:true; touchEnabled: false">
+        		<a-entity class="raycaster"
+					position="0 0 -1"
+					scale="0.02 0.02 0.02"
+					cursor="fuse: true; fuseTimeout: 500"
+					geometry="primitive: ring"
+					material="color: black; shader: flat" 
+					raycaster="interval:1000; objects: .clickable; recursive: false">
+        		</a-entity>
 			</a-camera>
         </a-scene>
+
+        <script>
+	    	var box = document.querySelector('a-box');
+	    	box.addEventListener('click', function () {
+	        	alert('box clicked');
+	      	});
+	    </script>
     </body>
 </html>
