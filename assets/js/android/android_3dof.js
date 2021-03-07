@@ -32,7 +32,7 @@ window.onload = function () {
   });
 
   // Raycaster event on each image
-  var imgElems = document.querySelector(".clickable");
+  var imgElems = document.querySelectorAll(".clickable");
 
   imgElems.forEach((imgElem) => {
 
