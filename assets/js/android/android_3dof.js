@@ -1,27 +1,12 @@
 const imageURL = 'assets/images/';
 // total page = 3
-const currentScene = 0; // first page
+let currentScene = 0; // first page
 const imagesPerScene = 5;
 const totalImages = 14;
 
 const initialDistance = 10;
 
-window.onload = function () {
-  // add all images when load page
-  addImageEntries();
 
-  // load the first 5 images
-  changeImageArray(currentScene);
-
-	document
-  .querySelector(".next-button")
-  .addEventListener("click", function () {
-    currentScene = (currentScene + 1) % Math.ceil(totalImages / imagesPerScene);
-    alert(currentScene);
-
-    changeImageArray(currentScene);
-  });
-};
 
 const addImageEntries = () => {
   var scene = document.querySelector('a-scene');
@@ -70,6 +55,24 @@ const changeImageArray = (sceneNumber) => {
     elem.object3D.position.z = Math.sin(radian) * initialDistance;
   }
 }
+
+// add all images when load page
+addImageEntries();
+
+// load the first 5 images
+changeImageArray(currentScene);
+
+window.onload = function () {
+
+  document
+  .querySelector(".next-button")
+  .addEventListener("click", function () {
+    currentScene = (currentScene + 1) % Math.ceil(totalImages / imagesPerScene);
+    alert(currentScene);
+
+    changeImageArray(currentScene);
+  });
+};
 
 // Audio Trigger inner AR
 AFRAME.registerComponent('soundhandler', {
