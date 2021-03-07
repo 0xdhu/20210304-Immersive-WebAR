@@ -27,25 +27,25 @@ AFRAME.registerComponent("gesture-handler", {
 
   update: function () {
     if (this.data.enabled) {
-      // this.el.sceneEl.addEventListener("onefingermove", this.handleRotation);
+      this.el.sceneEl.addEventListener("onefingermove", this.handleRotation);
       this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
     } else {
-      // this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
+      this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
       this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
     }
   },
 
   remove: function () {
-    // this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
+    this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
     this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
   },
 
   handleRotation: function (event) {
     if (this.isVisible) {
-      this.el.object3D.rotation.y +=
-        event.detail.positionChange.x * this.data.rotationFactor;
-      this.el.object3D.rotation.x +=
-        event.detail.positionChange.y * this.data.rotationFactor;
+      this.el.object3D.rotation.y += 0;
+        // event.detail.positionChange.x * this.data.rotationFactor;
+      this.el.object3D.rotation.x += 0;
+        // event.detail.positionChange.y * this.data.rotationFactor;
     }
   },
 
