@@ -16,7 +16,7 @@ AFRAME.registerComponent("gesture-handler", {
     this.initialScale = this.el.object3D.scale.clone();
     this.scaleFactor = 1;
 
-    this.initialDistance = 2;
+    this.initialDistance = 7;
     // this.el.sceneEl.addEventListener("markerFound", (e) => {
     //   this.isVisible = true;
     // });
@@ -53,7 +53,7 @@ AFRAME.registerComponent("gesture-handler", {
   handleScale: function (event) {
     if (this.isVisible) {
       // Position management <<<<<<<<<<<<      
-      this.scaleFactor *= 1 - event.detail.spreadChange / (event.detail.startSpread * 8);
+      this.scaleFactor *= 1 - event.detail.spreadChange / (event.detail.startSpread * 4);
 
       this.scaleFactor = Math.min(
         Math.max(this.scaleFactor, this.data.minScale),
