@@ -40,7 +40,7 @@ const is_ARcore_support = () => {
 const android_arcore = 'android_arcore.html';
 const android_3dof = 'android_3DOF.html';
 const ios = 'ios.html';
-const ios_composer = 'assets/ios/model.usdz';
+const ios_composer = 'assets/models/ios/model.usdz';
 
 // Display warning message if user doesnot use iPhone/iPad/Android
 const warningText = "You need to browse this website on iPhone/iPad or Android";
