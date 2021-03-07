@@ -41,7 +41,7 @@ const addImageEntries = () => {
     elem.object3D.position.z = 0;
 
     elem.object3D.rotation.x = 0;
-    elem.object3D.rotation.y = toRadians(angle + 90);
+    elem.object3D.rotation.y = toRadians(angle - 90);
     elem.object3D.rotation.z = 0;
 
     elem.setAttribute("id", "image"+i);
