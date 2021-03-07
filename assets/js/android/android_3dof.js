@@ -41,13 +41,12 @@ const addImageEntries = () => {
     elem.object3D.rotation.y = angle - 90;
     elem.object3D.rotation.z = 0;
 
-    elem.object3D.width = 3.2;
-    elem.object3D.height = 2;
-
     elem.setAttribute("id", "image"+i);
     elem.setAttribute("radian", radian);
     elem.setAttribute("src", imageURL + "Pic" + (i + 1) + ".jpg");
     elem.setAttribute("preload", true);
+    elem.setAttribute("width", 3.2);
+    elem.setAttribute("height", 2);
 
     scene.appendChild(elem);
   }
@@ -71,6 +70,8 @@ const changeImageArray = (sceneNumber) => {
     let elem = document.querySelector("#image" + i);
     let radian = elem.getAttribute("radian");
 
+    console.log(typeof(radian));
+    
     elem.object3D.position.x = Math.cos(radian) * initialDistance;
     elem.object3D.position.y = 0;
     elem.object3D.position.z = Math.sin(radian) * initialDistance;
@@ -80,7 +81,6 @@ const changeImageArray = (sceneNumber) => {
 const resetImagePosition = () => {
   for(let i = 0; i < totalImages; i++) {
     let elem = document.querySelector("#image" + i);
-    let radian = elem.getAttribute("radian");
 
     elem.object3D.position.x = 1000;
     elem.object3D.position.y = 1000;
