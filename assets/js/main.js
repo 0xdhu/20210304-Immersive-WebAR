@@ -9,7 +9,6 @@ const base_url = () => {
 
 // check if your ios mobile browser support AR
 const is_ARkit_support = () => {
-	alert("is ARkit support");
 	const a = document.createElement("a");
 	if (a.relList.supports("ar")) {
 	  // AR is available.
@@ -38,9 +37,10 @@ const is_ARcore_support = () => {
 
 // Sub directories, some android devices doesnot support ARcore
 // In this case, we do this in another way
-const android_browser = 'src/android/android.html';
-const android_arnosupport_browser = 'src/android/noar_android.html';
-const ios_browser = 'assets/ios/model.usdz';
+const android_arcore = 'android_arcore.html';
+const android_3dof = 'android_3DOF.html';
+const ios = 'ios.html';
+const ios_composer = 'assets/ios/model.usdz';
 
 // Display warning message if user doesnot use iPhone/iPad/Android
 const warningText = "You need to browse this website on iPhone/iPad or Android";
@@ -68,9 +68,9 @@ const checkPlatform = () => {
     			isMobile = true;
     			// Navigate to android page
     			if(is_ARcore_support()) {
-	    			location.href = baseURL + android_browser;
+	    			location.href = baseURL + android_arcore;
 	    		} else {
-	    			location.href = baseURL + android_arnosupport_browser;
+	    			location.href = baseURL + android_3dof;
 	    		}
     		} 
 
@@ -79,10 +79,10 @@ const checkPlatform = () => {
     			isMobile = true;
     			// Navigate to iOS page
     			if(is_ARkit_support()) {
-    				location.href = baseURL + ios_browser;
-    			}
-    		} else {
-    			alert("Nothing");
+    				location.href = baseURL + ios_composer;
+    			} else {
+                    location.href = baseURL + ios;
+                }
     		}
     	}	
     });

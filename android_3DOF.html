@@ -5,28 +5,30 @@
 	<head>
   		<meta charset='utf-8'>
     	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-		<title>Android WEBAR - AR is not supported</title>
+		<title>Android 3DOF</title>
 
 		<!-- Custom Css -->
-		<link rel="stylesheet" type="text/css" href="../../assets/css/android/noar_style.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/android/android-3dof.css">
 
 		<!-- Core AR JS Library -->
 	    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 	    <!-- We import arjs version without NFT but with marker based support -->
 	    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 	    <!-- Detect Gesture -->
-	    <script src="../../assets/js/gestures-lib/gesture-detector.js"></script>
+	    <script src="assets/js/gestures-lib/gesture-detector.js"></script>
 
-	    <script src="../../assets/js/gestures-lib/gesture-handler.js"></script>
+	    <script src="assets/js/gestures-lib/gesture-handler.js"></script>
 
 	    <!-- Custom Javascript -->
-	    <script src="../../assets/js/android/noar_script.js"></script>
+	    <script src="assets/js/android/android_3dof.js"></script>
 	</head>
 
     <body style="margin : 0px; overflow: hidden;">
     	<!-- minimal loader shown until image descriptors are loaded -->
+
+    	<!-- Next Button -->
 		<div class="buttons">
-	      	<button class="say-hi-button">SAY HI!</button>
+	      	<button class="next-button">Next</button>
 	    </div>
 
         <a-scene 
@@ -39,11 +41,11 @@
 	        <a-box class="a-custombox clickable" color="yellow" position="4 1.6 4" scale="0.3 0.3 0.3" gesture-handler="minScale: 0.2; maxScale: 1" soundhandler></a-box>
 
 	        <!-- Images Start -->
-	        <a-image class="image" src="../../assets/images/ARButton.png" position="5 1.6 5" rotation="0 50 0"></a-image>
+	        <!-- <a-image class="image" src="assets/images/ARButton.png" position="5 1.6 5" rotation="0 50 0"></a-image>
  
-	        <a-image class="image" src="../../assets/images/ARButton.png" position="5 1.6 -5" rotation="0 180 0"></a-image>
+	        <a-image class="image" src="assets/images/ARButton.png" position="5 1.6 -5" rotation="0 180 0"></a-image>
  
-	        <a-image class="image" src="../../assets/images/ARButton.png" position="-5 1.6 5" rotation="0 120 0"></a-image>
+	        <a-image class="image" src="assets/images/ARButton.png" position="-5 1.6 5" rotation="0 120 0"></a-image> -->
 	        <!-- Images End -->
 
 	        <!-- Audios Start-->
