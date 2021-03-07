@@ -19,6 +19,9 @@
 
 	    <script src="assets/js/gestures-lib/gesture-handler.js"></script>
 
+
+  <script src="https://cdn.rawgit.com/gladeye/aframe-preloader-component/1.0.2/dist/aframe-preloader-component.min.js"></script>
+
 	    <!-- Custom Javascript -->
 	    <script src="assets/js/android/android_3dof.js"></script>
 	</head>
@@ -57,10 +60,10 @@
 	        <!-- Audios End -->
 
 	        <!-- AR Camera and Raycaster -->
-        	<a-camera camera="fov: 80;" id="camera" rotation-reader position="0 1.6 0" listener look-controls="reverseMouseDrag:true; touchEnabled: false">
+        	<a-camera camera="fov: 80;" id="camera" rotation-reader position="0 0 0" listener look-controls="reverseMouseDrag:true; touchEnabled: false">
         		<a-entity class="raycaster"
 					position="0 0 -1"
-					scale="0.02 0.02 0.02"
+					scale="0.01 0.01 0.01"
 					cursor="fuse: true; fuseTimeout: 500"
 					geometry="primitive: ring"
 					material="color: black; shader: flat" 

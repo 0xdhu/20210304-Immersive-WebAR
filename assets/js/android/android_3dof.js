@@ -70,11 +70,13 @@ const changeImageArray = (sceneNumber) => {
     let elem = document.querySelector("#image" + i);
     let radian = elem.getAttribute("radian");
 
-    console.log(typeof(radian) + radian);
 
-    elem.object3D.position.x = Math.cos(parseFloat(radian)) * initialDistance;
+    elem.object3D.position.x = Math.sin(parseFloat(radian)) * initialDistance;
     elem.object3D.position.y = 0;
-    elem.object3D.position.z = Math.sin(parseFloat(radian)) * initialDistance;
+    elem.object3D.position.z = Math.cos(parseFloat(radian)) * initialDistance;
+
+
+    console.log(typeof(radian) + radian + " " + elem.object3D.position.x + " " + elem.object3D.position.z);
   }
 }
 
