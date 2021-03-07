@@ -17,6 +17,7 @@ window.onload = function () {
   .querySelector(".next-button")
   .addEventListener("click", function () {
     currentScene = (currentScene + 1) % Math.ceil(totalImages / imagesPerScene);
+    alert(currentScene);
 
     changeImageArray(currentScene);
   });
@@ -32,12 +33,12 @@ const addImageEntries = () => {
     var angle = 360 * idx / imagesPerScene;
     var radian = toRadians(angle);
 
-    elem.object3D.position.x = Math.cos(radian) * initialDistance;
-    elem.object3D.position.y = 0;
-    elem.object3D.position.z = Math.sin(radian) * initialDistance;
+    elem.object3D.position.x = 1000;
+    elem.object3D.position.y = 100;
+    elem.object3D.position.z = 1000;
 
     elem.object3D.rotation.x = 0;
-    elem.object3D.rotation.y = angle + 90;
+    elem.object3D.rotation.y = angle - 90;
     elem.object3D.rotation.z = 0;
 
     elem.setAttribute("id", "image"+i);
