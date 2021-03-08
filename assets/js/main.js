@@ -17,22 +17,34 @@ const is_ARkit_support = () => {
 }
 
 // check if your android mobile browser support AR
-const is_ARcore_support = () => {
+const is_ARcore_support = (baseURL) => {
     // alert("is AR core support");
     if (navigator.xr) {
-        return navigator.xr.isSessionSupported('immersive-vr')
+        navigator.xr.isSessionSupported('immersive-ar')
         .then((isSupported) => {
             if (isSupported) {
-                if ("xr" in window.navigator) {
-                    // WebXR can be used! 
-                    return true;
-                } else {
-                    // WebXR cannot be available
-                    return false;
-                }         
-            } else return false;
+                requestARsession(baseURL);
+            } else {
+                location.href = baseURL + android_3dof;
+                // return false;
+            }
         });
-    } else return false;
+    } else {
+        location.href = baseURL + android_3dof;
+        // return false;
+    }
+}
+
+
+const requestARsession = async (baseURL) => {
+    const xrSession = await navigator.xr.requestSession("immersive-ar");
+    if(xrSession) {
+        alert("YES");
+        location.href = baseURL + android_arcore;
+    } else {
+        alert("NO");
+        location.href = baseURL + android_3dof;
+    }
 }
 
 // Sub directories, some android devices doesnot support ARcore
@@ -67,11 +79,12 @@ const checkPlatform = () => {
     		if(String(toMatchItem) === "/Android/i") {
     			isMobile = true;
     			// Navigate to android page
-                if(is_ARcore_support()) {
-                    location.href = baseURL + android_arcore;
-                } else {
-                    location.href = baseURL + android_3dof;
-                }
+                is_ARcore_support(baseURL);
+                // if(is_ARcore_support(baseURL)) {
+                //     location.href = baseURL + android_arcore;
+                // } else {
+                //     location.href = baseURL + android_3dof;
+                // }
     		} 
 
     		// iOS Platform
