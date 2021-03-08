@@ -17,39 +17,22 @@ const is_ARkit_support = () => {
 }
 
 // check if your android mobile browser support AR
-const is_ARcore_support = (baseURL) => {
-    // if ("xr" in window.navigator) {
-    //     // WebXR can be used! 
-    //     return true;
-    // } else {
-    //     // WebXR cannot be available
-    //     return false;
-    // }      
-	// alert("is AR core support");
-	if (navigator.xr) {
-	  	navigator.xr.isSessionSupported('immersive-vr')
-	  	.then((isSupported) => {
-		    if (isSupported) {
-                
-                // return true;
-		    	if ("xr" in window.navigator) {
-                    location.href = baseURL + android_arcore;
-				    // WebXR can be used! 
-		    		// return true;
-				} else {
-                    location.href = baseURL + android_3dof;
-					// WebXR cannot be available
-					// return false;
-				}	      
-		    } else {
-                location.href = baseURL + android_3dof;
-                // return false;
-            }
-	  	});
-	} else {
-        location.href = baseURL + android_3dof;
-        // return false;
-    }
+const is_ARcore_support = () => {
+    // alert("is AR core support");
+    if (navigator.xr) {
+        navigator.xr.isSessionSupported('immersive-vr')
+        .then((isSupported) => {
+            if (isSupported) {
+                if ("xr" in window.navigator) {
+                    // WebXR can be used! 
+                    return true;
+                } else {
+                    // WebXR cannot be available
+                    return false;
+                }         
+            } else return false;
+        });
+    } else return false;
 }
 
 // Sub directories, some android devices doesnot support ARcore
@@ -84,12 +67,11 @@ const checkPlatform = () => {
     		if(String(toMatchItem) === "/Android/i") {
     			isMobile = true;
     			// Navigate to android page
-                is_ARcore_support(baseURL);
-    			// if(is_ARcore_support()) {
-	    		// 	location.href = baseURL + android_arcore;
-	    		// } else {
-	    		// 	location.href = baseURL + android_3dof;
-	    		// }
+                if(is_ARcore_support()) {
+                    location.href = baseURL + android_arcore;
+                } else {
+                    location.href = baseURL + android_3dof;
+                }
     		} 
 
     		// iOS Platform
