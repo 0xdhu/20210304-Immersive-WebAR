@@ -35,11 +35,11 @@ const is_ARcore_support = (baseURL) => {
 		    	if ("xr" in window.navigator) {
                     location.href = baseURL + android_arcore;
 				    // WebXR can be used! 
-		    		return true;
+		    		// return true;
 				} else {
                     location.href = baseURL + android_3dof;
 					// WebXR cannot be available
-					return false;
+					// return false;
 				}	      
 		    } else {
                 location.href = baseURL + android_3dof;
