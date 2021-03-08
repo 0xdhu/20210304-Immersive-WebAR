@@ -20,7 +20,7 @@ const is_ARkit_support = () => {
 const is_ARcore_support = () => {
     // alert("is AR core support");
     if (navigator.xr) {
-        navigator.xr.isSessionSupported('immersive-vr')
+        return navigator.xr.isSessionSupported('immersive-vr')
         .then((isSupported) => {
             if (isSupported) {
                 if ("xr" in window.navigator) {
