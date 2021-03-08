@@ -44,10 +44,10 @@ async function checkForXRSupport() {
   navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
     if (supported) {
         beginXRSession();
-      // var enterXrBtn = document.createElement("button");
-      // // enterXrBtn.innerHTML = "Enter AR";
-      // enterXrBtn.addEventListener("click", beginXRSession);
-      // document.body.appendChild(enterXrBtn);
+      var enterXrBtn = document.createElement("button");
+      // enterXrBtn.innerHTML = "Enter AR";
+      enterXrBtn.addEventListener("click", beginXRSession);
+      document.body.appendChild(enterXrBtn);
       // enterXrBtn.click();
     } else {
       console.log("Session not supported: " + reason);
@@ -70,25 +70,14 @@ function beginXRSession() {
 }
 
 let xrSession = null;
-let xrReferenceSpace = null;
 
 function onSessionStarted(session) {
   // Store the session for use later.
   xrSession = session;
   alert("arcore supported " + xrSession);
   console.log("arcore supported " + xrSession);
-
-  xrSession.requestReferenceSpace('local')
-  .then((referenceSpace) => {
-    console("ARcore supported" + referenceSpace);
-    xrReferenceSpace = referenceSpace;
-  })
-  .then(setupWebGLLayer);
 }
 
-function setupWebGLLayer() {
-  alert("ARcore supported111");
-}
 
 // Sub directories, some android devices doesnot support ARcore
 // In this case, we do this in another way
