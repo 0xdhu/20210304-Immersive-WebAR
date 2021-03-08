@@ -30,15 +30,17 @@ const is_ARcore_support = (baseURL) => {
 	  	navigator.xr.isSessionSupported('immersive-vr')
 	  	.then((isSupported) => {
 		    if (isSupported) {
-                location.href = baseURL + android_arcore;
+                
                 // return true;
-		  //   	if ("xr" in window.navigator) {
-				//     // WebXR can be used! 
-		  //   		return true;
-				// } else {
-				// 	// WebXR cannot be available
-				// 	return false;
-				// }	      
+		    	if ("xr" in window.navigator) {
+                    location.href = baseURL + android_arcore;
+				    // WebXR can be used! 
+		    		return true;
+				} else {
+                    location.href = baseURL + android_3dof;
+					// WebXR cannot be available
+					return false;
+				}	      
 		    } else {
                 location.href = baseURL + android_3dof;
                 // return false;
