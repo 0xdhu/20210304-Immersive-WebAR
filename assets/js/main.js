@@ -18,28 +18,29 @@ const is_ARkit_support = () => {
 
 // check if your android mobile browser support AR
 const is_ARcore_support = () => {
-    if ("xr" in window.navigator) {
-        // WebXR can be used! 
-        return true;
-    } else {
-        // WebXR cannot be available
-        return false;
-    }      
+    // if ("xr" in window.navigator) {
+    //     // WebXR can be used! 
+    //     return true;
+    // } else {
+    //     // WebXR cannot be available
+    //     return false;
+    // }      
 	// alert("is AR core support");
-	// if (navigator.xr) {
-	//   	navigator.xr.isSessionSupported('immersive-vr')
-	//   	.then((isSupported) => {
-	// 	    if (isSupported) {
-	// 	    	if ("xr" in window.navigator) {
-	// 			    // WebXR can be used! 
-	// 	    		return true;
-	// 			} else {
-	// 				// WebXR cannot be available
-	// 				return false;
-	// 			}	      
-	// 	    } else return false;
-	//   	});
-	// } else return false;
+	if (navigator.xr) {
+	  	navigator.xr.isSessionSupported('immersive-vr')
+	  	.then((isSupported) => {
+		    if (isSupported) {
+                return true;
+		  //   	if ("xr" in window.navigator) {
+				//     // WebXR can be used! 
+		  //   		return true;
+				// } else {
+				// 	// WebXR cannot be available
+				// 	return false;
+				// }	      
+		    } else return false;
+	  	});
+	} else return false;
 }
 
 // Sub directories, some android devices doesnot support ARcore
