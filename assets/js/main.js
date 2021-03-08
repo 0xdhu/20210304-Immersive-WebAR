@@ -43,11 +43,12 @@ async function checkForXRSupport() {
   // a "Fullscreen" button) that starts the display of immersive VR content.
   navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
     if (supported) {
-      var enterXrBtn = document.createElement("button");
-      // enterXrBtn.innerHTML = "Enter AR";
-      enterXrBtn.addEventListener("click", beginXRSession);
-      document.body.appendChild(enterXrBtn);
-      enterXrBtn.click();
+        beginXRSession();
+      // var enterXrBtn = document.createElement("button");
+      // // enterXrBtn.innerHTML = "Enter AR";
+      // enterXrBtn.addEventListener("click", beginXRSession);
+      // document.body.appendChild(enterXrBtn);
+      // enterXrBtn.click();
     } else {
       console.log("Session not supported: " + reason);
     }
@@ -57,7 +58,7 @@ async function checkForXRSupport() {
 function beginXRSession() {
   // requestSession must be called within a user gesture event
   // like click or touch when requesting an immersive session.
-  alert("beginXRSession");
+  console.log("beginXRSession");
   navigator.xr.requestSession('immersive-ar')
       .then(onSessionStarted)
       .catch(err => {
@@ -74,6 +75,7 @@ let xrReferenceSpace = null;
 function onSessionStarted(session) {
   // Store the session for use later.
   xrSession = session;
+  alert("arcore supported " + xrSession);
   console.log("arcore supported " + xrSession);
 
   xrSession.requestReferenceSpace('local')
