@@ -43,9 +43,9 @@ async function checkForXRSupport() {
   // a "Fullscreen" button) that starts the display of immersive VR content.
   navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
     if (supported) {
-        beginXRSession();
+        // beginXRSession();
       var enterXrBtn = document.createElement("button");
-      // enterXrBtn.innerHTML = "Enter AR";
+      enterXrBtn.innerHTML = "Enter AR";
       enterXrBtn.addEventListener("click", beginXRSession);
       document.body.appendChild(enterXrBtn);
       // enterXrBtn.click();
