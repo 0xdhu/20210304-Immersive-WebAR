@@ -36,15 +36,52 @@ const is_ARcore_support = (baseURL) => {
 }
 
 
-const requestARsession = async (baseURL) => {
-    const xrSession = await navigator.xr.requestSession("immersive-ar");
-    if(xrSession) {
-        alert("YES");
-        location.href = baseURL + android_arcore;
+async function checkForXRSupport() {
+  // Check to see if there is an XR device available that supports immersive VR
+  // presentation (for example: displaying in a headset). If the device has that
+  // capability the page will want to add an "Enter VR" button to the page (similar to
+  // a "Fullscreen" button) that starts the display of immersive VR content.
+  navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
+    if (supported) {
+      var enterXrBtn = document.createElement("button");
+      enterXrBtn.innerHTML = "Enter AR";
+      enterXrBtn.addEventListener("click", beginXRSession);
+      document.body.appendChild(enterXrBtn);
     } else {
-        alert("NO");
-        location.href = baseURL + android_3dof;
+      console.log("Session not supported: " + reason);
     }
+  });
+}
+
+function beginXRSession() {
+  // requestSession must be called within a user gesture event
+  // like click or touch when requesting an immersive session.
+  navigator.xr.requestSession('immersive-ar')
+      .then(onSessionStarted)
+      .catch(err => {
+        // May fail for a variety of reasons. Probably just want to
+        // render the scene normally without any tracking at this point.
+        // window.requestAnimationFrame(onDrawFrame);
+        alert("NO supported AR");
+      });
+}
+
+let xrSession = null;
+let xrReferenceSpace = null;
+
+function onSessionStarted(session) {
+  // Store the session for use later.
+  xrSession = session;
+
+  xrSession.requestReferenceSpace('local')
+  .then((referenceSpace) => {
+    xrReferenceSpace = referenceSpace;
+  })
+  .then(setupWebGLLayer);
+}
+
+function setupWebGLLayer() {
+  alert("ARcore supported");
 }
 
 // Sub directories, some android devices doesnot support ARcore
@@ -78,8 +115,9 @@ const checkPlatform = () => {
     		// Android Platform
     		if(String(toMatchItem) === "/Android/i") {
     			isMobile = true;
+                navigator.xr.addEventListener('devicechange', checkForXRSupport);
     			// Navigate to android page
-                is_ARcore_support(baseURL);
+                // is_ARcore_support(baseURL);
                 // if(is_ARcore_support(baseURL)) {
                 //     location.href = baseURL + android_arcore;
                 // } else {
