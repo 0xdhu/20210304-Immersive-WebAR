@@ -30,7 +30,8 @@ const is_ARcore_support = () => {
 	  	navigator.xr.isSessionSupported('immersive-vr')
 	  	.then((isSupported) => {
 		    if (isSupported) {
-                return true;
+                location.href = baseURL + android_arcore;
+                // return true;
 		  //   	if ("xr" in window.navigator) {
 				//     // WebXR can be used! 
 		  //   		return true;
@@ -38,9 +39,15 @@ const is_ARcore_support = () => {
 				// 	// WebXR cannot be available
 				// 	return false;
 				// }	      
-		    } else return false;
+		    } else {
+                location.href = baseURL + android_3dof;
+                // return false;
+            }
 	  	});
-	} else return false;
+	} else {
+        location.href = baseURL + android_3dof;
+        // return false;
+    }
 }
 
 // Sub directories, some android devices doesnot support ARcore
@@ -75,11 +82,12 @@ const checkPlatform = () => {
     		if(String(toMatchItem) === "/Android/i") {
     			isMobile = true;
     			// Navigate to android page
-    			if(is_ARcore_support()) {
-	    			location.href = baseURL + android_arcore;
-	    		} else {
-	    			location.href = baseURL + android_3dof;
-	    		}
+                is_ARcore_support();
+    			// if(is_ARcore_support()) {
+	    		// 	location.href = baseURL + android_arcore;
+	    		// } else {
+	    		// 	location.href = baseURL + android_3dof;
+	    		// }
     		} 
 
     		// iOS Platform
