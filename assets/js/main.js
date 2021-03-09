@@ -1,4 +1,12 @@
 
+// Sub directories, some android devices doesnot support ARcore
+// In this case, we do this in another way
+const android_arcore = 'android_arcore.html';
+const android_3dof = 'android_3DOF.html';
+const ios = 'ios.html';
+const ios_composer = 'assets/models/ios/model.usdz';
+let baseURL = "";
+
 
 // Get domain name
 const base_url = () => {
@@ -17,40 +25,42 @@ const is_ARkit_support = () => {
 }
 
 // check if your android mobile browser support AR
-const is_ARcore_support = (baseURL) => {
-    // alert("is AR core support");
-    if (navigator.xr) {
-        navigator.xr.isSessionSupported('immersive-ar')
-        .then((isSupported) => {
-            if (isSupported) {
-                requestARsession(baseURL);
-            } else {
-                location.href = baseURL + android_3dof;
-                // return false;
-            }
-        });
-    } else {
-        location.href = baseURL + android_3dof;
-        // return false;
-    }
-}
+// const is_ARcore_support = (baseURL) => {
+//     // alert("is AR core support");
+//     if (navigator.xr) {
+//         navigator.xr.isSessionSupported('immersive-ar')
+//         .then((isSupported) => {
+//             if (isSupported) {
+//                 requestARsession(baseURL);
+//             } else {
+//                 location.href = baseURL + android_3dof;
+//                 // return false;
+//             }
+//         });
+//     } else {
+//         location.href = baseURL + android_3dof;
+//         // return false;
+//     }
+// }
 
 
-async function checkForXRSupport() {
+function checkForXRSupport(baseURL) {
   // Check to see if there is an XR device available that supports immersive VR
   // presentation (for example: displaying in a headset). If the device has that
   // capability the page will want to add an "Enter VR" button to the page (similar to
   // a "Fullscreen" button) that starts the display of immersive VR content.
   navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
     if (supported) {
-        // beginXRSession();
-      var enterXrBtn = document.createElement("button");
-      enterXrBtn.innerHTML = "Enter AR";
-      enterXrBtn.addEventListener("click", beginXRSession);
-      document.body.appendChild(enterXrBtn);
+        beginXRSession();
+      // var enterXrBtn = document.createElement("button");
+      // enterXrBtn.innerHTML = "Enter AR";
+      // enterXrBtn.addEventListener("click", beginXRSession);
+      // document.body.appendChild(enterXrBtn);
       // enterXrBtn.click();
     } else {
-      console.log("Session not supported: " + reason);
+        location.href = baseURL + android_3dof;
+        // alert("Session not supported");
+        // console.log("Session not supported: " + reason);
     }
   });
 }
@@ -58,14 +68,15 @@ async function checkForXRSupport() {
 function beginXRSession() {
   // requestSession must be called within a user gesture event
   // like click or touch when requesting an immersive session.
-  console.log("beginXRSession");
+  // console.log("beginXRSession");
   navigator.xr.requestSession('immersive-ar')
       .then(onSessionStarted)
       .catch(err => {
+        location.href = baseURL + android_3dof;
         // May fail for a variety of reasons. Probably just want to
         // render the scene normally without any tracking at this point.
         // window.requestAnimationFrame(onDrawFrame);
-        alert("NO supported AR");
+        // alert("NO supported AR");
       });
 }
 
@@ -73,18 +84,13 @@ let xrSession = null;
 
 function onSessionStarted(session) {
   // Store the session for use later.
-  xrSession = session;
-  alert("arcore supported " + xrSession);
-  console.log("arcore supported " + xrSession);
+  // xrSession = session;
+  location.href = baseURL + android_arcore;
+  // alert("arcore supported " + xrSession);
+  // console.log("arcore supported " + xrSession);
 }
 
 
-// Sub directories, some android devices doesnot support ARcore
-// In this case, we do this in another way
-const android_arcore = 'android_arcore.html';
-const android_3dof = 'android_3DOF.html';
-const ios = 'ios.html';
-const ios_composer = 'assets/models/ios/model.usdz';
 
 // Display warning message if user doesnot use iPhone/iPad/Android
 const warningText = "You need to browse this website on iPhone/iPad or Android";
@@ -97,7 +103,7 @@ const checkPlatform = () => {
         /iPad/i,
     ];
 
-    let baseURL = base_url() + "/20210304-Immersive-WebAR/";
+    baseURL = base_url() + "/20210304-Immersive-WebAR/";
     // alert(baseURL);
     let isMobile = false;
 
