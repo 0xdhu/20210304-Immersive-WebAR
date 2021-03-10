@@ -31,6 +31,10 @@ window.onload = function () {
     currentScene = nextScene;
   });
 
+  document.querySelector(".capture-button").addEventListener("click", function() {
+    takePicture();
+  });
+
   // Raycaster event on each image
   var imgElems = document.querySelectorAll(".clickable");
 
@@ -142,6 +146,9 @@ const resetImagePosition = () => {
   }
 }
 
+const takePicture = () => {
+    document.querySelector('a-scene').components.screenshot.capture('perspective');
+}
 // Audio Trigger inner AR
 // AFRAME.registerComponent('soundhandler', {
 //   init: function() {

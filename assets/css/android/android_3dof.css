@@ -19,3 +19,13 @@
 	width: 4em;
 	height: 2em;
 }
+
+.capture-button {
+	padding: 0.25em;
+	border-radius: 50%;
+	border: none;
+	background: white;
+	color: black;
+	width: 4em;
+	height: 4em;
+}
