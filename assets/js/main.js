@@ -128,7 +128,7 @@ const beginXRSession = () => {
         // requestSession must be called within a user gesture event
         // like click or touch when requesting an immersive session.
         // console.log("beginXRSession");
-        navigator.xr.requestSession('immersive-ar')
+        navigator.xr.requestSession('immersive-vr')
             .then((session) => {
                 xrSession = session;
                 onSessionStarted(xrSession);
