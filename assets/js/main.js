@@ -3,8 +3,9 @@
 // In this case, we do this in another way
 const android_arcore = 'android_arcore.html';
 const android_3dof = 'android_3DOF.html';
-const ios = 'ios.html';
 const ios_composer = 'assets/models/ios/model.usdz';
+const ios_3dof = 'ios.html';
+
 let baseURL = "";
 let xrSession = null;
 
@@ -21,7 +22,7 @@ const redirect_ios_arkit = () => {
     location.href = baseURL + ios_composer;
 }
 const redirect_ios_3dof = () => {
-    location.href = baseURL + ios;
+    location.href = baseURL + ios_3dof;
 }
 
 
