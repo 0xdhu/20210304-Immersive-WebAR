@@ -138,7 +138,7 @@ const beginXRSession = () => {
                 // render the scene normally without any tracking at this point.
                 // window.requestAnimationFrame(onDrawFrame);
                 console.log("Session cannot start reason: " + err);
-                // redirect_android_3dof();
+                redirect_android_3dof();
             });
     }
 }
