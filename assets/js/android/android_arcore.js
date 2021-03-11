@@ -6,7 +6,7 @@ const imageURL = 'assets/images/';
 const imagesPerScene = 5;
 const totalImages = 14;
 
-const initialDistance = 20;
+const initialDistance = 15;
 const initialWidth = 6.4;
 const initialHeight = 4;
 
@@ -33,9 +33,9 @@ const addImageEntries = (focusedPosition) => {
 		var radian = toRadians(angle);
 
 		// initial positon for each entry
-		elem.object3D.position.x = 0;
-		elem.object3D.position.y = 0;
-		elem.object3D.position.z = 0;
+		elem.object3D.position.x = focusedPosition.x;
+		elem.object3D.position.y = focusedPosition.y;
+		elem.object3D.position.z = focusedPosition.z;
 
 		// current entry's rotation
 		elem.object3D.rotation.x = 0;
@@ -74,7 +74,7 @@ const resetImagePosition = () => {
 }
 
 // load another images
-const changeImageArray = (sceneNumber) => {
+const changeImageArray = (sceneNumber, focusedPosition) => {
 	let startnum = sceneNumber * imagesPerScene;
 	let endnum = Math.min(startnum + imagesPerScene, totalImages);
 
@@ -105,6 +105,7 @@ function onceSceneLoaded() {
 
     addImageEntries();
 
+    let targetPosition = null;
   	// when tap on "next" button, shows another images
 	document
   	.querySelector(".next-button")
@@ -112,7 +113,7 @@ function onceSceneLoaded() {
 	    let totalPage = Math.ceil(totalImages / imagesPerScene);
 	    let nextScene = currentScene = (currentScene + 1) % totalPage;
 
-	    changeImageArray(nextScene);
+	    changeImageArray(nextScene, targetPosition);
 	    // update current scene' number
 	    currentScene = nextScene;
 	});
@@ -136,6 +137,7 @@ function onceSceneLoaded() {
     let alreadyPlaced = false;
     raycaster.addEventListener('click', function () {
     	if(alreadyPlaced == true) return;
+
         const currentEvent = new Date().getTime();
         if (lastEvent && (currentEvent - lastEvent < 1000)) {
             return;
@@ -143,16 +145,16 @@ function onceSceneLoaded() {
 
         lastEvent = currentEvent;
 
-        const targetPosition = raycaster.components.cursor
+        targetPosition = raycaster.components.cursor
             // this is broken in current A-Frame 1.0.x --> .intersection.point;
             .intersectedEventDetail.intersection.point;
 
         if (!walker.getAttribute('visible')) {
             // walker.setAttribute('visible', true);
             // walker.setAttribute('position', stringify(targetPosition));
-            addImageEntries(stringify(targetPosition));
+            addImageEntries(targetPosition);
 
-    		changeImageArray(currentScene);
+    		changeImageArray(currentScene, targetPosition);
 
             alreadyPlaced = true;
         } 
