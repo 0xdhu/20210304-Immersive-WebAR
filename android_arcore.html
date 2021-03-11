@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARcore Experience</title>
-    <!-- Custom Css -->
-	<link rel="stylesheet" type="text/css" href="assets/css/android/android_3dof.css">
+    <title>AR Experience - Dino</title>
     <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@e47f441/dist/aframe-master.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
     <script src="https://ghcdn.rawgit.org/chenzlabs/aframe-ar/8a7ee3b/dist/aframe-ar.min.js"></script>
@@ -60,50 +58,122 @@
 </head>
 
 <body>
-	<!-- Next & Capture Button -->
-	<div class="buttons">
-      	<button class="next-button">Next</button>
-      	&nbsp;&nbsp;
-      	<button class="capture-button"></button>
-    </div>
-
-    <!-- Main Scene -->
-    <a-scene 
-	    ar
-	    raycaster-move="target:#intersection"
-    >
+    <a-scene ar raycaster-move="target:#intersection">
         <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
         <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none"></a-camera>
         <a-entity id="walker" position="0 0 -5" visible="false">
-            <!-- <a-entity gltf-model="models/fox.glb" scale="0.5 0.5 0.5" id="fox" animation-mixer="clip:Fox_Idle"
+            <a-entity gltf-model="models/fox.glb" scale="0.5 0.5 0.5" id="fox" animation-mixer="clip:Fox_Idle"
                 shadow="cast: true">
-            </a-entity> -->
-            <a-image width="6.4" height="4" id="image0"  visible="true" src="assets/images/Pic1.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image1"  visible="true" src="assets/images/Pic2.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image2"  visible="true" src="assets/images/Pic3.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image3"  visible="true" src="assets/images/Pic4.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image4"  visible="true" src="assets/images/Pic5.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image5"  visible="true"  src="assets/images/Pic6.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image6"  visible="true"  src="assets/images/Pic7.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image7"  visible="true"   src="assets/images/Pic8.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image8"  visible="true"   src="assets/images/Pic9.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image9"  visible="true"  src="assets/images/Pic10.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image10" visible="true"    src="assets/images/Pic11.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image11" visible="true"  src="assets/images/Pic12.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image12" visible="true"  src="assets/images/Pic13.jpg" geometry="" material=""></a-image>
-            <a-image width="6.4" height="4" id="image13" visible="true"  src="assets/images/Pic14.jpg" geometry="" material=""></a-image>
-
+            </a-entity>
             <a-plane width="0.4" height="0.4" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
+                shadow-material></a-plane>
+        </a-entity>
+        <a-entity id="walker2" position="0 0 -5" visible="false">
+            <a-entity gltf-model="assets/models/dino.glb" id="dino" scale="0.5 0.5 0.5" animation-mixer="clip:Idle"
+                shadow="cast: true">
+            </a-entity>
+            <a-plane width="0.9" height="0.9" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
                 shadow-material></a-plane>
         </a-entity>
         <a-sphere id="intersection" visible="false" radius="0.02" color="red"></a-sphere>
     </a-scene>
 
-    <!-- Custom Javascript -->
-	<!-- This need to be declared before a-scene -->
-	<script src="assets/js/android/android_arcore.js"></script>
-
     <script>
+        let scene = document.querySelector('a-scene');
+        let walker;
+        let fox;
+        let idleAnimation;
+        let sitting = false;
+
+        function activateFox() {
+            walker = document.querySelector('#walker');
+            fox = document.querySelector('#fox');
+            idleAnimation = 'Fox_Idle';
+            walkAnimation = 'Fox_Run';
+        }
+
+        function activateDino() {
+            walker = document.querySelector('#walker2');
+            fox = document.querySelector('#dino');
+            idleAnimation = 'Idle';
+            walkAnimation = 'Walk';
+        }
+
+        function playAnimation(animation) {
+            if (fox === document.querySelector('#dino')) {
+                sitting = animation.startsWith('Sit') && animation !== 'Sit_Up';
+                fox.setAttribute('animation-mixer', { clip: animation });
+                const listener = () => {
+                    fox.setAttribute('animation-mixer', { clip: sitting ? 'Sit_Idle' : idleAnimation });
+                    fox.removeEventListener('animation-loop', listener);
+                };
+                fox.addEventListener('animation-loop', listener);
+            }
+        }
+
+        function onceSceneLoaded() {
+            let raycaster = document.querySelector('[ar-raycaster]');
+            let marker = document.querySelector('#intersection');
+
+            activateDino();
+
+            raycaster.addEventListener('raycaster-intersection', function (event) {
+                const intersection = event.detail.intersections[0]; //.find(i => i.object.type === 'Scene');
+                if (intersection) {
+                    marker.setAttribute('position', intersection.point);
+                    marker.setAttribute('visible', true);
+                    marker.setAttribute('color', 'green');
+                }
+            });
+
+            raycaster.addEventListener('raycaster-intersection-cleared', function (event) {
+                marker.setAttribute('color', 'red');
+            });
+
+            const { stringify } = AFRAME.utils.coordinates;
+
+            let lastEvent = null;
+            raycaster.addEventListener('click', function () {
+                const currentEvent = new Date().getTime();
+                if (lastEvent && (currentEvent - lastEvent < 1000)) {
+                    return;
+                }
+                lastEvent = currentEvent;
+
+                const targetPosition = raycaster.components.cursor
+                    // this is broken in current A-Frame 1.0.x --> .intersection.point;
+                    .intersectedEventDetail.intersection.point;
+                if (!walker.getAttribute('visible')) {
+                    walker.setAttribute('visible', true);
+                    walker.setAttribute('position', stringify(targetPosition));
+                } else {
+                    const currentPosition = walker.object3D.position;
+                    const distance = currentPosition.distanceTo(targetPosition);
+                    // face the right way
+                    walker.object3D.lookAt(targetPosition);
+                    // make it look like it's walking
+                    fox.setAttribute('animation-mixer', { clip: walkAnimation });
+                    // only add completion listener once
+                    if (!walker.getAttribute('animation')) {
+                        // once it's there,
+                        walker.addEventListener('animationcomplete', () => {
+                            // make it look like it's idle                    
+                            fox.setAttribute('animation-mixer', { clip: idleAnimation });
+                        });
+                    }
+                    // set the animation in new A-Frame 1.0.x style
+                    walker.setAttribute('animation', {
+                        property: 'position',
+                        to: stringify(targetPosition), // just targetPosition doesn't work!?
+                        dur: distance * 3000,
+                        easing: 'linear'
+                    });
+                    // toggle marker color to show we're doing it 
+                    marker.setAttribute('color', 'blue');
+                    setTimeout(() => marker.setAttribute('color', 'green'), 350);
+                }
+            });
+        }
 
         scene.addEventListener('loaded', onceSceneLoaded);
 
