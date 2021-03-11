@@ -1,25 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title>Android ARcore</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-	<!-- Import the component -->
-	<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARcore Experience</title>
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@e47f441/dist/aframe-master.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+    <script src="https://ghcdn.rawgit.org/chenzlabs/aframe-ar/8a7ee3b/dist/aframe-ar.min.js"></script>
+    <script>
+
+        // AFRAME no longer sends intersection event every time intersection changes position;
+        // this component is modified from docs to move a different entity than the one hit.
+        AFRAME.registerComponent('raycaster-move', {
+            schema: {
+                target: { type: 'selector' }
+            },
+            init: function () {
+                // Use events to figure out what raycaster is listening so we don't have to
+                // hardcode the raycaster.
+                this.el.addEventListener('raycaster-intersected', evt => {
+                    this.raycaster = evt.detail.el;
+                });
+                this.el.addEventListener('raycaster-intersected-cleared', evt => {
+                    this.raycaster = null;
+                });
+            },
+            update: function (oldData) {
+                //
+            },
+            tick: function () {
+                if (!this.raycaster) { return; }  // Not intersecting.
+
+                let intersection = this.raycaster.components.raycaster.getIntersection(this.el);
+                if (!intersection) { return; }
+                //console.log(intersection.point);
+                this.data.target.setAttribute("position", intersection.point);
+            }
+        });
+
+    </script>
+
+    <script>
+        AFRAME.registerComponent('shadow-material', {
+            init: function () {
+                this.material = this.el.getOrCreateObject3D('mesh').material = new THREE.ShadowMaterial();
+                this.material.opacity = 0.3;
+            }
+        });
+    </script>
+    <!-- Prevent touch causing flicker on iOS. -->
+    <style>
+        * {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+    </style>
 </head>
+
 <body>
-	<model-viewer src="assets/models/android/out.glb" camera-controls ar-modes="scene-viewer">
+	<!-- Next & Capture Button -->
+	<div class="buttons">
+      	<button class="next-button">Next</button>
+      	&nbsp;&nbsp;
+      	<button class="capture-button"></button>
+    </div>
 
-	    <div class="progress-bar hide" slot="progress-bar">
-	        <div class="update-bar"></div>
-	    </div>
-	    <button slot="ar-button" id="ar-button">
-	        View in your space
-	    </button>
-	    <div id="ar-prompt">
-	        <img src="assets/images/hand.png">
-	    </div>
-	</model-viewer>
+    <!-- Main Scene -->
+    <a-scene ar raycaster-move="target:#intersection">
+        <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
+        <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none"></a-camera>
+        <a-entity id="walker" position="0 0 -5" visible="false">
+            <!-- <a-entity gltf-model="models/fox.glb" scale="0.5 0.5 0.5" id="fox" animation-mixer="clip:Fox_Idle"
+                shadow="cast: true">
+            </a-entity> -->
+            <a-plane width="0.4" height="0.4" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
+                shadow-material></a-plane>
+        </a-entity>
+        <a-sphere id="intersection" visible="false" radius="0.02" color="red"></a-sphere>
+    </a-scene>
 
+    <!-- Custom Javascript -->
+	<!-- This need to be declared before a-scene -->
+	<script src="assets/js/android/android_arcore.js"></script>
+
+    <script>
+
+        scene.addEventListener('loaded', onceSceneLoaded);
+
+    </script>
 </body>
+
 </html>

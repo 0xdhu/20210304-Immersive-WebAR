@@ -4,7 +4,7 @@ const imageURL = 'assets/images/';
 const imagesPerScene = 5;
 const totalImages = 14;
 
-const initialDistance = 10;
+const initialDistance = 20;
 const initialWidth = 6.4;
 const initialHeight = 4;
 
