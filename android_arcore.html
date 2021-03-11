@@ -4,10 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Experience - Dino</title>
+    <title>ARcore Experience</title>
+
+    <!-- Custom Css -->
+	<link rel="stylesheet" type="text/css" href="assets/css/android/android_arcore.css">
+
     <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@e47f441/dist/aframe-master.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
     <script src="https://ghcdn.rawgit.org/chenzlabs/aframe-ar/8a7ee3b/dist/aframe-ar.min.js"></script>
+
     <script>
 
         // AFRAME no longer sends intersection event every time intersection changes position;
@@ -57,7 +62,14 @@
     </style>
 </head>
 
-<body>
+<body style="margin: 0px; overflow: hidden;">
+	<!-- Next & Capture Button -->
+	<div class="buttons">
+      	<button class="next-button">Next</button>
+      	&nbsp;&nbsp;
+      	<button class="capture-button"></button>
+    </div>
+
     <a-scene ar raycaster-move="target:#intersection">
         <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
         <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none"></a-camera>
@@ -73,33 +85,33 @@
                 shadow="cast: true">
             </a-entity> -->
 
-            <a-image width="3.2" height="2" id="image0" src="assets/images/Pic1.jpg" position="10 0 0" geometry="" rotation="0 0 0"  material=""></a-image>
+            <a-image id="image0" src="assets/images/Pic1.jpg" preload="true"></a-image>
 
-            <a-image width="3.2" height="2" id="image1" src="assets/images/Pic2.jpg" position="3.09 0 9.5" rotation="0 72 0" geometry="" material=""></a-image>
+            <a-image id="image1" src="assets/images/Pic2.jpg" preload="true"></a-image>
 
-            <a-image width="3.2" height="2" id="image2" src="assets/images/Pic3.jpg" position="-8.09 0 5.87" rotation="0 144 0"  geometry="" material=""></a-image>
+            <a-image id="image2" src="assets/images/Pic3.jpg" preload="true"></a-image>
 
-            <a-image width="3.2" height="2" id="image3" src="assets/images/Pic4.jpg" position="-8.09 0 -5.87" geometry="" rotation="0 216 0" material=""></a-image>
+            <a-image id="image3" src="assets/images/Pic4.jpg" preload="true"></a-image>
 
-            <a-image width="3.2" height="2" id="image4" src="assets/images/Pic5.jpg" position="3.09 0 -9.5" geometry=""  rotation="0 288 0" material=""></a-image>
+            <a-image id="image4" src="assets/images/Pic5.jpg" preload="true"></a-image>
 
-            <a-image width="3.2" height="2" id="image5"  visible="false"  src="assets/images/Pic6.jpg" geometry="" material=""></a-image>
+            <a-image id="image5" src="assets/images/Pic6.jpg" visible="false" preload="true"></a-image>
 
-            <a-image width="3.2" height="2" id="image6"  visible="false"  src="assets/images/Pic7.jpg" geometry="" material=""></a-image>
+            <a-image id="image6" src="assets/images/Pic7.jpg" visible="false" preload="true"></a-image>
 
-            <a-image width="3.2" height="2" id="image7"  visible="false"   src="assets/images/Pic8.jpg" geometry="" material=""></a-image>
+            <a-image id="image7" src="assets/images/Pic8.jpg" visible="false" preload="true"></a-image>
 
-            <a-image width="3.2" height="2" id="image8"  visible="false"   src="assets/images/Pic9.jpg" geometry="" material=""></a-image>
+            <a-image id="image8" src="assets/images/Pic9.jpg" visible="false" preload="true"></a-image>
 
-            <a-image width="3.2" height="2" id="image9"  visible="false"  src="assets/images/Pic10.jpg" geometry="" material=""></a-image>
+            <a-image id="image9" src="assets/images/Pic10.jpg" visible="false" preload="true"></a-image>
 
-            <a-image width="3.2" height="2" id="image10" visible="false"    src="assets/images/Pic11.jpg" geometry="" material=""></a-image>
+            <a-image id="image10" src="assets/images/Pic11.jpg" visible="false" preload="true"></a-image>
 
-            <a-image width="3.2" height="2" id="image11" visible="false"  src="assets/images/Pic12.jpg" geometry="" material=""></a-image>
-
-            <a-image width="3.2" height="2" id="image12" visible="false"  src="assets/images/Pic13.jpg" geometry="" material=""></a-image>
-
-            <a-image width="3.2" height="2" id="image13" visible="false"  src="assets/images/Pic14.jpg" geometry="" material=""></a-image>
+            <a-image id="image11" src="assets/images/Pic12.jpg" visible="false" preload="true"></a-image>
+ 
+            <a-image id="image12" src="assets/images/Pic13.jpg" visible="false" preload="true"></a-image>
+ 
+            <a-image id="image13" src="assets/images/Pic14.jpg" visible="false" preload="true"></a-image>
 
             <a-plane width="0.9" height="0.9" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
                 shadow-material></a-plane>
@@ -140,6 +152,71 @@
             }
         }
 
+        const imagesPerScene = 5;
+		const totalImages = 14;
+
+		const initialDistance = 4;
+		const initialWidth = 1.6;
+		const initialHeight = 1;
+
+        // add images into scene when app start
+		const placeImages = () => {
+		  	for(var i = 0; i < totalImages; i++) {
+		  		let elem = document.querySelector("#image" + i);
+
+			    elem.setAttribute("width", initialWidth);
+			    elem.setAttribute("height", initialHeight);
+
+			    var idx = i % imagesPerScene;
+			    var angle = 360 * idx / imagesPerScene;
+			    var radian = toRadians(angle);
+
+				elem.object3D.position.x = Math.cos(parseFloat(radian)) * initialDistance;
+				elem.object3D.position.y = 0;
+				elem.object3D.position.z = Math.sin(parseFloat(radian)) * initialDistance;
+
+			    // current entry's rotation
+			    elem.object3D.rotation.x = 0;
+			    elem.object3D.rotation.y = toRadians(-angle - 90);
+			    elem.object3D.rotation.z = 0;
+		  	}
+		}
+
+		// convert radian to degree
+		const toDegrees = (radian) => {
+		  	return radian * (180 / Math.PI);
+		}
+
+		// convert degree to radian
+		const toRadians = (angle) => {
+		  	return angle * (Math.PI / 180);
+		}
+
+		// load another images
+		const changeImageArray = (sceneNumber) => {
+			let startnum = sceneNumber * imagesPerScene;
+			let endnum = Math.min(startnum + imagesPerScene, totalImages);
+
+			// move all images to future so that user cannot see any images
+			hideAllImages();
+
+			// move some images into the surround of camera so that user can see it
+			for(let i = startnum; i < endnum; i++) {
+				let elem = document.querySelector("#image" + i);
+				elem.object3D.visible = true;
+			}
+		}
+
+		// Hide all images
+		const hideAllImages = () => {
+			for(let i = 0; i < totalImages; i++) {
+				let elem = document.querySelector("#image" + i);
+
+				elem.object3D.visible = false;
+			}
+		}
+
+
         function onceSceneLoaded() {
             let raycaster = document.querySelector('[ar-raycaster]');
             let marker = document.querySelector('#intersection');
@@ -161,13 +238,33 @@
 
             const { stringify } = AFRAME.utils.coordinates;
 
+            placeImages();
+
+			// when tap on "next" button, shows another images
+			document.querySelector(".next-button")
+			  .addEventListener("click", function () {
+
+			    let totalPage = Math.ceil(totalImages / imagesPerScene);
+			    let nextScene = currentScene = (currentScene + 1) % totalPage;
+
+			    changeImageArray(nextScene);
+			    // update current scene' number
+			    currentScene = nextScene;
+			  });
+
             let lastEvent = null;
+            let alreadyPlaced = false;
             raycaster.addEventListener('click', function () {
+
+            	if(alreadyPlaced) return;
+
                 const currentEvent = new Date().getTime();
                 if (lastEvent && (currentEvent - lastEvent < 1000)) {
                     return;
                 }
                 lastEvent = currentEvent;
+
+                alreadyPlaced = true;
 
                 const targetPosition = raycaster.components.cursor
                     // this is broken in current A-Frame 1.0.x --> .intersection.point;
