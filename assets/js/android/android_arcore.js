@@ -103,20 +103,20 @@ function onceSceneLoaded() {
 
     activateObject();
 
-    addImageEntries();
+    // addImageEntries();
 
     let targetPosition = null;
   	// when tap on "next" button, shows another images
-	document
-  	.querySelector(".next-button")
-  	.addEventListener("click", function () {
-	    let totalPage = Math.ceil(totalImages / imagesPerScene);
-	    let nextScene = currentScene = (currentScene + 1) % totalPage;
+	// document
+ //  	.querySelector(".next-button")
+ //  	.addEventListener("click", function () {
+	//     let totalPage = Math.ceil(totalImages / imagesPerScene);
+	//     let nextScene = currentScene = (currentScene + 1) % totalPage;
 
-	    changeImageArray(nextScene, targetPosition);
-	    // update current scene' number
-	    currentScene = nextScene;
-	});
+	//     changeImageArray(nextScene, targetPosition);
+	//     // update current scene' number
+	//     currentScene = nextScene;
+	// });
 
     raycaster.addEventListener('raycaster-intersection', function (event) {
         const intersection = event.detail.intersections[0]; //.find(i => i.object.type === 'Scene');
@@ -152,9 +152,9 @@ function onceSceneLoaded() {
         if (!walker.getAttribute('visible')) {
             // walker.setAttribute('visible', true);
             walker.setAttribute('position', stringify(targetPosition));
-            addImageEntries();
+            // addImageEntries();
 
-    		changeImageArray(currentScene);
+    		// changeImageArray(currentScene);
 
             alreadyPlaced = true;
         } 
