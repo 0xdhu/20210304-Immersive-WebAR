@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARcore Experience</title>
+    <!-- Custom Css -->
+	<link rel="stylesheet" type="text/css" href="assets/css/android/android_3dof.css">
     <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@e47f441/dist/aframe-master.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
     <script src="https://ghcdn.rawgit.org/chenzlabs/aframe-ar/8a7ee3b/dist/aframe-ar.min.js"></script>
@@ -66,7 +68,12 @@
     </div>
 
     <!-- Main Scene -->
-    <a-scene ar raycaster-move="target:#intersection">
+    <a-scene 
+	    ar 
+	    raycaster-move="target:#intersection"
+	    embedded
+	    vr-mode-ui='enabled: false'
+    >
         <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
         <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none"></a-camera>
         <a-entity id="walker" position="0 0 -5" visible="false">
