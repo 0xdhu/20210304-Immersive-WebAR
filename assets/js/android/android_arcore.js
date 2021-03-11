@@ -18,7 +18,7 @@ function activateObject() {
 }
 
 // add images into walker when app start
-const addImageEntries = (focusedPosition) => {
+const addImageEntries = () => {
   	// var scene = document.querySelector('a-scene');
 
 	for(var i = 0; i < totalImages; i++) {
@@ -33,9 +33,9 @@ const addImageEntries = (focusedPosition) => {
 		var radian = toRadians(angle);
 
 		// initial positon for each entry
-		elem.object3D.position.x = focusedPosition.x;
-		elem.object3D.position.y = focusedPosition.y;
-		elem.object3D.position.z = focusedPosition.z;
+		elem.object3D.position.x = 0;
+		elem.object3D.position.y = 0;
+		elem.object3D.position.z = 0;
 
 		// current entry's rotation
 		elem.object3D.rotation.x = 0;
@@ -74,7 +74,7 @@ const resetImagePosition = () => {
 }
 
 // load another images
-const changeImageArray = (sceneNumber, focusedPosition) => {
+const changeImageArray = (sceneNumber) => {
 	let startnum = sceneNumber * imagesPerScene;
 	let endnum = Math.min(startnum + imagesPerScene, totalImages);
 
@@ -151,10 +151,10 @@ function onceSceneLoaded() {
 
         if (!walker.getAttribute('visible')) {
             // walker.setAttribute('visible', true);
-            // walker.setAttribute('position', stringify(targetPosition));
-            addImageEntries(targetPosition);
+            walker.setAttribute('position', stringify(targetPosition));
+            addImageEntries();
 
-    		changeImageArray(currentScene, targetPosition);
+    		changeImageArray(currentScene);
 
             alreadyPlaced = true;
         } 
