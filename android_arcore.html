@@ -56,78 +56,8 @@
             }
         });
     </script>
-    <!-- Prevent touch causing flicker on iOS. -->
-    <style>
-        * {
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        }
-    </style>
-</head>
 
-<body style="margin: 0px; overflow: hidden;">
-
-	<!-- Next & Capture Button -->
-	<!-- <div class="buttons">
-      	<button class="next-button">Next</button>
-      	&nbsp;&nbsp;
-      	<button class="capture-button"></button>
-    </div> -->
-
-    <a-scene ar raycaster-move="target:#intersection" >
-        <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
-        <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none">
-        	<a-entity position="-0.06 -0.3 -1" scale="0.10 0.04 0.01" arnextbutton>
-	            <a-image src="assets/images/nextButton.png" preload="true"></a-image>
-    		</a-entity>
-        </a-camera>
-        <a-entity id="walker" position="0 0 -5" visible="false">
-            <!-- <a-entity gltf-model="models/fox.glb" scale="0.5 0.5 0.5" id="fox" animation-mixer="clip:Fox_Idle"
-                shadow="cast: true">
-            </a-entity> -->
-            <a-plane width="0.4" height="0.4" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
-                shadow-material></a-plane>
-        </a-entity>
-        <a-entity id="walker2" position="0 0 -5" visible="false">
-            <!-- <a-entity gltf-model="assets/models/dino.glb" id="dino" scale="0.5 0.5 0.5" animation-mixer="clip:Idle"
-                shadow="cast: true">
-            </a-entity> -->
-
-            <a-image id="image0" src="assets/images/Pic1.jpg" preload="true"></a-image>
-
-            <a-image id="image1" src="assets/images/Pic2.jpg" preload="true"></a-image>
-
-            <a-image id="image2" src="assets/images/Pic3.jpg" preload="true"></a-image>
-
-            <a-image id="image3" src="assets/images/Pic4.jpg" preload="true"></a-image>
-
-            <a-image id="image4" src="assets/images/Pic5.jpg" preload="true"></a-image>
-
-            <a-image id="image5" src="assets/images/Pic6.jpg" visible="false" preload="true"></a-image>
-
-            <a-image id="image6" src="assets/images/Pic7.jpg" visible="false" preload="true"></a-image>
-
-            <a-image id="image7" src="assets/images/Pic8.jpg" visible="false" preload="true"></a-image>
-
-            <a-image id="image8" src="assets/images/Pic9.jpg" visible="false" preload="true"></a-image>
-
-            <a-image id="image9" src="assets/images/Pic10.jpg" visible="false" preload="true"></a-image>
-
-            <a-image id="image10" src="assets/images/Pic11.jpg" visible="false" preload="true"></a-image>
-
-            <a-image id="image11" src="assets/images/Pic12.jpg" visible="false" preload="true"></a-image>
- 
-            <a-image id="image12" src="assets/images/Pic13.jpg" visible="false" preload="true"></a-image>
- 
-            <a-image id="image13" src="assets/images/Pic14.jpg" visible="false" preload="true"></a-image>
-
-            <a-plane width="0.9" height="0.9" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
-                shadow-material></a-plane>
-        </a-entity>
-        <a-sphere id="intersection" visible="false" radius="0.02" color="red">
-        </a-sphere>
-    </a-scene>
-
-    <script type="text/javascript">
+    <script>
     	let scene = document.querySelector('a-scene');
 		let walker;
 		let fox;
@@ -328,6 +258,78 @@
 
 		scene.addEventListener('loaded', onceSceneLoaded);
     </script>
+    <!-- Prevent touch causing flicker on iOS. -->
+    <style>
+        * {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+    </style>
+</head>
+
+<body style="margin: 0px; overflow: hidden;">
+
+	<!-- Next & Capture Button -->
+	<!-- <div class="buttons">
+      	<button class="next-button">Next</button>
+      	&nbsp;&nbsp;
+      	<button class="capture-button"></button>
+    </div> -->
+
+    <a-scene ar raycaster-move="target:#intersection" >
+        <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
+        <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none">
+        	<a-entity position="-0.06 -0.3 -1" scale="0.10 0.04 0.01" arnextbutton>
+	            <a-image src="assets/images/nextButton.png" preload="true"></a-image>
+    		</a-entity>
+        </a-camera>
+        <a-entity id="walker" position="0 0 -5" visible="false">
+            <!-- <a-entity gltf-model="models/fox.glb" scale="0.5 0.5 0.5" id="fox" animation-mixer="clip:Fox_Idle"
+                shadow="cast: true">
+            </a-entity> -->
+            <a-plane width="0.4" height="0.4" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
+                shadow-material></a-plane>
+        </a-entity>
+        <a-entity id="walker2" position="0 0 -5" visible="false">
+            <!-- <a-entity gltf-model="assets/models/dino.glb" id="dino" scale="0.5 0.5 0.5" animation-mixer="clip:Idle"
+                shadow="cast: true">
+            </a-entity> -->
+
+            <a-image id="image0" src="assets/images/Pic1.jpg" preload="true"></a-image>
+
+            <a-image id="image1" src="assets/images/Pic2.jpg" preload="true"></a-image>
+
+            <a-image id="image2" src="assets/images/Pic3.jpg" preload="true"></a-image>
+
+            <a-image id="image3" src="assets/images/Pic4.jpg" preload="true"></a-image>
+
+            <a-image id="image4" src="assets/images/Pic5.jpg" preload="true"></a-image>
+
+            <a-image id="image5" src="assets/images/Pic6.jpg" visible="false" preload="true"></a-image>
+
+            <a-image id="image6" src="assets/images/Pic7.jpg" visible="false" preload="true"></a-image>
+
+            <a-image id="image7" src="assets/images/Pic8.jpg" visible="false" preload="true"></a-image>
+
+            <a-image id="image8" src="assets/images/Pic9.jpg" visible="false" preload="true"></a-image>
+
+            <a-image id="image9" src="assets/images/Pic10.jpg" visible="false" preload="true"></a-image>
+
+            <a-image id="image10" src="assets/images/Pic11.jpg" visible="false" preload="true"></a-image>
+
+            <a-image id="image11" src="assets/images/Pic12.jpg" visible="false" preload="true"></a-image>
+ 
+            <a-image id="image12" src="assets/images/Pic13.jpg" visible="false" preload="true"></a-image>
+ 
+            <a-image id="image13" src="assets/images/Pic14.jpg" visible="false" preload="true"></a-image>
+
+            <a-plane width="0.9" height="0.9" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
+                shadow-material></a-plane>
+        </a-entity>
+        <a-sphere id="intersection" visible="false" radius="0.02" color="red">
+        </a-sphere>
+    </a-scene>
+
+    
 
     <!-- <script src="assets/js/android/android_arcore.js"></script> -->
 </body>
