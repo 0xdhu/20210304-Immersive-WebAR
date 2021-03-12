@@ -67,15 +67,19 @@
 <body style="margin: 0px; overflow: hidden;">
 
 	<!-- Next & Capture Button -->
-	<div class="buttons">
+	<!-- <div class="buttons">
       	<button class="next-button">Next</button>
       	&nbsp;&nbsp;
       	<button class="capture-button"></button>
-    </div>
-    
+    </div> -->
+
     <a-scene ar raycaster-move="target:#intersection" >
         <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
-        <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none"></a-camera>
+        <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none">
+        	<a-entity position="0 -1 -1" scale="0.01 0.01 0.01">
+	            <a-image src="assets/images/nextButton.png" preload="true"></a-image>
+    		</a-entity>
+        </a-camera>
         <a-entity id="walker" position="0 0 -5" visible="false">
             <!-- <a-entity gltf-model="models/fox.glb" scale="0.5 0.5 0.5" id="fox" animation-mixer="clip:Fox_Idle"
                 shadow="cast: true">
@@ -119,7 +123,8 @@
             <a-plane width="0.9" height="0.9" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
                 shadow-material></a-plane>
         </a-entity>
-        <a-sphere id="intersection" visible="false" radius="0.02" color="red"></a-sphere>
+        <a-sphere id="intersection" visible="false" radius="0.02" color="red">
+        </a-sphere>
     </a-scene>
 
 
