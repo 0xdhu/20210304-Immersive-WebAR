@@ -157,7 +157,7 @@
         const imagesPerScene = 5;
 		const totalImages = 14;
 
-		const initialDistance = 1;
+		const initialDistance = 0.5;
 		const initialWidth = 0.8;
 		const initialHeight = 0.5;
 
@@ -174,7 +174,7 @@
 			    var radian = toRadians(angle);
 
 				elem.object3D.position.x = Math.cos(parseFloat(radian)) * initialDistance;
-				elem.object3D.position.y = 0.1;
+				elem.object3D.position.y = 0.5;
 				elem.object3D.position.z = Math.sin(parseFloat(radian)) * initialDistance;
 
 			    // current entry's rotation
