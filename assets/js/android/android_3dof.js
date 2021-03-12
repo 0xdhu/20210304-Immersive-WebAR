@@ -152,6 +152,19 @@ const takePicture = () => {
   html2canvas(screenshotTarget).then((canvas) => {
       const base64image = canvas.toDataURL("image/png");
       window.location.href = base64image;
+
+      var fileName = 'webar-experience' + '-' + Date.now() + '.png';
+      var linkEl = document.createElement('a');
+      var url = base64image;
+      linkEl.href = url;
+      linkEl.setAttribute('download', fileName);
+      linkEl.innerHTML = 'downloading...';
+      linkEl.style.display = 'none';
+      document.body.appendChild(linkEl);
+      setTimeout(function () {
+        linkEl.click();
+        document.body.removeChild(linkEl);
+      }, 1);
   });
     // document.querySelector('a-scene').components.screenshot.capture('perspective');
 }
