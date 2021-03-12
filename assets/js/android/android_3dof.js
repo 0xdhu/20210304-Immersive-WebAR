@@ -147,7 +147,13 @@ const resetImagePosition = () => {
 }
 
 const takePicture = () => {
-    document.querySelector('a-scene').components.screenshot.capture('perspective');
+  const screenshotTarget = document.body;
+
+  html2canvas(screenshotTarget).then((canvas) => {
+      const base64image = canvas.toDataURL("image/png");
+      window.location.href = base64image;
+  });
+    // document.querySelector('a-scene').components.screenshot.capture('perspective');
 }
 
 // Next Button event
