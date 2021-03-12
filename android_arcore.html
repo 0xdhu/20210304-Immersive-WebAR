@@ -72,7 +72,7 @@
       	<button class="capture-button"></button>
     </div>
 
-    <a-scene raycaster-move="target:#intersection" vr-mode-ui='enabled: false' embedded ar>
+    <a-scene ar raycaster-move="target:#intersection" >
         <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
         <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none"></a-camera>
         <a-entity id="walker" position="0 0 -5" visible="false">
