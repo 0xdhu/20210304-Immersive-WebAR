@@ -62,17 +62,18 @@
 
 	        <!-- AR Camera and Raycaster -->
         	<a-camera camera="fov: 80;" id="camera" rotation-reader position="0 0 0" listener look-controls="reverseMouseDrag:true; touchEnabled: false">
-        		<a-entity position="0 -1 -1" scale="0.01 0.01 0.01">
+        		<a-entity position="-0.06 -0.3 -1" scale="0.10 0.04 0.01" arNextButton>
 		            <a-image src="assets/images/nextButton.png" preload="true"></a-image>
 	    		</a-entity>
-        		<!-- <a-entity class="raycaster"
+
+        		<a-entity class="raycaster"
 					position="0 0 -1"
-					scale="0.01 0.01 0.01"
+					scale="0.008 0.008 0.008"
 					cursor="fuse: true; fuseTimeout: 500"
 					geometry="primitive: ring"
 					material="color: black; shader: flat" 
 					raycaster="interval:1000; objects: .clickable; ">
-        		</a-entity> -->
+        		</a-entity>
 			</a-camera>
 			<!-- AR Camera End -->
         </a-scene>
