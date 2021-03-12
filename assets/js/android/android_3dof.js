@@ -147,7 +147,7 @@ const resetImagePosition = () => {
 }
 
 const takePicture = () => {
-  const screenshotTarget = document.body;
+  const screenshotTarget = document.querySelector("a-scene");
 
   html2canvas(screenshotTarget).then((canvas) => {
       const base64image = canvas.toDataURL("image/png");
