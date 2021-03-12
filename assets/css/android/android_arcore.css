@@ -30,3 +30,7 @@
 	width: 4em;
 	height: 4em;
 }
+
+.a-enter-ar {
+	z-index: 999999999 !important;
+}
