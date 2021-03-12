@@ -151,7 +151,7 @@ const takePicture = () => {
 
   html2canvas(screenshotTarget).then((canvas) => {
       const base64image = canvas.toDataURL("image/png");
-      window.location.href = base64image;
+      // window.location.href = base64image;
 
       var fileName = 'webar-experience' + '-' + Date.now() + '.png';
       var linkEl = document.createElement('a');
