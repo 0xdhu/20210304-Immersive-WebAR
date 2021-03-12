@@ -151,7 +151,7 @@ const takePicture = () => {
 }
 
 // Next Button event
-AFRAME.registerComponent('arNextButton', {
+AFRAME.registerComponent('arnextbutton', {
   init: function() {
     this.el.sceneEl.addEventListener("mouseup", this.handleNextButton);
     this.el.sceneEl.addEventListener("click", this.handleNextButton);
