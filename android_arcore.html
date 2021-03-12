@@ -58,7 +58,7 @@
     </script>
 
     <script>
-    	let scene = document.querySelector('a-scene');
+    	let scene = null; 
 		let walker;
 		let fox;
 		let idleAnimation;
@@ -255,8 +255,13 @@
 		  }
 
 		});
+		
 
-		scene.addEventListener('loaded', onceSceneLoaded);
+		// main load
+		window.onload = function () {
+			scene = document.querySelector('a-scene');
+			scene.addEventListener('loaded', onceSceneLoaded);
+		}
     </script>
     <!-- Prevent touch causing flicker on iOS. -->
     <style>
