@@ -186,3 +186,21 @@ function onceSceneLoaded() {
         // }
     });
 }
+
+
+// Next Button event
+AFRAME.registerComponent('arnextbutton', {
+  init: function() {
+    this.el.sceneEl.addEventListener("mouseup", this.handleNextButton);
+    this.el.sceneEl.addEventListener("click", this.handleNextButton);
+  },
+  handleNextButton: function () {
+    let totalPage = Math.ceil(totalImages / imagesPerScene);
+    let nextScene = currentScene = (currentScene + 1) % totalPage;
+
+    changeImageArray(nextScene);
+    // update current scene' number
+    currentScene = nextScene;
+  }
+
+});
