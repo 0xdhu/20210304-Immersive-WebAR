@@ -389,7 +389,8 @@
 	 //    })
 		AFRAME.registerComponent('arcapturebutton', {
 		  init: function() {
-		    this.el.sceneEl.addEventListener("click", this.handleCaptureButton);
+		    // this.el.sceneEl.addEventListener("click", this.handleCaptureButton);
+		    this.el.addEventListener("click", this.handleCaptureButton);
 		  },
 		  handleCaptureButton: function () {
 		  	alert("Take Picture");
