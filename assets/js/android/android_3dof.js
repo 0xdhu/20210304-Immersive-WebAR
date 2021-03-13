@@ -222,7 +222,7 @@ const takePicture = () => {
     var fileName = 'webar-experience' + '-' + Date.now() + '.png';
     var linkEl = document.createElement('a');
 
-    linkEl.href = base64image;
+    linkEl.href = b64;
     linkEl.setAttribute('download', fileName);
     linkEl.innerHTML = 'downloading...';
     linkEl.style.display = 'none';
