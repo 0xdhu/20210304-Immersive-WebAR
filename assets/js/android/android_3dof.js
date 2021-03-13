@@ -219,11 +219,26 @@ const takePicture = () => {
 
   mergeImages([frame, aScene]).then(b64 =>
   {
-    let link = document.getElementById("download-link", "png");
+    var fileName = 'webar-experience' + '-' + Date.now() + '.png';
+    var linkEl = document.createElement('a');
 
-    link.setAttribute("download", "AR.png");
-    link.setAttribute("href", b64);
-    link.click();
+    linkEl.href = base64image;
+    linkEl.setAttribute('download', fileName);
+    linkEl.innerHTML = 'downloading...';
+    linkEl.style.display = 'none';
+
+    document.body.appendChild(linkEl);
+
+    setTimeout(function () {
+      linkEl.click();
+      document.body.removeChild(linkEl);
+    }, 1);
+
+    // let link = document.getElementById("download-link", "png");
+
+    // link.setAttribute("download", "AR.png");
+    // link.setAttribute("href", b64);
+    // link.click();
   });
 
   video.play();
