@@ -267,8 +267,8 @@ const takePicture = () => {
 // Next Button event
 AFRAME.registerComponent('arnextbutton', {
   init: function() {
-    let elem = document.querySelector("#nextarbutton").addEventListener("mouseup", this.handleNextButton);
-    elem = document.querySelector("#nextarbutton").addEventListener("click", this.handleNextButton);
+    let elem = document.querySelector(".nextarbutton").addEventListener("mouseup", this.handleNextButton);
+    elem = document.querySelector(".nextarbutton").addEventListener("click", this.handleNextButton);
     // this.el.addEventListener("mouseup", this.handleNextButton);
     // this.el.addEventListener("click", this.handleNextButton);
   },
