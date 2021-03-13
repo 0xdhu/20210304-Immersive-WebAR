@@ -247,10 +247,10 @@
 		// Next Button event
 		AFRAME.registerComponent('arnextbutton', {
 		  init: function() {
-		    this.el.sceneEl.addEventListener("mouseup", this.handleNextButton);
-		    this.el.sceneEl.addEventListener("click", this.handleNextButton);
+		    this.el.addEventListener("click", this.handleNextButton);
 		  },
 		  handleNextButton: function () {
+		  	alert("AR next Button");
 		    let totalPage = Math.ceil(totalImages / imagesPerScene);
 		    let nextScene = currentScene = (currentScene + 1) % totalPage;
 
@@ -382,10 +382,10 @@
 		// Capture Button event
 		AFRAME.registerComponent('arcapturebutton', {
 		  init: function() {
-		    this.el.sceneEl.addEventListener("mouseup", this.handleCaptureButton);
-		    this.el.sceneEl.addEventListener("click", this.handleCaptureButton);
+		    this.el.addEventListener("click", this.handleCaptureButton);
 		  },
 		  handleCaptureButton: function () {
+		  	alert("Take Picture");
 		    takePicture();
 		  }
 
