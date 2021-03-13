@@ -35,6 +35,15 @@ window.onload = function () {
     takePicture();
   });
 
+  document.querySelector("a-scene").querySelector(".nextarbutton").addEventListener("click", function () {
+    let totalPage = Math.ceil(totalImages / imagesPerScene);
+    let nextScene = currentScene = (currentScene + 1) % totalPage;
+
+    changeImageArray(nextScene);
+    // update current scene' number
+    currentScene = nextScene;
+  });
+  
   // Raycaster event on each image
   var imgElems = document.querySelectorAll(".clickable");
 
@@ -265,23 +274,23 @@ const takePicture = () => {
 }
 
 // Next Button event
-AFRAME.registerComponent('arnextbutton', {
-  init: function() {
-    let elem = document.querySelector(".nextarbutton").addEventListener("mouseup", this.handleNextButton);
-    elem = document.querySelector(".nextarbutton").addEventListener("click", this.handleNextButton);
-    // this.el.addEventListener("mouseup", this.handleNextButton);
-    // this.el.addEventListener("click", this.handleNextButton);
-  },
-  handleNextButton: function () {
-    let totalPage = Math.ceil(totalImages / imagesPerScene);
-    let nextScene = currentScene = (currentScene + 1) % totalPage;
+// AFRAME.registerComponent('arnextbutton', {
+//   init: function() {
+//     let elem = document.querySelector(".nextarbutton").addEventListener("mouseup", this.handleNextButton);
+//     elem = document.querySelector("a-scene").querySelector(".nextarbutton").addEventListener("click", this.handleNextButton);
+//     // this.el.addEventListener("mouseup", this.handleNextButton);
+//     // this.el.addEventListener("click", this.handleNextButton);
+//   },
+//   handleNextButton: function () {
+//     let totalPage = Math.ceil(totalImages / imagesPerScene);
+//     let nextScene = currentScene = (currentScene + 1) % totalPage;
 
-    changeImageArray(nextScene);
-    // update current scene' number
-    currentScene = nextScene;
-  }
+//     changeImageArray(nextScene);
+//     // update current scene' number
+//     currentScene = nextScene;
+//   }
 
-});
+// });
 
 // Audio Trigger inner AR
 // AFRAME.registerComponent('soundhandler', {
