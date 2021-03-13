@@ -247,7 +247,7 @@
 		// Next Button event
 		AFRAME.registerComponent('arnextbutton', {
 		  init: function() {
-		    this.el.addEventListener("click", this.handleNextButton);
+		    this.el.SceneEl.addEventListener("click", this.handleNextButton);
 		  },
 		  handleNextButton: function () {
 		  	alert("AR next Button");
@@ -389,7 +389,7 @@
 	 //    })
 		AFRAME.registerComponent('arcapturebutton', {
 		  init: function() {
-		    this.el.addEventListener("click", this.handleCaptureButton);
+		    this.el.SceneEl.addEventListener("click", this.handleCaptureButton);
 		  },
 		  handleCaptureButton: function () {
 		  	alert("Take Picture");
