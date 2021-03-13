@@ -35,14 +35,14 @@ window.onload = function () {
     takePicture();
   });
 
-  document.querySelector("a-scene").querySelector(".nextarbutton").addEventListener("click", function () {
-    let totalPage = Math.ceil(totalImages / imagesPerScene);
-    let nextScene = currentScene = (currentScene + 1) % totalPage;
+  // document.querySelector("a-scene").querySelector(".nextarbutton").addEventListener("click", function () {
+  //   let totalPage = Math.ceil(totalImages / imagesPerScene);
+  //   let nextScene = currentScene = (currentScene + 1) % totalPage;
 
-    changeImageArray(nextScene);
-    // update current scene' number
-    currentScene = nextScene;
-  });
+  //   changeImageArray(nextScene);
+  //   // update current scene' number
+  //   currentScene = nextScene;
+  // });
   
   // Raycaster event on each image
   var imgElems = document.querySelectorAll(".clickable");
