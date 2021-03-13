@@ -380,6 +380,13 @@
 		}
 
 		// Capture Button event
+		AFRAME.registerComponent("arcapturebutton", {
+		    init: function() {
+		      this.el.addEventListener("click", e => {
+		        alert("Yes");
+		      })
+		    }
+	    })
 		// AFRAME.registerComponent('arcapturebutton', {
 		//   init: function() {
 		//     this.el.sceneEl.addEventListener("click", this.handleCaptureButton);
@@ -421,15 +428,15 @@
         <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none">
         	<!-- <a-entity position="-0.08 -0.5 -1" scale="0.2 0.08 0.01" arnextbutton>
 	            <a-image src="assets/images/nextButton.png" preload="true"></a-image>
-    		</a-entity>
+    		</a-entity> -->
 
     		<a-entity position="0.08 -0.5 -1" scale="0.1 0.1 0.01" arcapturebutton>
 	            <a-image src="assets/images/record.png" preload="true"></a-image>
-    		</a-entity> -->
+    		</a-entity>
         </a-camera>
 
-        <div class="capture" aframe-injected="">
-        	<button class="" title="" aframe-injected="" onclick="javascript:alert('sss');">PP</button>
+        <div class="capture" aframe-injected>
+        	<button aframe-injected>PP</button>
         </div>
 
         <a-entity id="walker" position="0 0 -5" visible="false">
