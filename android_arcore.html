@@ -245,21 +245,21 @@
 		}
 
 		// Next Button event
-		// AFRAME.registerComponent('arnextbutton', {
-		//   init: function() {
-		//     this.el.addEventListener("click", this.handleNextButton);
-		//   },
-		//   handleNextButton: function () {
-		//   	alert("AR next Button");
-		//     let totalPage = Math.ceil(totalImages / imagesPerScene);
-		//     let nextScene = currentScene = (currentScene + 1) % totalPage;
+		AFRAME.registerComponent('arnextbutton', {
+		  init: function() {
+		    this.el.addEventListener("click", this.handleNextButton);
+		  },
+		  handleNextButton: function () {
+		  	alert("AR next Button");
+		    let totalPage = Math.ceil(totalImages / imagesPerScene);
+		    let nextScene = currentScene = (currentScene + 1) % totalPage;
 
-		//     changeImageArray(nextScene);
-		//     // update current scene' number
-		//     currentScene = nextScene;
-		//   }
+		    changeImageArray(nextScene);
+		    // update current scene' number
+		    currentScene = nextScene;
+		  }
 
-		// });
+		});
 
 		function resizeCanvas(origCanvas, width, height)
 		{
@@ -380,23 +380,23 @@
 		}
 
 		// Capture Button event
-		AFRAME.registerComponent("arcapturebutton", {
-		    init: function() {
-		      this.el.addEventListener("click", e => {
-		        alert("Yes");
-		      })
-		    }
-	    })
-		// AFRAME.registerComponent('arcapturebutton', {
-		//   init: function() {
-		//     this.el.sceneEl.addEventListener("click", this.handleCaptureButton);
-		//   },
-		//   handleCaptureButton: function () {
-		//   	alert("Take Picture");
-		//     takePicture();
-		//   }
+		// AFRAME.registerComponent("arcapturebutton", {
+		//     init: function() {
+		//       this.el.addEventListener("click", e => {
+		//         alert("Yes");
+		//       })
+		//     }
+	 //    })
+		AFRAME.registerComponent('arcapturebutton', {
+		  init: function() {
+		    this.el.sceneEl.addEventListener("click", this.handleCaptureButton);
+		  },
+		  handleCaptureButton: function () {
+		  	alert("Take Picture");
+		    takePicture();
+		  }
 
-		// });
+		});
 
 		
 
@@ -427,20 +427,14 @@
         <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
         <!-- <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none"> -->
         <a-camera user-height="0" cursor="fuse:false; rayOrigin: mouse" ar-raycaster raycaster>
-        	<!-- <a-entity position="-0.08 -0.5 -1" scale="0.2 0.08 0.01" arnextbutton>
+        	<a-entity position="-0.08 -0.5 -1" scale="0.2 0.08 0.01" arnextbutton>
 	            <a-image src="assets/images/nextButton.png" preload="true"></a-image>
-    		</a-entity> -->
+    		</a-entity>
 
-    		<!-- <a-entity position="0.08 -0.5 -1" scale="0.1 0.1 0.01" arcapturebutton>
+    		<a-entity position="0.08 -0.5 -1" scale="0.1 0.1 0.01" arcapturebutton>
 	            <a-image src="assets/images/record.png" preload="true"></a-image>
-    		</a-entity> -->
+    		</a-entity>
         </a-camera>
-
-		<!-- <a-entity position="0.08 -0.5 -1" scale="0.1 0.1 0.01" arcapturebutton>
-	        <a-image src="assets/images/record.png" preload="true"></a-image>
-    	</a-entity> -->
-
-    	<a-sphere position="0.08 -0.5 -1" radius="0.5" color="#EF2D5E" arcapturebutton></a-sphere>
 
         <!-- <div class="capture" aframe-injected>
         	<button aframe-injected>PP</button>
