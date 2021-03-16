@@ -87,11 +87,11 @@ var onlongtouch;
 var timer;
 var touchduration = 500; //length of time we want the user to touch before we do something
 
-touchstart() {
+touchstart = () => {
     timer = setTimeout(onlongtouch, touchduration); 
 }
 
-touchend() {
+touchend = () => {
     //stops short touches from firing the event
     if (timer)
         clearTimeout(timer); // clearTimeout, not cleartimeout..
@@ -99,7 +99,7 @@ touchend() {
         takePicture();
 }
 
-onlongtouch = function() { 
+onlongtouch = () => { 
     videoCanvas.width = 500;
     videoCanvas.height = 300;
 
