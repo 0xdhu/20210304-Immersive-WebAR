@@ -46,8 +46,8 @@ window.onload = function () {
     //takePicture();
   });
 
-  document.querySelector(".record-button").addEventListener("touchstart", touchstart, false);
-  document.querySelector(".record-button").addEventListener("touchend", touchend, false);
+  document.querySelector(".capture-button").addEventListener("touchstart", touchstart, false);
+  document.querySelector(".capture-button").addEventListener("touchend", touchend, false);
 
   // document.querySelector("a-scene").querySelector(".nextarbutton").addEventListener("click", function () {
   //   let totalPage = Math.ceil(totalImages / imagesPerScene);
