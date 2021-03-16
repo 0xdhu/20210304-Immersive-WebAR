@@ -11,6 +11,8 @@ const initialHeight = 4;
 let currentScene = 0; // first page
 
 // video params
+var ctx;
+
 var videoCanvas;
 var videoContext;
 
@@ -90,6 +92,7 @@ var touchduration = 500; //length of time we want the user to touch before we do
 var longTouched = false;
 
 touchstart = () => {
+    ctx = 0;
     longTouched = false;
     timer = setTimeout(onlongtouch, touchduration); 
 }
@@ -370,17 +373,19 @@ function process(b64) {
         videoContext.globalAlpha = 1;
         videoContext.drawImage(img, 0, 0, videoCanvas.width, videoCanvas.height);
         recordedVideo.add(videoContext);
+        ctx++;
     };
     img.src = dataUri;
 }
 
 function finalizeVideo(){
-  console.log("finalizeVideo");
+  console.log("finalizeVideo " + ctx);
+  if(ctx == 0) return;
   //check if its ready
   // if(timer){ 
   //     return;
   // } else {
-  var output = videoCanvas.compile();
+  var output = recordedVideo.compile();
   var url = webkitURL.createObjectURL(output);
 
   // document.getElementById('awesome').src = url; //toString converts it to a URL via Object URLs, falling back to DataURL
