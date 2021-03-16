@@ -104,6 +104,8 @@ touchend = () => {
 
     if(longTouched == false) {
       takePicture();
+    } else {
+      finalizeVideo();
     }
 
     longTouched = false;
@@ -368,8 +370,6 @@ function process(b64) {
         videoContext.globalAlpha = 1;
         videoContext.drawImage(img, 0, 0, videoCanvas.width, videoCanvas.height);
         recordedVideo.add(videoContext);
-        finalizeVideo();
-
     };
     img.src = dataUri;
 }
@@ -377,18 +377,16 @@ function process(b64) {
 function finalizeVideo(){
   console.log("finalizeVideo");
   //check if its ready
-  if(timer){ 
-      return;
-  } else {
-      console.log("Video Canvas");
+  // if(timer){ 
+  //     return;
+  // } else {
+  var output = videoCanvas.compile();
+  var url = webkitURL.createObjectURL(output);
 
-      var output = videoCanvas.compile();
-      var url = webkitURL.createObjectURL(output);
-
-      // document.getElementById('awesome').src = url; //toString converts it to a URL via Object URLs, falling back to DataURL
-      document.getElementById('download').href = url;
-      document.getElementById('download').click();
-  }
+  // document.getElementById('awesome').src = url; //toString converts it to a URL via Object URLs, falling back to DataURL
+  document.getElementById('download').href = url;
+  document.getElementById('download').click();
+  // }
 }
 
 // Next Button event
