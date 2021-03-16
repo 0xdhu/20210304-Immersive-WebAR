@@ -10,8 +10,21 @@ const initialHeight = 4;
 
 let currentScene = 0; // first page
 
+// video params
+var videoCanvas;
+var videoContext;
+
+//image to video via Whammy
+var recordedVideo;
+
+// endvideo
+
 // main load
 window.onload = function () {
+  
+  videoCanvas = document.getElementById("videoCanvas");
+  videocontext = videoCanvas.getContext("2d");
+
   // add all images when load page
   addImageEntries();
 
@@ -19,9 +32,7 @@ window.onload = function () {
   changeImageArray(currentScene);
 
   // when tap on "next" button, shows another images
-	document
-  .querySelector(".next-button")
-  .addEventListener("click", function () {
+	document.querySelector(".next-button").addEventListener("click", function () {
 
     let totalPage = Math.ceil(totalImages / imagesPerScene);
     let nextScene = currentScene = (currentScene + 1) % totalPage;
@@ -32,8 +43,11 @@ window.onload = function () {
   });
 
   document.querySelector(".capture-button").addEventListener("click", function() {
-    takePicture();
+    //takePicture();
   });
+
+  document.querySelector(".record-button").addEventListener("touchstart", touchstart, false);
+  document.querySelector(".record-button").addEventListener("touchend", touchend, false);
 
   // document.querySelector("a-scene").querySelector(".nextarbutton").addEventListener("click", function () {
   //   let totalPage = Math.ceil(totalImages / imagesPerScene);
@@ -43,7 +57,7 @@ window.onload = function () {
   //   // update current scene' number
   //   currentScene = nextScene;
   // });
-  
+
   // Raycaster event on each image
   var imgElems = document.querySelectorAll(".clickable");
 
@@ -67,6 +81,30 @@ window.onload = function () {
     });
   });
 
+};
+
+var onlongtouch; 
+var timer;
+var touchduration = 500; //length of time we want the user to touch before we do something
+
+touchstart() {
+    timer = setTimeout(onlongtouch, touchduration); 
+}
+
+touchend() {
+    //stops short touches from firing the event
+    if (timer)
+        clearTimeout(timer); // clearTimeout, not cleartimeout..
+    else
+        takePicture();
+}
+
+onlongtouch = function() { 
+    videoCanvas.width = 500;
+    videoCanvas.height = 300;
+
+    recordedVideo = new Whammy.Video(30);
+    takeRecord();
 };
 
 // add images into scene when app start
@@ -215,6 +253,7 @@ function captureVideoFrame(video, format, width, height)
     return { blob: blob, dataUri: dataUri, format: format, width: canvas.width, height: canvas.height };
 }
 
+// screenshot
 const takePicture = () => {
   let video = document.querySelector("video");
   video.pause();
@@ -271,6 +310,61 @@ const takePicture = () => {
   //     }, 1);
   // });
     // document.querySelector('a-scene').components.screenshot.capture('perspective');
+}
+
+// record video
+const takeRecord = () => {
+  if(timer) return;
+
+  let video = document.querySelector("video");
+  video.pause();
+
+  let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
+  
+  let frame = captureVideoFrame("video", "png");
+  
+  aScene = resizeCanvas(aScene, frame.width, frame.height);
+  frame = frame.dataUri;
+
+  mergeImages([frame, aScene]).then(b64 =>
+  {
+    process(b64);
+  });
+
+  video.play();
+
+  if(timer) takeRecord();
+}
+
+/* main process function */
+function process(b64) {
+    var dataUri = b64;
+    var img = new Image();
+ 
+    //load image and drop into canvas
+    img.onload = function() {
+        videoContext.clearRect(0,0,videoContext.canvas.width,videoContext.canvas.height);
+        videoContext.globalAlpha = 1;
+        videoContext.drawImage(img, 0, 0, videoCanvas.width, videoCanvas.height);
+        recordedVideo.add(videoContext);
+        finalizeVideo();
+
+    };
+    img.src = dataUri;
+}
+
+function finalizeVideo(){
+  //check if its ready
+  if(timer){ 
+      return;
+  } else {
+      var output = video.compile();
+      var url = webkitURL.createObjectURL(output);
+
+      // document.getElementById('awesome').src = url; //toString converts it to a URL via Object URLs, falling back to DataURL
+      document.getElementById('download').href = url;
+      document.getElementById('download').click();
+  }
 }
 
 // Next Button event
