@@ -111,6 +111,9 @@ onlongtouch = () => {
     videoCanvas.height = 300;
 
     recordedVideo = new Whammy.Video(30);
+
+    console.log("Take Recording ... ");
+
     takeRecord();
 };
 
@@ -321,26 +324,26 @@ const takePicture = () => {
 
 // record video
 const takeRecord = () => {
-  if(timer) return;
+  if(timer) {
+    let video = document.querySelector("video");
+    video.pause();
 
-  let video = document.querySelector("video");
-  video.pause();
+    let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
+    
+    let frame = captureVideoFrame("video", "png");
+    
+    aScene = resizeCanvas(aScene, frame.width, frame.height);
+    frame = frame.dataUri;
 
-  let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
-  
-  let frame = captureVideoFrame("video", "png");
-  
-  aScene = resizeCanvas(aScene, frame.width, frame.height);
-  frame = frame.dataUri;
+    mergeImages([frame, aScene]).then(b64 =>
+    {
+      process(b64);
+    });
 
-  mergeImages([frame, aScene]).then(b64 =>
-  {
-    process(b64);
-  });
+    video.play();
 
-  video.play();
-
-  if(timer) takeRecord();
+    takeRecord();
+  }
 }
 
 /* main process function */
