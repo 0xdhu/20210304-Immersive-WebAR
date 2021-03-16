@@ -85,6 +85,7 @@ window.onload = function () {
 
 var onlongtouch; 
 var timer;
+var updateTimer;
 var touchduration = 500; //length of time we want the user to touch before we do something
 var longTouched = false;
 
@@ -98,6 +99,9 @@ touchend = () => {
     if (timer)
         clearTimeout(timer); // clearTimeout, not cleartimeout..
     
+    if (updateTimer)
+        clearInterval(updateTimer);
+
     if(longTouched == false) {
       takePicture();
     }
@@ -113,8 +117,9 @@ onlongtouch = () => {
     recordedVideo = new Whammy.Video(30);
 
     console.log("Take Recording ... ");
+    updateTimer = setInterval(takeRecord, 33);
 
-    takeRecord();
+    // takeRecord();
 };
 
 // add images into scene when app start
@@ -326,7 +331,7 @@ const takePicture = () => {
 const takeRecord = () => {
   if(timer) {
     console.log("Take Record Update");
-    
+
     let video = document.querySelector("video");
     video.pause();
 
@@ -343,9 +348,6 @@ const takeRecord = () => {
     });
 
     video.play();
-
-    
-    takeRecord();
   } else {
     console.log("Take Record Update NO");
     return;
@@ -356,9 +358,12 @@ const takeRecord = () => {
 function process(b64) {
     var dataUri = b64;
     var img = new Image();
- 
+  
+    console.log("process");
+
     //load image and drop into canvas
     img.onload = function() {
+        console.log("image loaded");
         videoContext.clearRect(0,0,videoContext.canvas.width,videoContext.canvas.height);
         videoContext.globalAlpha = 1;
         videoContext.drawImage(img, 0, 0, videoCanvas.width, videoCanvas.height);
