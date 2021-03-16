@@ -342,7 +342,10 @@ const takeRecord = () => {
 
     video.play();
 
+    console.log("Take Record Update");
     takeRecord();
+  } else {
+    return;
   }
 }
 
@@ -370,7 +373,7 @@ function finalizeVideo(){
       return;
   } else {
       console.log("Video Canvas");
-      
+
       var output = videoCanvas.compile();
       var url = webkitURL.createObjectURL(output);
 
