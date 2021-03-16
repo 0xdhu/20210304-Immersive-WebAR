@@ -91,13 +91,15 @@ var updateTimer;
 var touchduration = 500; //length of time we want the user to touch before we do something
 var longTouched = false;
 
-touchstart = () => {
+touchstart = (e) => {
+    e.preventDefault();
     ctx = 0;
     longTouched = false;
     timer = setTimeout(onlongtouch, touchduration); 
 }
 
-touchend = () => {
+touchend = (e) => {
+    e.preventDefault();
     //stops short touches from firing the event
     if (timer)
         clearTimeout(timer); // clearTimeout, not cleartimeout..
@@ -338,7 +340,7 @@ const takeRecord = () => {
     console.log("Take Record Update");
 
     let video = document.querySelector("video");
-    video.pause();
+    // video.pause();
 
     let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
     
@@ -352,7 +354,7 @@ const takeRecord = () => {
       process(b64);
     });
 
-    video.play();
+    // video.play();
   } else {
     console.log("Take Record Update NO");
     return;
