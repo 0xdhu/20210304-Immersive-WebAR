@@ -325,6 +325,8 @@ const takePicture = () => {
 // record video
 const takeRecord = () => {
   if(timer) {
+    console.log("Take Record Update");
+    
     let video = document.querySelector("video");
     video.pause();
 
@@ -342,9 +344,10 @@ const takeRecord = () => {
 
     video.play();
 
-    console.log("Take Record Update");
+    
     takeRecord();
   } else {
+    console.log("Take Record Update NO");
     return;
   }
 }
