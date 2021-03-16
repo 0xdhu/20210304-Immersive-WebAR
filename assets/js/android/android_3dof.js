@@ -119,7 +119,7 @@ onlongtouch = () => {
     videoCanvas.width = 500;
     videoCanvas.height = 300;
 
-    recordedVideo = new Whammy.Video(3);
+    recordedVideo = new Whammy.Video(30);
 
     console.log("Take Recording ... ");
     updateTimer = setInterval(takeRecord, 33);
