@@ -364,11 +364,14 @@ function process(b64) {
 }
 
 function finalizeVideo(){
+  console.log("finalizeVideo");
   //check if its ready
   if(timer){ 
       return;
   } else {
-      var output = video.compile();
+      console.log("Video Canvas");
+      
+      var output = videoCanvas.compile();
       var url = webkitURL.createObjectURL(output);
 
       // document.getElementById('awesome').src = url; //toString converts it to a URL via Object URLs, falling back to DataURL
