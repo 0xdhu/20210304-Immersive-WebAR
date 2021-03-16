@@ -3,7 +3,7 @@
 // In this case, we do this in another way
 const android_arcore = 'android_arcore.html';
 const android_3dof = 'android_3DOF.html';
-const ios_composer = 'assets/models/ios/model.usdz';
+const ios_composer =  'assets/models/ios/uocTest.reality'; //'assets/models/ios/model.usdz';
 const ios_3dof = 'ios.html';
 
 let baseURL = "";
