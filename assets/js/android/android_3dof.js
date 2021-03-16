@@ -23,7 +23,7 @@ var recordedVideo;
 window.onload = function () {
   
   videoCanvas = document.getElementById("videoCanvas");
-  videocontext = videoCanvas.getContext("2d");
+  videoContext = videoCanvas.getContext("2d");
 
   // add all images when load page
   addImageEntries();
