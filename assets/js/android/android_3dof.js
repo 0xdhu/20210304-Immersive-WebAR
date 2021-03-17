@@ -287,6 +287,7 @@ const takePicture = () => {
   aScene = resizeCanvas(aScene, frame.width, frame.height);
   frame = frame.dataUri;
 
+  console.log("before merge " + Date.now());
   mergeImages([frame, aScene]).then(b64 =>
   {
     var fileName = 'webar-experience' + '-' + Date.now() + '.png';
@@ -298,6 +299,8 @@ const takePicture = () => {
     linkEl.style.display = 'none';
 
     document.body.appendChild(linkEl);
+    
+    console.log("after merge " + Date.now());
 
     setTimeout(function () {
       linkEl.click();
