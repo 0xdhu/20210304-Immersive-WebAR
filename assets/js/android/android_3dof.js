@@ -279,15 +279,19 @@ function captureVideoFrame(video, format, width, height)
 const takePicture = () => {
   let video = document.querySelector("video");
   video.pause();
+  
+  var startTimes = Date.now();
 
   let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
+
+  console.log("perspective " + Date.now() - startTimes);
   
   let frame = captureVideoFrame("video", "png");
   
   aScene = resizeCanvas(aScene, frame.width, frame.height);
   frame = frame.dataUri;
 
-  console.log("before merge " + Date.now());
+  startTimes = Date.now();
   mergeImages([frame, aScene]).then(b64 =>
   {
     var fileName = 'webar-experience' + '-' + Date.now() + '.png';
@@ -300,7 +304,7 @@ const takePicture = () => {
 
     document.body.appendChild(linkEl);
     
-    console.log("after merge " + Date.now());
+    console.log("after merge w" + Date.now() - startTimes);
 
     setTimeout(function () {
       linkEl.click();
@@ -370,6 +374,7 @@ function process(b64) {
     var img = new Image();
   
     console.log("process");
+    var startTimes = Date.now();
 
     //load image and drop into canvas
     img.onload = function() {
@@ -379,6 +384,8 @@ function process(b64) {
         videoContext.drawImage(img, 0, 0, videoCanvas.width, videoCanvas.height);
         recordedVideo.add(videoContext);
         ctx++;
+
+        console.log("SSSSSSSSSS " + Date.now() - startTimes);
     };
     img.src = dataUri;
 }
