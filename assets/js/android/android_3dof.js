@@ -292,8 +292,12 @@ const takePicture = () => {
 
   console.log("AAAAAAAA " + (Date.now() - startTimes).toString());
   
+  startTimes = Date.now();
+
   aScene = resizeCanvas(aScene, frame.width, frame.height);
   frame = frame.dataUri;
+
+  console.log("BBBBBB " + (Date.now() - startTimes).toString());
 
   startTimes = Date.now();
   mergeImages([frame, aScene]).then(b64 =>
