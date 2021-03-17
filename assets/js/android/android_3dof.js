@@ -235,7 +235,7 @@ function resizeCanvas(origCanvas, width, height)
     resizedCanvas.width = width;
 
     resizedContext.drawImage(origCanvas, offsetX, 0, w, h);
-    return resizedCanvas.toDataURL();
+    return resizedCanvas; //.toDataURL();
 }
 
 function captureVideoFrame(video, format, width, height)
