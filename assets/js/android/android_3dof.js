@@ -331,9 +331,10 @@ const takeRecord = () => {
     videoContext.clearRect(0,0,videoContext.canvas.width,videoContext.canvas.height);
     videoContext.globalAlpha = 1;
     videoContext.drawImage(video, 0, 0, video.width, video.height);
-    videoContext.drawImage(aScene, 0, 0, video.width, video.height);
+    // videoContext.drawImage(aScene, 0, 0, video.width, video.height);
 
     recordedVideo.add(videoContext);
+    console.log("******** " + ctx);
     ctx++;
   } else {
     console.log("Take Record Update NO");
