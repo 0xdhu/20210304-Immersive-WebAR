@@ -385,7 +385,7 @@ function process(b64) {
         recordedVideo.add(videoContext);
         ctx++;
 
-        console.log("SSSSSSSSSS " + Date.now() - startTimes);
+        console.log("SSSSSSSSSS " + (Date.now() - startTimes).toString());
     };
     img.src = dataUri;
 }
