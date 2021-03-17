@@ -200,7 +200,6 @@ const changeImageArray = (sceneNumber) => {
     elem.object3D.position.y = 0;
     elem.object3D.position.z = Math.sin(parseFloat(radian)) * initialDistance;
 
-
     console.log(typeof(radian) + radian + " " + elem.object3D.position.x + " " + elem.object3D.position.z);
   }
 }
@@ -279,25 +278,12 @@ function captureVideoFrame(video, format, width, height)
 const takePicture = () => {
   let video = document.querySelector("video");
   video.pause();
-  
-  var startTimes = Date.now();
 
   let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
-
-  console.log("perspective " + (Date.now() - startTimes).toString());
-
-  startTimes = Date.now();
-  
   let frame = captureVideoFrame("video", "png");
-
-  console.log("AAAAAAAA " + (Date.now() - startTimes).toString());
-  
-  startTimes = Date.now();
 
   aScene = resizeCanvas(aScene, frame.width, frame.height);
   frame = frame.dataUri;
-
-  console.log("BBBBBB " + (Date.now() - startTimes).toString());
 
   startTimes = Date.now();
   mergeImages([frame, aScene]).then(b64 =>
@@ -311,65 +297,44 @@ const takePicture = () => {
     linkEl.style.display = 'none';
 
     document.body.appendChild(linkEl);
-    
-    console.log("after merge w" + (Date.now() - startTimes).toString());
 
     setTimeout(function () {
       linkEl.click();
       document.body.removeChild(linkEl);
     }, 1);
-
-    // let link = document.getElementById("download-link", "png");
-
-    // link.setAttribute("download", "AR.png");
-    // link.setAttribute("href", b64);
-    // link.click();
   });
 
   video.play();
-  // const screenshotTarget = document.querySelector("a-scene");
-
-  // html2canvas(screenshotTarget).then((canvas) => {
-  //     const base64image = canvas.toDataURL("image/png");
-  //     // window.location.href = base64image;
-
-  //     var fileName = 'webar-experience' + '-' + Date.now() + '.png';
-  //     var linkEl = document.createElement('a');
-  //     var url = base64image;
-  //     linkEl.href = url;
-  //     linkEl.setAttribute('download', fileName);
-  //     linkEl.innerHTML = 'downloading...';
-  //     linkEl.style.display = 'none';
-  //     document.body.appendChild(linkEl);
-  //     setTimeout(function () {
-  //       linkEl.click();
-  //       document.body.removeChild(linkEl);
-  //     }, 1);
-  // });
-    // document.querySelector('a-scene').components.screenshot.capture('perspective');
 }
 
 // record video
 const takeRecord = () => {
   if(timer) {
-    console.log("Take Record Update");
-
     let video = document.querySelector("video");
     // video.pause();
 
-    let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
-    
-    let frame = captureVideoFrame("video", "png");
-    
-    aScene = resizeCanvas(aScene, frame.width, frame.height);
-    frame = frame.dataUri;
+    // let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
+    let aScene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
+    aScene = resizeCanvas(aScene, aScene.width, aScene.height);
 
-    mergeImages([frame, aScene]).then(b64 =>
-    {
-      process(b64);
-    });
+    // let frame = captureVideoFrame("video", "png");
+    
+    // aScene = resizeCanvas(aScene, frame.width, frame.height);
+    // frame = frame.dataUri;
+
+    // mergeImages([frame, aScene]).then(b64 =>
+    // {
+    //   process(b64);
+    // });
 
     // video.play();
+    videoContext.clearRect(0,0,videoContext.canvas.width,videoContext.canvas.height);
+    videoContext.globalAlpha = 1;
+    videoContext.drawImage(video, 0, 0, video.width, video.height);
+    videoContext.drawImage(aScene, 0, 0, video.width, video.height);
+
+    recordedVideo.add(videoContext);
+    ctx++;
   } else {
     console.log("Take Record Update NO");
     return;
@@ -381,37 +346,25 @@ function process(b64) {
     var dataUri = b64;
     var img = new Image();
   
-    console.log("process");
-    var startTimes = Date.now();
-
     //load image and drop into canvas
     img.onload = function() {
-        console.log("image loaded");
         videoContext.clearRect(0,0,videoContext.canvas.width,videoContext.canvas.height);
         videoContext.globalAlpha = 1;
         videoContext.drawImage(img, 0, 0, videoCanvas.width, videoCanvas.height);
         recordedVideo.add(videoContext);
         ctx++;
-
-        console.log("SSSSSSSSSS " + (Date.now() - startTimes).toString());
     };
     img.src = dataUri;
 }
 
-function finalizeVideo(){
-  console.log("finalizeVideo " + ctx);
+const finalizeVideo = () => {
   if(ctx == 0) return;
-  //check if its ready
-  // if(timer){ 
-  //     return;
-  // } else {
+
   var output = recordedVideo.compile();
   var url = webkitURL.createObjectURL(output);
 
-  // document.getElementById('awesome').src = url; //toString converts it to a URL via Object URLs, falling back to DataURL
   document.getElementById('download').href = url;
   document.getElementById('download').click();
-  // }
 }
 
 // Next Button event
