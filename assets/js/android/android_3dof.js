@@ -285,8 +285,12 @@ const takePicture = () => {
   let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
 
   console.log("perspective " + (Date.now() - startTimes).toString());
+
+  startTimes = Date.now();
   
   let frame = captureVideoFrame("video", "png");
+
+  console.log("AAAAAAAA " + (Date.now() - startTimes).toString());
   
   aScene = resizeCanvas(aScene, frame.width, frame.height);
   frame = frame.dataUri;
