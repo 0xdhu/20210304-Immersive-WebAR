@@ -284,7 +284,7 @@ const takePicture = () => {
 
   let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
 
-  console.log("perspective " + Date.now() - startTimes);
+  console.log("perspective " + (Date.now() - startTimes).toString());
   
   let frame = captureVideoFrame("video", "png");
   
@@ -304,7 +304,7 @@ const takePicture = () => {
 
     document.body.appendChild(linkEl);
     
-    console.log("after merge w" + Date.now() - startTimes);
+    console.log("after merge w" + (Date.now() - startTimes).toString());
 
     setTimeout(function () {
       linkEl.click();
