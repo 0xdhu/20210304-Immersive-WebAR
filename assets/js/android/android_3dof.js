@@ -345,8 +345,8 @@ const takeRecord = () => {
     // video.pause();
 
     // let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
-    // let aScene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
-    // aScene = resizeRecordCanvas(aScene, video.videoWidth, video.videoHeight);
+    let aScene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
+    aScene = resizeRecordCanvas(aScene, screen.width, screen.height);
 
     // let frame = captureVideoFrame("video", "png");
     
@@ -378,9 +378,9 @@ const takeRecord = () => {
 
     videoContext.drawImage(video, 0, 0, screen.width, screen.height);
 
-    // videoContext.drawImage(aScene, 0, 0, video.videoWidth, video.videoHeight);
+    videoContext.drawImage(aScene, 0, 0, screen.width, screen.height);
     // videoContextStack.push(videoContext);
-    recordedVideo.add(videoContext, 1000/30);
+    recordedVideo.add(videoContext);
     console.log("******** " + ctx);
     ctx++;
   } else {
