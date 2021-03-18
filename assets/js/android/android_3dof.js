@@ -121,9 +121,12 @@ touchend = (e) => {
 }
 
 let ARvideo;
+let ARscene;
 
 onlongtouch = () => { 
     ARvideo = document.querySelector("video");
+    ARscene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
+
     longTouched = true;
     // videoCanvas.width = 500;
     // videoCanvas.height = 300;
@@ -346,14 +349,14 @@ function resizeRecordCanvas(origCanvas, width, height)
 // record video
 const takeRecord = () => {
   if(timer) {
-    let video = document.querySelector("video");
+    let video = ARvideo;
 
     let tempvideo = document.createElement("video");
     // video.pause();
 
     //let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
-    let aScene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
-    tempvideo.srcObject = aScene.captureStream(25);
+    let aScene = ARscene;
+    tempvideo.srcObject = aScene.captureStream(1);
 
     console.log(aScene);
 
@@ -393,14 +396,11 @@ const takeRecord = () => {
     videoContext.clearRect(0, 0, screen.width, screen.height);
     videoContext.globalAlpha = 1;
 
-    console.log("screen == " + voffsetx + " " + vw + " " + offsetx + " " + ww);
-
     videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
-
-    videoContext.drawImage(tempvideo, offsetx, 0, ww, screen.height);
-    // videoContextStack.push(videoContext);
+    videoContext.drawImage(tempvideo, -offsetx, 0, ww, screen.height);
+    
     recordedVideo.add(videoContext);
-    console.log("******** " + ctx);
+
     ctx++;
   } else {
     console.log("Take Record Update NO");
