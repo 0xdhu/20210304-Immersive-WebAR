@@ -355,7 +355,6 @@ const takeRecord = () => {
     // });
 
     // video.play();
-    console.log("vide == " + video.videoWidth + " " + video.videoHeight);
     
     videoCanvas.width = screen.width;
     videoCanvas.height = screen.height;
@@ -364,6 +363,8 @@ const takeRecord = () => {
 
     videoContext.clearRect(0, 0, screen.width, screen.height);
     videoContext.globalAlpha = 1;
+
+    console.log("screen == " + videoCanvas.width + " " + videoCanvas.height + " " + offsetx + " " + video.videoWidth);
 
     videoContext.drawImage(video, offsetx, 0, screen.width, screen.height);
 
