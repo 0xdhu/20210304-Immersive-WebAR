@@ -349,6 +349,9 @@ const takeRecord = () => {
 
     let ww = aScene.height / screen.height * screen.width;
     let offsetx = (ww - screen.width) / 2
+
+    let vw = screen.width/screen.height * video.videoHeight;
+    let voffsetx = (vw - screen.width) / 2;
     // aScene = resizeRecordCanvas(aScene, screen.width, screen.height);
 
     // let frame = captureVideoFrame("video", "png");
@@ -379,7 +382,7 @@ const takeRecord = () => {
 
     // console.log("screen == " + videoCanvas.width + " " + videoCanvas.height + " " + offsetx + " " + video.videoWidth);
 
-    videoContext.drawImage(video, 0, 0, screen.width, screen.height);
+    videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
 
     videoContext.drawImage(aScene, -offsetx, 0, ww, screen.height);
     // videoContextStack.push(videoContext);
