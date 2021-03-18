@@ -125,7 +125,7 @@ onlongtouch = () => {
     // videoCanvas.width = 500;
     // videoCanvas.height = 300;
 
-    recordedVideo = new Whammy.Video(30);
+    recordedVideo = new Whammy.Video(20);
 
     console.log("Take Recording ... ");
     updateTimer = setInterval(takeRecord, 33);
@@ -286,6 +286,7 @@ const takePicture = () => {
   video.pause();
 
   let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
+
   let frame = captureVideoFrame("video", "png");
 
   aScene = resizeCanvas(aScene, frame.width, frame.height);
@@ -344,8 +345,9 @@ const takeRecord = () => {
     let video = document.querySelector("video");
     // video.pause();
 
-    let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
-    // let aScene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
+    // let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
+    let aScene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
+    console.log(aScene);
 
     let ww = aScene.width / aScene.height * screen.height;
     let offsetx = (ww - screen.width) / 2
