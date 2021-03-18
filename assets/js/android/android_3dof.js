@@ -376,9 +376,7 @@ const takeRecord = () => {
 
     // videoContext.drawImage(aScene, 0, 0, video.videoWidth, video.videoHeight);
 
-    recordedVideo.add(videoContext);
-    recordedVideo.add(videoContext);
-    recordedVideo.add(videoContext);
+    // recordedVideo.add(videoContext);
     console.log("******** " + ctx);
     ctx++;
   } else {
