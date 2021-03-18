@@ -347,7 +347,8 @@ const takeRecord = () => {
     // let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
     let aScene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
 
-    let ww = aScene.height / screen.height * screen.weight;
+    let ww = aScene.height / screen.height * screen.width;
+    let offsetx = (ww - screen.width) / 2
     // aScene = resizeRecordCanvas(aScene, screen.width, screen.height);
 
     // let frame = captureVideoFrame("video", "png");
@@ -380,7 +381,7 @@ const takeRecord = () => {
 
     videoContext.drawImage(video, 0, 0, screen.width, screen.height);
 
-    videoContext.drawImage(aScene, 0, 0, ww, aScene.height);
+    videoContext.drawImage(aScene, -offsetx, 0, ww, screen.height);
     // videoContextStack.push(videoContext);
     recordedVideo.add(videoContext);
     console.log("******** " + ctx);
