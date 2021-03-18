@@ -313,8 +313,8 @@ const takeRecord = () => {
     let video = document.querySelector("video");
     // video.pause();
 
-    let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
-    // let aScene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
+    // let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
+    let aScene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
     aScene = resizeCanvas(aScene, video.videoWidth, video.videoHeight);
 
     // let frame = captureVideoFrame("video", "png");
