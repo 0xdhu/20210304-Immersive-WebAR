@@ -318,7 +318,6 @@ function resizeRecordCanvas(origCanvas, width, height)
     let resizedCanvas = document.createElement("canvas");
     let resizedContext = resizedCanvas.getContext("2d");
 
-    console.log("Screen width and height " + screen.width + " ** " + screen.height);
 
     if (screen.width < screen.height)
     {
@@ -335,6 +334,7 @@ function resizeRecordCanvas(origCanvas, width, height)
     resizedCanvas.height = height;
     resizedCanvas.width = width;
 
+    console.log("resized canvas " + w + " ** " + h + " ** " + offsetX);
     resizedContext.drawImage(origCanvas, offsetX, 0, w, h);
     return resizedCanvas; //.toDataURL();
 }
