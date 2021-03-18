@@ -314,6 +314,8 @@ function resizeRecordCanvas(origCanvas, width, height)
     let resizedCanvas = document.createElement("canvas");
     let resizedContext = resizedCanvas.getContext("2d");
 
+    console.log("Screen width and height " + screen.width + " ** " + screen.height);
+    
     if (screen.width < screen.height)
     {
         var w = height * (height / width);
