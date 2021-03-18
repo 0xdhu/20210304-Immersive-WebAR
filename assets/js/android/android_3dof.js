@@ -359,6 +359,12 @@ const takeRecord = () => {
     videoCanvas.width = screen.width;
     videoCanvas.height = screen.height;
 
+    let vidh = video.videoHeight;
+    let vidw = video.videoWidth;
+
+    video.videoHeight = screen.height;
+    video.videoWidth = vidw / vidh * screen.height;
+
     offsetx = (video.videoWidth / video.videoHeight * screen.height - screen.width) / 2;
 
     videoContext.clearRect(0, 0, screen.width, screen.height);
