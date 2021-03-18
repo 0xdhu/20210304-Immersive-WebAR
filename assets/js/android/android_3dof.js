@@ -334,7 +334,7 @@ function resizeRecordCanvas(origCanvas, width, height)
     resizedCanvas.height = height;
     resizedCanvas.width = width;
 
-    console.log("resized canvas " + w + " ** " + h + " ** " + offsetX);
+    console.log("resized canvas " + w + " ** " + h + " ** " + offsetX + " ** " + origCanvas.width + " ** " + origCanvas.height);
     resizedContext.drawImage(origCanvas, offsetX, 0, w, h);
     return resizedCanvas; //.toDataURL();
 }
