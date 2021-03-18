@@ -355,12 +355,12 @@ const takeRecord = () => {
     // });
 
     // video.play();
-
+    console.log("vide == " + video.videoWidth + " " + video.videoHeight);
     videoContext.clearRect(0, 0, video.videoWidth, video.videoHeight);
     videoContext.globalAlpha = 1;
 
     videoContext.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-    
+
     // videoContext.drawImage(aScene, 0, 0, video.videoWidth, video.videoHeight);
 
     recordedVideo.add(videoContext);
