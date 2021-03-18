@@ -384,7 +384,7 @@ const takeRecord = () => {
 
     console.log("screen == " + voffsetx + " " + vw + " " + offsetx + " " + ww);
 
-    // videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
+    videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
 
     videoContext.drawImage(aScene, -offsetx, 0, ww, screen.height);
     // videoContextStack.push(videoContext);
