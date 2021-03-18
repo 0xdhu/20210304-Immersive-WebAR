@@ -351,14 +351,10 @@ const takeRecord = () => {
   if(timer) {
     let video = ARvideo;
 
-    let tempvideo = document.createElement("video");
     // video.pause();
 
     //let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
     let aScene = ARscene;
-    tempvideo.srcObject = aScene.captureStream(1);
-
-    console.log(aScene);
 
     let ww = aScene.width / aScene.height * screen.height;
     let offsetx = (ww - screen.width) / 2
@@ -366,16 +362,6 @@ const takeRecord = () => {
     let vw = video.videoWidth/video.videoHeight * screen.height;
     let voffsetx = (vw - screen.width) / 2;
     // aScene = resizeRecordCanvas(aScene, screen.width, screen.height);
-
-    // let frame = captureVideoFrame("video", "png");
-    
-    // aScene = resizeCanvas(aScene, frame.width, frame.height);
-    // frame = frame.dataUri;
-
-    // mergeImages([frame, aScene]).then(b64 =>
-    // {
-    //   process(b64);
-    // });
 
     // video.play();
     
@@ -385,20 +371,13 @@ const takeRecord = () => {
     tempvideo.width = screen.width;
     tempvideo.height = screen.height;
 
-    // let vidh = video.videoHeight;
-    // let vidw = video.videoWidth;
-
-    // video.videoHeight = screen.height;
-    // video.videoWidth = vidw / vidh * screen.height;
-
-    // offsetx = (video.videoWidth - screen.width) / 2;
 
     videoContext.clearRect(0, 0, screen.width, screen.height);
     videoContext.globalAlpha = 1;
 
     videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
     videoContext.drawImage(tempvideo, -offsetx, 0, ww, screen.height);
-    
+
     recordedVideo.add(videoContext);
 
     ctx++;
