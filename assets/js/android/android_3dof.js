@@ -347,10 +347,10 @@ const takeRecord = () => {
     // let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
     let aScene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
 
-    let ww = aScene.height / screen.height * screen.width;
+    let ww = aScene.width / aScene.height * screen.height;
     let offsetx = (ww - screen.width) / 2
 
-    let vw = screen.width/screen.height * video.videoHeight;
+    let vw = video.videoWidth/video.videoHeight * screen.height;
     let voffsetx = (vw - screen.width) / 2;
     // aScene = resizeRecordCanvas(aScene, screen.width, screen.height);
 
