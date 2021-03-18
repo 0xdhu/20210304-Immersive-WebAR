@@ -315,7 +315,7 @@ function resizeRecordCanvas(origCanvas, width, height)
     let resizedContext = resizedCanvas.getContext("2d");
 
     console.log("Screen width and height " + screen.width + " ** " + screen.height);
-    
+
     if (screen.width < screen.height)
     {
         var w = height * (height / width);
@@ -355,10 +355,13 @@ const takeRecord = () => {
     // });
 
     // video.play();
-    videoContext.clearRect(0,0,videoContext.canvas.width,videoContext.canvas.height);
+
+    videoContext.clearRect(0, 0, video.videoWidth, video.videoHeight);
     videoContext.globalAlpha = 1;
+
     videoContext.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-    videoContext.drawImage(aScene, 0, 0, video.videoWidth, video.videoHeight);
+    
+    // videoContext.drawImage(aScene, 0, 0, video.videoWidth, video.videoHeight);
 
     recordedVideo.add(videoContext);
     console.log("******** " + ctx);
