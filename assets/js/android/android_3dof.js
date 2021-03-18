@@ -380,7 +380,7 @@ const takeRecord = () => {
     videoContext.clearRect(0, 0, screen.width, screen.height);
     videoContext.globalAlpha = 1;
 
-    // console.log("screen == " + videoCanvas.width + " " + videoCanvas.height + " " + offsetx + " " + video.videoWidth);
+    console.log("screen == " + voffsetx + " " + vw + " " + offsetx + " " + ww);
 
     videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
 
