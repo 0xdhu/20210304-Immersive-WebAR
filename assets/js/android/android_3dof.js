@@ -118,8 +118,8 @@ touchend = (e) => {
 
 onlongtouch = () => { 
     longTouched = true;
-    videoCanvas.width = 500;
-    videoCanvas.height = 300;
+    // videoCanvas.width = 500;
+    // videoCanvas.height = 300;
 
     recordedVideo = new Whammy.Video(30);
 
@@ -235,8 +235,10 @@ function resizeCanvas(origCanvas, width, height)
     resizedCanvas.width = width;
 
     resizedContext.drawImage(origCanvas, offsetX, 0, w, h);
-    return resizedCanvas; //.toDataURL();
+    return resizedCanvas.toDataURL();
 }
+
+
 
 function captureVideoFrame(video, format, width, height)
 {
@@ -307,6 +309,29 @@ const takePicture = () => {
   video.play();
 }
 
+function resizeRecordCanvas(origCanvas, width, height)
+{
+    let resizedCanvas = document.createElement("canvas");
+    let resizedContext = resizedCanvas.getContext("2d");
+
+    if (screen.width < screen.height)
+    {
+        var w = height * (height / width);
+        var h = width * (height / width);
+        var offsetX = -(height - width);
+    }
+    else
+    {
+        var w = width;
+        var h = height;
+        var offsetX = 0;
+    }
+    resizedCanvas.height = height;
+    resizedCanvas.width = width;
+
+    resizedContext.drawImage(origCanvas, offsetX, 0, w, h);
+    return resizedCanvas; //.toDataURL();
+}
 // record video
 const takeRecord = () => {
   if(timer) {
