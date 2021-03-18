@@ -359,20 +359,20 @@ const takeRecord = () => {
     videoCanvas.width = screen.width;
     videoCanvas.height = screen.height;
 
-    let vidh = video.videoHeight;
-    let vidw = video.videoWidth;
+    // let vidh = video.videoHeight;
+    // let vidw = video.videoWidth;
 
-    video.videoHeight = screen.height;
-    video.videoWidth = vidw / vidh * screen.height;
+    // video.videoHeight = screen.height;
+    // video.videoWidth = vidw / vidh * screen.height;
 
-    offsetx = (video.videoWidth / video.videoHeight * screen.height - screen.width) / 2;
+    // offsetx = (video.videoWidth - screen.width) / 2;
 
     videoContext.clearRect(0, 0, screen.width, screen.height);
     videoContext.globalAlpha = 1;
 
-    console.log("screen == " + videoCanvas.width + " " + videoCanvas.height + " " + offsetx + " " + video.videoWidth);
+    // console.log("screen == " + videoCanvas.width + " " + videoCanvas.height + " " + offsetx + " " + video.videoWidth);
 
-    videoContext.drawImage(video, offsetx, 0, screen.width, screen.height);
+    videoContext.drawImage(video, 0, 0, screen.width, screen.height);
 
     // videoContext.drawImage(aScene, 0, 0, video.videoWidth, video.videoHeight);
 
