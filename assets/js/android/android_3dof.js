@@ -16,6 +16,8 @@ var ctx;
 var videoCanvas;
 var videoContext;
 
+var videoContextStack = [];
+
 //image to video via Whammy
 var recordedVideo;
 
@@ -92,6 +94,8 @@ var touchduration = 500; //length of time we want the user to touch before we do
 var longTouched = false;
 
 touchstart = (e) => {
+    if(videoContextStack.length > 0) return;
+    
     e.preventDefault();
     ctx = 0;
     longTouched = false;
@@ -375,7 +379,7 @@ const takeRecord = () => {
     videoContext.drawImage(video, 0, 0, screen.width, screen.height);
 
     // videoContext.drawImage(aScene, 0, 0, video.videoWidth, video.videoHeight);
-
+    videoContextStack.push(videoContext);
     // recordedVideo.add(videoContext);
     console.log("******** " + ctx);
     ctx++;
@@ -404,11 +408,17 @@ function process(b64) {
 const finalizeVideo = () => {
   if(ctx == 0) return;
 
+  for (var i = 0; i < videoContextStack.length; i++) {
+    recordedVideo.add(videoContextStack[i]);
+  }
+
   var output = recordedVideo.compile();
   var url = webkitURL.createObjectURL(output);
 
   document.getElementById('download').href = url;
   document.getElementById('download').click();
+
+  videoContextStack = [];
 }
 
 // Next Button event
