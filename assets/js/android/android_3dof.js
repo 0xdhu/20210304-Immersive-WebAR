@@ -120,7 +120,10 @@ touchend = (e) => {
     longTouched = false;
 }
 
+let ARvideo;
+
 onlongtouch = () => { 
+    ARvideo = document.querySelector("video");
     longTouched = true;
     // videoCanvas.width = 500;
     // videoCanvas.height = 300;
@@ -283,6 +286,7 @@ function captureVideoFrame(video, format, width, height)
 // screenshot
 const takePicture = () => {
   let video = document.querySelector("video");
+
   video.pause();
 
   let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
@@ -343,10 +347,14 @@ function resizeRecordCanvas(origCanvas, width, height)
 const takeRecord = () => {
   if(timer) {
     let video = document.querySelector("video");
+
+    let tempvideo = document.createElement("video");
     // video.pause();
 
     //let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
     let aScene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
+    tempvideo.srcObject = aScene.captureStream(25);
+
     console.log(aScene);
 
     let ww = aScene.width / aScene.height * screen.height;
@@ -371,6 +379,9 @@ const takeRecord = () => {
     videoCanvas.width = screen.width;
     videoCanvas.height = screen.height;
 
+    tempvideo.width = screen.width;
+    tempvideo.height = screen.height;
+
     // let vidh = video.videoHeight;
     // let vidw = video.videoWidth;
 
@@ -386,7 +397,7 @@ const takeRecord = () => {
 
     videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
 
-    videoContext.drawImage(aScene, -offsetx, 0, ww, screen.height);
+    videoContext.drawImage(tempvideo, offsetx, 0, ww, screen.height);
     // videoContextStack.push(videoContext);
     recordedVideo.add(videoContext);
     console.log("******** " + ctx);
