@@ -29,6 +29,12 @@ window.onload = function () {
   videoCanvas = document.getElementById("videoCanvas");
   videoContext = videoCanvas.getContext("2d");
 
+  new THREE.WebGLRenderer({
+    canvas: videoCanvas,
+    antialias: true,
+    alpha: true
+  });
+  
   // add all images when load page
   addImageEntries();
 
@@ -375,11 +381,7 @@ const takeRecord = () => {
 
     // videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
     // videoContext.drawImage(aScene, -offsetx, 0, ww, screen.height);
-    new THREE.WebGLRenderer({
-      canvas: videoCanvas,
-      antialias: true,
-      alpha: true
-    });
+    
     // videoContext.drawImage(aScene, 0, 0);
 
 
