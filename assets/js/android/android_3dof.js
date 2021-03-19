@@ -252,8 +252,7 @@ const resizeCanvas = (origCanvas, width, height) => {
     return resizedCanvas.toDataURL();
 }
 
-const captureVideoFrame => (video, format, width, height)
-{
+const captureVideoFrame = (video, format, width, height) => {
     if (typeof video === 'string')
     {
         video = document.querySelector(video);
