@@ -379,7 +379,7 @@ const takeRecord = () => {
     
     var elsm = document.createElement("a");
     elsm.href = aScene.toDataURL();
-    elsm.setAttribute('download', fileName);
+    elsm.setAttribute('download', "fileName.png");
     elsm.innerHTML = 'downloading...';
     elsm.style.display = 'none';
     elsm.click();
