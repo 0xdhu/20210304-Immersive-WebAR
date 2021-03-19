@@ -1,33 +1,62 @@
-
+// Base URL for image asset
 const imageURL = 'assets/images/';
 
+/************************
+** Placement for images
+************************/
+
+// Count of images to show for each scene
 const imagesPerScene = 5;
+// Total count of images to show in app
 const totalImages = 14;
-
+// Initial distance to each images from user
 const initialDistance = 20;
+// Initial width of image
 const initialWidth = 6.4;
+// Initial height of image
 const initialHeight = 4;
+// Scene number
+let currentScene = 0;
 
-let currentScene = 0; // first page
+/************************************************
+** Main video and canvas for webcam and ar camera
+*************************************************/
 
-// video params
-var ctx;
+// video tag for webcam
+let ARvideo;
+// canvas (scene) for ar camera
+let ARscene;
 
-var videoCanvas;
-var videoContext;
+/*************** 
+* Record Screen 
+****************/
 
-// var videoContextStack = [];
+// canvas to show recorded screen
+let resultCanvas;
+// context for canvas to show recorded screen
+let resultContext;
+// video container via Whammy
+let whammyVideo;
 
-//image to video via Whammy
-var recordedVideo;
 
-// endvideo
+/****************** 
+** Long touch event 
+******************/
 
-// main load
+// timer for setTimeOut
+let timer;
+// update call for record screen
+let updateTimer;
+// length of time we want the user to touch before we do something
+let touchduration = 500; // millisecond
+// check if longTouch launched
+let longTouched = false;
+
+// Main function
 window.onload = function () {
-  
-  videoCanvas = document.getElementById("videoCanvas");
-  videoContext = videoCanvas.getContext("2d");
+  // result canvas to merge webcam and arcamera
+  resultCanvas = document.getElementById("resultCanvas");
+  resultContext = resultCanvas.getContext("2d");
 
   // add all images when load page
   addImageEntries();
@@ -35,43 +64,39 @@ window.onload = function () {
   // show the first 5 images
   changeImageArray(currentScene);
 
-  // when tap on "next" button, shows another images
+  // Event handler for next button to show another images
 	document.querySelector(".next-button").addEventListener("click", function () {
 
     let totalPage = Math.ceil(totalImages / imagesPerScene);
     let nextScene = currentScene = (currentScene + 1) % totalPage;
 
+    // Display next images bundle
     changeImageArray(nextScene);
+
     // update current scene' number
     currentScene = nextScene;
   });
 
+  // Event handler for capture button 
   document.querySelector(".capture-button").addEventListener("click", function() {
-    //takePicture();
+    // Take screenshot and share it
+    takePicture();
   });
 
-  document.querySelector(".capture-button").addEventListener("touchstart", touchstart, false);
-  document.querySelector(".capture-button").addEventListener("touchend", touchend, false);
+  // Event handler for long-touch on capture button
+  // document.querySelector(".capture-button").addEventListener("touchstart", touchstart, false);
+  // document.querySelector(".capture-button").addEventListener("touchend", touchend, false);
 
-  // document.querySelector("a-scene").querySelector(".nextarbutton").addEventListener("click", function () {
-  //   let totalPage = Math.ceil(totalImages / imagesPerScene);
-  //   let nextScene = currentScene = (currentScene + 1) % totalPage;
-
-  //   changeImageArray(nextScene);
-  //   // update current scene' number
-  //   currentScene = nextScene;
-  // });
-
-  // Raycaster event on each image
+  // Grab all image entries
   var imgElems = document.querySelectorAll(".clickable");
-
+  
+  // Raycaster event on each image
   imgElems.forEach((imgElem) => {
 
     imgElem.addEventListener('click', () => {
 
       // reset all images entry as none selected
       imgElems.forEach((elem) => {
-        // elem.setAttribute("raycaster-live", "false");
         elem.setAttribute("gesture-handler", "enabled: false");
 
         // set elems as default = `1`
@@ -80,64 +105,14 @@ window.onload = function () {
         elem.object3D.scale.z = 1;
       })
 
-      // imgElem.setAttribute("raycaster-live", "true");
+      // focused on Image
       imgElem.setAttribute("gesture-handler", "enabled: true");
     });
   });
 
 };
 
-var onlongtouch; 
-var timer;
-var updateTimer;
-var touchduration = 500; //length of time we want the user to touch before we do something
-var longTouched = false;
-
-touchstart = (e) => {
-    // if(videoContextStack.length > 0) return;
-
-    e.preventDefault();
-    ctx = 0;
-    longTouched = false;
-    timer = setTimeout(onlongtouch, touchduration); 
-}
-
-touchend = (e) => {
-    e.preventDefault();
-    //stops short touches from firing the event
-    if (timer)
-        clearTimeout(timer); // clearTimeout, not cleartimeout..
-    
-    if (updateTimer)
-        clearInterval(updateTimer);
-
-    if(longTouched == false) {
-      takePicture();
-    } else {
-      finalizeVideo();
-    }
-
-    longTouched = false;
-}
-
-let ARvideo;
-let ARscene;
-
-onlongtouch = () => { 
-    ARvideo = document.querySelector("video");
-    ARscene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
-
-    longTouched = true;
-    // videoCanvas.width = 500;
-    // videoCanvas.height = 300;
-
-    recordedVideo = new Whammy.Video(20);
-
-    console.log("Take Recording ... ");
-    updateTimer = setInterval(takeRecord, 33);
-
-    // takeRecord();
-};
+/********* Place and Switch images ********/
 
 // add images into scene when app start
 const addImageEntries = () => {
@@ -182,16 +157,6 @@ const addImageEntries = () => {
   }
 }
 
-// convert radian to degree
-const toDegrees = (radian) => {
-  return radian * (180 / Math.PI);
-}
-
-// convert degree to radian
-const toRadians = (angle) => {
-  return angle * (Math.PI / 180);
-}
-
 // load another images
 const changeImageArray = (sceneNumber) => {
   let startnum = sceneNumber * imagesPerScene;
@@ -224,68 +189,7 @@ const resetImagePosition = () => {
   }
 }
 
-function resizeCanvas(origCanvas, width, height)
-{
-    let resizedCanvas = document.createElement("canvas");
-    let resizedContext = resizedCanvas.getContext("2d");
-
-    if (screen.width < screen.height)
-    {
-        var w = height * (height / width);
-        var h = width * (height / width);
-        var offsetX = -(height - width);
-    }
-    else
-    {
-        var w = width;
-        var h = height;
-        var offsetX = 0;
-    }
-    resizedCanvas.height = height;
-    resizedCanvas.width = width;
-
-    resizedContext.drawImage(origCanvas, offsetX, 0, w, h);
-    return resizedCanvas.toDataURL();
-}
-
-
-
-function captureVideoFrame(video, format, width, height)
-{
-    if (typeof video === 'string')
-    {
-        video = document.querySelector(video);
-    }
-
-    format = format || 'jpeg';
-
-    if (!video || (format !== 'png' && format !== 'jpeg'))
-    {
-        return false;
-    }
-
-    var canvas = document.createElement("CANVAS");
-
-    canvas.width = width || video.videoWidth;
-    canvas.height = height || video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-    var dataUri = canvas.toDataURL('image/' + format);
-    var data = dataUri.split(',')[1];
-    var mimeType = dataUri.split(';')[0].slice(5)
-
-    var bytes = window.atob(data);
-    var buf = new ArrayBuffer(bytes.length);
-    var arr = new Uint8Array(buf);
-
-    for (var i = 0; i < bytes.length; i++)
-    {
-        arr[i] = bytes.charCodeAt(i);
-    }
-
-    var blob = new Blob([ arr ], { type: mimeType });
-    return { blob: blob, dataUri: dataUri, format: format, width: canvas.width, height: canvas.height };
-}
-
+/********** Take Screenshot *************/
 // screenshot
 const takePicture = () => {
   let video = document.querySelector("video");
@@ -321,7 +225,121 @@ const takePicture = () => {
   video.play();
 }
 
-function resizeRecordCanvas(origCanvas, width, height)
+const resizeCanvas = (origCanvas, width, height) => {
+    let resizedCanvas = document.createElement("canvas");
+    let resizedContext = resizedCanvas.getContext("2d");
+
+    if (screen.width < screen.height)
+    {
+        var w = height * (height / width);
+        var h = width * (height / width);
+        var offsetX = -(height - width);
+    }
+    else
+    {
+        var w = width;
+        var h = height;
+        var offsetX = 0;
+    }
+    resizedCanvas.height = height;
+    resizedCanvas.width = width;
+
+    resizedContext.drawImage(origCanvas, offsetX, 0, w, h);
+    return resizedCanvas.toDataURL();
+}
+
+/*********** Long touch Event ****************/
+
+// touch begin on capture button
+const touchstart = (e) => {
+    e.preventDefault();
+
+    longTouched = false;
+
+    // if touch is delayed for touchduration, launch event for recording
+    timer = setTimeout(onlongtouch, touchduration); 
+}
+
+// touch end on capture button
+const touchend = (e) => {
+    e.preventDefault();
+    //stops short touches from firing the event
+    if (timer)
+      clearTimeout(timer); // clearTimeout, not cleartimeout..
+    
+    if (updateTimer)
+      clearInterval(updateTimer);
+
+    if(longTouched == false) {
+      takePicture();
+    } else {
+      finalizeVideo();
+    }
+
+    longTouched = false;
+}
+
+// event handler for longtouch
+const onlongtouch = () => { 
+    ARvideo = document.querySelector("video");
+    ARscene = document.querySelector("canvas[class='a-canvas a-grab-cursor']");
+
+    longTouched = true;
+
+    whammyVideo = new Whammy.Video(20);
+
+    console.log("Take Recording ... ");
+    updateTimer = setInterval(takeRecord, 33);
+
+    // takeRecord();
+};
+
+/************ Record Screen *****************/
+// record video
+const takeRecord = () => {
+  if(timer) {
+    let video = ARvideo;
+    let aScene = ARscene;
+    //let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
+
+    var vcontext = aScene.getContext("experimental-webgl", {preserveDrawingBuffer: true});
+
+    let ww = aScene.width / aScene.height * screen.height;
+    let offsetx = (ww - screen.width) / 2
+
+    let vw = video.videoWidth/video.videoHeight * screen.height;
+    let voffsetx = (vw - screen.width) / 2;
+    // aScene = resizeRecordCanvas(aScene, screen.width, screen.height);
+
+    resultCanvas.width = screen.width;
+    resultCanvas.height = screen.height;
+
+    resultContext.clearRect(0, 0, screen.width, screen.height);
+    resultContext.globalAlpha = 1;
+
+    // resultContext.drawImage(video, -voffsetx, 0, vw, screen.height);
+    // resultContext.drawImage(aScene, -offsetx, 0, ww, screen.height);
+    
+    var elsm = document.createElement("a");
+    elsm.href = aScene.toDataURL();
+    elsm.setAttribute('download', "fileName.png");
+    elsm.innerHTML = 'downloading...';
+    elsm.style.display = 'none';
+    elsm.click();
+    
+    resultContext.drawImage(vcontext, 0, 0);
+    
+
+    whammyVideo.add(resultContext);
+
+    ctx++;
+  } else {
+    console.log("Take Record Update NO");
+    return;
+  }
+}
+
+const resizeRecordCanvas = (origCanvas, width, height) =>
 {
     let resizedCanvas = document.createElement("canvas");
     let resizedContext = resizedCanvas.getContext("2d");
@@ -346,82 +364,14 @@ function resizeRecordCanvas(origCanvas, width, height)
     resizedContext.drawImage(origCanvas, offsetX, 0, w, h);
     return resizedCanvas; //.toDataURL();
 }
-// record video
-const takeRecord = () => {
-  if(timer) {
-    let video = ARvideo;
 
-    // video.pause();
-
-    //let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
-    let aScene = ARscene;
-
-
-    var vcontext = aScene.getContext("experimental-webgl", {preserveDrawingBuffer: true});
-
-    let ww = aScene.width / aScene.height * screen.height;
-    let offsetx = (ww - screen.width) / 2
-
-    let vw = video.videoWidth/video.videoHeight * screen.height;
-    let voffsetx = (vw - screen.width) / 2;
-    // aScene = resizeRecordCanvas(aScene, screen.width, screen.height);
-
-    // video.play();
-    
-    // videoCanvas.width = screen.width;
-    // videoCanvas.height = screen.height;
-
-    // videoContext.clearRect(0, 0, screen.width, screen.height);
-    // videoContext.globalAlpha = 1;
-
-    // videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
-    // videoContext.drawImage(aScene, -offsetx, 0, ww, screen.height);
-    
-    var elsm = document.createElement("a");
-    elsm.href = aScene.toDataURL();
-    elsm.setAttribute('download', "fileName.png");
-    elsm.innerHTML = 'downloading...';
-    elsm.style.display = 'none';
-    elsm.click();
-    
-    videoContext.drawImage(vcontext, 0, 0);
-    
-
-    recordedVideo.add(videoContext);
-
-    ctx++;
-  } else {
-    console.log("Take Record Update NO");
-    return;
-  }
-}
-
-/* main process function */
-function process(b64) {
-    var dataUri = b64;
-    var img = new Image();
-  
-    //load image and drop into canvas
-    img.onload = function() {
-        videoContext.clearRect(0,0,videoContext.canvas.width,videoContext.canvas.height);
-        videoContext.globalAlpha = 1;
-        videoContext.drawImage(img, 0, 0, videoCanvas.width, videoCanvas.height);
-        recordedVideo.add(videoContext);
-        ctx++;
-    };
-    img.src = dataUri;
-}
-
+// finalize and download recorded video
 const finalizeVideo = () => {
-  if(ctx == 0) return;
-
-  var output = recordedVideo.compile();
+  var output = whammyVideo.compile();
   var url = webkitURL.createObjectURL(output);
 
   document.getElementById('download').href = url;
   document.getElementById('download').click();
-
-  // videoContextStack = [];
 }
 
 // Next Button event
@@ -471,3 +421,64 @@ const finalizeVideo = () => {
 //     // }
 //   }
 // });
+
+// function captureVideoFrame(video, format, width, height)
+// {
+//     if (typeof video === 'string')
+//     {
+//         video = document.querySelector(video);
+//     }
+
+//     format = format || 'jpeg';
+
+//     if (!video || (format !== 'png' && format !== 'jpeg'))
+//     {
+//         return false;
+//     }
+
+//     var canvas = document.createElement("CANVAS");
+
+//     canvas.width = width || video.videoWidth;
+//     canvas.height = height || video.videoHeight;
+//     canvas.getContext('2d').drawImage(video, 0, 0);
+//     var dataUri = canvas.toDataURL('image/' + format);
+//     var data = dataUri.split(',')[1];
+//     var mimeType = dataUri.split(';')[0].slice(5)
+
+//     var bytes = window.atob(data);
+//     var buf = new ArrayBuffer(bytes.length);
+//     var arr = new Uint8Array(buf);
+
+//     for (var i = 0; i < bytes.length; i++)
+//     {
+//         arr[i] = bytes.charCodeAt(i);
+//     }
+
+//     var blob = new Blob([ arr ], { type: mimeType });
+//     return { blob: blob, dataUri: dataUri, format: format, width: canvas.width, height: canvas.height };
+// }
+
+/* main process function */
+// function process(b64) {
+//     var dataUri = b64;
+//     var img = new Image();
+  
+//     //load image and drop into canvas
+//     img.onload = function() {
+//         resultContext.clearRect(0,0,resultContext.canvas.width,resultContext.canvas.height);
+//         resultContext.globalAlpha = 1;
+//         resultContext.drawImage(img, 0, 0, resultCanvas.width, resultCanvas.height);
+//         whammyVideo.add(resultContext);
+//         ctx++;
+//     };
+//     img.src = dataUri;
+// }
+// // convert radian to degree
+// const toDegrees = (radian) => {
+//   return radian * (180 / Math.PI);
+// }
+
+// // convert degree to radian
+// const toRadians = (angle) => {
+//   return angle * (Math.PI / 180);
+// }
