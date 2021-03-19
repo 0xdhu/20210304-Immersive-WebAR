@@ -371,8 +371,11 @@ const takeRecord = () => {
     videoContext.clearRect(0, 0, screen.width, screen.height);
     videoContext.globalAlpha = 1;
 
-    videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
-    videoContext.drawImage(aScene, -offsetx, 0, ww, screen.height);
+    // videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
+    // videoContext.drawImage(aScene, -offsetx, 0, ww, screen.height);
+    videoContext.drawImage(aScene, 0, 0, screen.width, screen.height);
+
+
 
     recordedVideo.add(videoContext);
 
