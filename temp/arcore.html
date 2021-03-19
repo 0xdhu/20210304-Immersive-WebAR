@@ -9,11 +9,10 @@
     <!-- Custom Css -->
 	<link rel="stylesheet" type="text/css" href="assets/css/android/android_arcore.css">
 
-    <script src="assets/js/android/aframe-dist/aframe-master.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@e47f441/dist/aframe-master.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@7ee6705aec750da4ed16e39605ff66e07d1f7b45/dist/aframe-master.min.js"></script> -->
     
-    <script src="assets/js/android/aframe-dist/aframe-extras.min.js"></script>
-    <script src="assets/js/android/aframe-dist/aframe-physics-system.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
     <script src="https://ghcdn.rawgit.org/chenzlabs/aframe-ar/8a7ee3b/dist/aframe-ar.min.js"></script>
 
     <!-- Merge Images -->
@@ -184,6 +183,17 @@
 
 		    placeImages();
 
+			// when tap on "next" button, shows another images
+			document.querySelector(".next-button")
+			  .addEventListener("click", function () {
+			  	alert("click .next-button");
+			    // let totalPage = Math.ceil(totalImages / imagesPerScene);
+			    // let nextScene = currentScene = (currentScene + 1) % totalPage;
+
+			    // changeImageArray(nextScene);
+			    // // update current scene' number
+			    // currentScene = nextScene;
+			  });
 
 		    let lastEvent = null;
 		    let alreadyPlaced = false;
@@ -235,21 +245,21 @@
 		}
 
 		// Next Button event
-		AFRAME.registerComponent('arnextbutton', {
-		  init: function() {
-		    this.el.sceneEl.addEventListener("click", this.handleNextButton.bind(this));
-		  },
-		  handleNextButton: function () {
-		  	alert("AR next Button");
-		    let totalPage = Math.ceil(totalImages / imagesPerScene);
-		    let nextScene = currentScene = (currentScene + 1) % totalPage;
+		// AFRAME.registerComponent('arnextbutton', {
+		//   init: function() {
+		//     this.el.sceneEl.addEventListener("click", this.handleNextButton);
+		//   },
+		//   handleNextButton: function () {
+		//   	alert("AR next Button");
+		//     let totalPage = Math.ceil(totalImages / imagesPerScene);
+		//     let nextScene = currentScene = (currentScene + 1) % totalPage;
 
-		    changeImageArray(nextScene);
-		    // update current scene' number
-		    currentScene = nextScene;
-		  }
+		//     changeImageArray(nextScene);
+		//     // update current scene' number
+		//     currentScene = nextScene;
+		//   }
 
-		});
+		// });
 
 		function resizeCanvas(origCanvas, width, height)
 		{
@@ -338,22 +348,47 @@
 		      linkEl.click();
 		      document.body.removeChild(linkEl);
 		    }, 1);
+
+		    // let link = document.getElementById("download-link", "png");
+
+		    // link.setAttribute("download", "AR.png");
+		    // link.setAttribute("href", b64);
+		    // link.click();
 		  });
 
 		  video.play();
+		  // const screenshotTarget = document.querySelector("a-scene");
 
+		  // html2canvas(screenshotTarget).then((canvas) => {
+		  //     const base64image = canvas.toDataURL("image/png");
+		  //     // window.location.href = base64image;
+
+		  //     var fileName = 'webar-experience' + '-' + Date.now() + '.png';
+		  //     var linkEl = document.createElement('a');
+		  //     var url = base64image;
+		  //     linkEl.href = url;
+		  //     linkEl.setAttribute('download', fileName);
+		  //     linkEl.innerHTML = 'downloading...';
+		  //     linkEl.style.display = 'none';
+		  //     document.body.appendChild(linkEl);
+		  //     setTimeout(function () {
+		  //       linkEl.click();
+		  //       document.body.removeChild(linkEl);
+		  //     }, 1);
+		  // });
+		    // document.querySelector('a-scene').components.screenshot.capture('perspective');
 		}
 
-		AFRAME.registerComponent('arcapturebutton', {
-		  init: function() {
-		    this.el.addEventListener("click", this.handleCaptureButton.bind(this));
-		  },
-		  handleCaptureButton: function () {
-		  	alert("Take Picture");
-		    takePicture();
-		  }
+		// AFRAME.registerComponent('arcapturebutton', {
+		//   init: function() {
+		//     this.el.addEventListener("click", this.handleCaptureButton);
+		//   },
+		//   handleCaptureButton: function () {
+		//   	alert("Take Picture");
+		//     takePicture();
+		//   }
 
-		});
+		// });
 
 		// main load
 		window.onload = function () {
@@ -372,32 +407,41 @@
 <body style="margin: 0px; overflow: hidden;">
 
 	<!-- Next & Capture Button -->
-	<!-- <div class="buttons">
-      	<button class="next-button">Next</button> -->
+	<div class="buttons">
+      	<button class="next-button">Next</button>
       	<!-- &nbsp;&nbsp; -->
       	<!-- <button class="capture-button"></button> -->
-    <!-- </div> -->
+    </div>
 
 	    <a-scene ar raycaster-move="target:#intersection" >
 	        <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
 	        <!-- <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none"> -->
 	        <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none">
-	        	<a-entity position="-0.08 -0.5 -1" scale="0.2 0.08 0.01" arnextbutton>
+	        	<!-- <a-entity position="-0.08 -0.5 -1" scale="0.2 0.08 0.01" arnextbutton>
 		            <a-image src="assets/images/nextButton.png" preload="true"></a-image>
 	    		</a-entity>
 
 	    		<a-entity position="0.08 -0.5 -1" scale="0.1 0.1 0.01" arcapturebutton>
 		            <a-image src="assets/images/record.png" preload="true"></a-image>
-	    		</a-entity>
+	    		</a-entity> -->
 	        </a-camera>
 
+	        <!-- <div class="capture" aframe-injected>
+	        	<button aframe-injected>PP</button>
+	        </div> -->
 
 	        <a-entity id="walker" position="0 0 -5" visible="false">
+	            <!-- <a-entity gltf-model="models/fox.glb" scale="0.5 0.5 0.5" id="fox" animation-mixer="clip:Fox_Idle"
+	                shadow="cast: true">
+	            </a-entity> -->
 	            <a-plane width="0.4" height="0.4" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
 	                shadow-material></a-plane>
 	        </a-entity>
 
 	        <a-entity id="walker2" position="0 0 -5" visible="false">
+	            <!-- <a-entity gltf-model="assets/models/dino.glb" id="dino" scale="0.5 0.5 0.5" animation-mixer="clip:Idle"
+	                shadow="cast: true">
+	            </a-entity> -->
 
 	            <a-image id="image0" src="assets/images/Pic1.jpg" preload="true"></a-image>
 
