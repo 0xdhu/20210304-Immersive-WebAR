@@ -29,12 +29,6 @@ window.onload = function () {
   videoCanvas = document.getElementById("videoCanvas");
   videoContext = videoCanvas.getContext("2d");
 
-  new THREE.WebGLRenderer({
-    canvas: videoCanvas,
-    antialias: true,
-    alpha: true
-  });
-  
   // add all images when load page
   addImageEntries();
 
@@ -363,6 +357,7 @@ const takeRecord = () => {
     let aScene = ARscene;
 
 
+    var context = aScene.getContext("experimental-webgl", {preserveDrawingBuffer: true});
 
     let ww = aScene.width / aScene.height * screen.height;
     let offsetx = (ww - screen.width) / 2
@@ -377,12 +372,12 @@ const takeRecord = () => {
     // videoCanvas.height = screen.height;
 
     // videoContext.clearRect(0, 0, screen.width, screen.height);
-    videoContext.globalAlpha = 1;
+    // videoContext.globalAlpha = 1;
 
     // videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
     // videoContext.drawImage(aScene, -offsetx, 0, ww, screen.height);
     
-    // videoContext.drawImage(aScene, 0, 0);
+    videoContext.drawImage(context.canvas, 0, 0);
 
 
 
