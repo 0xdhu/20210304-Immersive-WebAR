@@ -269,6 +269,9 @@ const captureVideoFrame = (video, format, width, height) => {
 
     canvas.width = width || video.videoWidth;
     canvas.height = height || video.videoHeight;
+
+    console.log("canvas width and height " + canvas.width + " " + canvas.height);
+    
     canvas.getContext('2d').drawImage(video, 0, 0);
     var dataUri = canvas.toDataURL('image/' + format);
     var data = dataUri.split(',')[1];
