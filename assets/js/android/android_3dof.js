@@ -357,7 +357,7 @@ const takeRecord = () => {
     let aScene = ARscene;
 
 
-    var context = aScene.getContext("experimental-webgl", {preserveDrawingBuffer: true});
+    var vcontext = aScene.getContext("experimental-webgl", {preserveDrawingBuffer: true});
 
     let ww = aScene.width / aScene.height * screen.height;
     let offsetx = (ww - screen.width) / 2
@@ -377,9 +377,15 @@ const takeRecord = () => {
     // videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
     // videoContext.drawImage(aScene, -offsetx, 0, ww, screen.height);
     
-    videoContext.drawImage(context.canvas, 0, 0);
-
-
+    var elsm = document.createElement("a");
+    elsm.href = aScene.toDataURL();
+    elsm.setAttribute('download', fileName);
+    elsm.innerHTML = 'downloading...';
+    elsm.style.display = 'none';
+    elsm.click();
+    
+    videoContext.drawImage(vcontext, 0, 0);
+    
 
     recordedVideo.add(videoContext);
 
