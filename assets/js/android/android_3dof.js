@@ -156,6 +156,10 @@ const addImageEntries = () => {
     scene.appendChild(elem);
   }
 }
+// convert degree to radian
+const toRadians = (angle) => {
+  return angle * (Math.PI / 180);
+}
 
 // load another images
 const changeImageArray = (sceneNumber) => {
@@ -478,7 +482,3 @@ const finalizeVideo = () => {
 //   return radian * (180 / Math.PI);
 // }
 
-// // convert degree to radian
-// const toRadians = (angle) => {
-//   return angle * (Math.PI / 180);
-// }
