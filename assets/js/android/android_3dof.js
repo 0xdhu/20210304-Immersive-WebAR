@@ -356,6 +356,8 @@ const takeRecord = () => {
     //let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
     let aScene = ARscene;
 
+
+
     let ww = aScene.width / aScene.height * screen.height;
     let offsetx = (ww - screen.width) / 2
 
@@ -373,7 +375,12 @@ const takeRecord = () => {
 
     // videoContext.drawImage(video, -voffsetx, 0, vw, screen.height);
     // videoContext.drawImage(aScene, -offsetx, 0, ww, screen.height);
-    videoContext.drawImage(aScene, 0, 0);
+    new THREE.WebGLRenderer({
+      canvas: videoCanvas,
+      antialias: true,
+      alpha: true
+    });
+    // videoContext.drawImage(aScene, 0, 0);
 
 
 
