@@ -59,6 +59,16 @@
                 this.material.opacity = 0.3;
             }
         });
+
+        AFRAME.registerComponent('exit-ar-button', {
+	      init: function () {
+	        console.log('exit-ar-button init');
+	        document.getElementById('exitbutton').addEventListener('click', ev => {
+	            console.log('exit-ar-button event ' + ev.type);
+	            this.el.sceneEl.renderer.xr.getSession().end();
+	        });
+	      }
+	    })
     </script>
 
     <script>
@@ -167,7 +177,7 @@
 
 		    activateDino();
 
-		    document.querySelector('.a-enter-vr-button').style.visible = 'none';
+		    document.querySelector('.a-enter-vr').style.visible = 'none';
 
 		    raycaster.addEventListener('raycaster-intersection', function (event) {
 		        const intersection = event.detail.intersections[0]; //.find(i => i.object.type === 'Scene');

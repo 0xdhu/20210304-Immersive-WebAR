@@ -23,7 +23,7 @@ div#text {
 	border: 1px solid rgba(255,255,255,0.5);
 	color: rgba(255,255,255,0.8);
 	background-color: rgba(0,0,0,0.2);
-	display: block;
+	display: none;
 	z-index: 2;
 }
 #overlay.legacy-ar-mode,
@@ -39,12 +39,15 @@ div.a-orientation-modal {
    display: none;
 }
 div#controls {
-  width: 240px;
-  height: 240px;
+  width: 55px;
+  height: 55px;
   background-color: rgba(255, 255, 255, 0.2);
+  border: 3px solid rgba(200,200,200,0.5);
+  border-radius: 50%;
   position: absolute;
-  right: 70px;
-  bottom: 70px;
+  left: 50%;
+  margin-left: -35px;
+  bottom: 50px;
   z-index: 1;
   touch-action: none;
 }
@@ -52,8 +55,8 @@ div#controlstick {
   width: 50px;
   height: 50px;
   position: relative;
-  left: 100px;
-  top: 100px;
+  left: 2.5px;
+  top: 2.5px;
   border-radius: 50%;
-  background-color: rgba(255, 170, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.7);
 }
