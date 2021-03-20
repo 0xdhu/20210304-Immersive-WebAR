@@ -23,7 +23,7 @@ div#text {
 	border: 1px solid rgba(255,255,255,0.5);
 	color: rgba(255,255,255,0.8);
 	background-color: rgba(0,0,0,0.2);
-	display: none;
+	display: block;
 	z-index: 2;
 }
 #overlay.legacy-ar-mode,
