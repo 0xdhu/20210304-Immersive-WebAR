@@ -68,10 +68,20 @@
 	            this.el.sceneEl.renderer.xr.getSession().end();
 	        });
 
-	        document.getElementById('nextbutton').addEventListener('click', ev => {
-	            console.log('nextt-ar-button event ' + ev.type);
+	        document.getElementById('controlstick').addEventListener('click', ev => {
+	            // console.log('nextt-ar-button event ' + ev.type);
 	            // this.el.sceneEl.renderer.xr.getSession().end();
-	            alert("Next Button Click");
+	            // alert("Next Button Click");
+
+	            takePicture();
+	        });
+
+	        document.getElementById('takePicture').addEventListener('click', ev => {
+	            // console.log('nextt-ar-button event ' + ev.type);
+	            // this.el.sceneEl.renderer.xr.getSession().end();
+	            // alert("Next Button Click");
+
+	            takePicture();
 	        });
 	      }
 	    })
