@@ -67,6 +67,12 @@
 	            console.log('exit-ar-button event ' + ev.type);
 	            this.el.sceneEl.renderer.xr.getSession().end();
 	        });
+
+	        document.getElementById('nextbutton').addEventListener('click', ev => {
+	            console.log('nextt-ar-button event ' + ev.type);
+	            // this.el.sceneEl.renderer.xr.getSession().end();
+	            alert("Next Button Click");
+	        });
 	      }
 	    })
     </script>
@@ -398,6 +404,9 @@
       <div id="exitbutton">
         Exit AR
       </div>
+      <div id="nextbutton">
+        Next
+      </div>
     </div>
 
 	    <a-scene ar raycaster-move="target:#intersection" webxr="optionalFeatures: dom-overlay; overlayElement: #overlay">
@@ -454,6 +463,8 @@
 	        </a-entity>
 	        <a-sphere id="intersection" visible="false" radius="0.02" color="red">
 	        </a-sphere>
+
+	        <a-entity exit-ar-button></a-entity>
 	    </a-scene>
 
     <!-- <script src="assets/js/android/android_arcore.js"></script> -->
