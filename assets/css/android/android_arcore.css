@@ -51,6 +51,7 @@ div#controls {
   z-index: 1;
   touch-action: none;
 }
+
 div#controlstick {
   width: 50px;
   height: 50px;
@@ -59,4 +60,8 @@ div#controlstick {
   top: 2.5px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.7);
+}
+
+button.a-enter-vr-button {
+	display: none;
 }
