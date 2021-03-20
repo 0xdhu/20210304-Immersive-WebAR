@@ -19,6 +19,7 @@
     <!-- Merge Images -->
     <script src="https://unpkg.com/merge-images"></script>
 
+    <!-- Laycast Hit point -->
     <script>
 
         // AFRAME no longer sends intersection event every time intersection changes position;
@@ -46,12 +47,14 @@
                 let intersection = this.raycaster.components.raycaster.getIntersection(this.el);
                 if (!intersection) { return; }
                 //console.log(intersection.point);
+                // this component moves to the laycast hit point
                 this.data.target.setAttribute("position", intersection.point);
             }
         });
 
     </script>
 
+    <!-- Shadow Material -->
     <script>
         AFRAME.registerComponent('shadow-material', {
             init: function () {
@@ -70,32 +73,6 @@
 		let idleAnimation;
 		let sitting = false;
 
-		function activateFox() {
-		    walker = document.querySelector('#walker');
-		    fox = document.querySelector('#fox');
-		    idleAnimation = 'Fox_Idle';
-		    walkAnimation = 'Fox_Run';
-		}
-
-		function activateDino() {
-		    walker = document.querySelector('#walker2');
-		    fox = document.querySelector('#dino');
-		    idleAnimation = 'Idle';
-		    walkAnimation = 'Walk';
-		}
-
-		function playAnimation(animation) {
-		    if (fox === document.querySelector('#dino')) {
-		        sitting = animation.startsWith('Sit') && animation !== 'Sit_Up';
-		        fox.setAttribute('animation-mixer', { clip: animation });
-		        const listener = () => {
-		            fox.setAttribute('animation-mixer', { clip: sitting ? 'Sit_Idle' : idleAnimation });
-		            fox.removeEventListener('animation-loop', listener);
-		        };
-		        fox.addEventListener('animation-loop', listener);
-		    }
-		}
-
 		const imagesPerScene = 5;
 		const totalImages = 14;
 
@@ -105,65 +82,8 @@
 
 		let currentScene = 0; // first page
 
-		// add images into scene when app start
-		const placeImages = () => {
-		  	for(var i = 0; i < totalImages; i++) {
-		  		let elem = document.querySelector("#image" + i);
-
-			    elem.setAttribute("width", initialWidth);
-			    elem.setAttribute("height", initialHeight);
-
-			    var idx = i % imagesPerScene;
-			    var angle = 360 * idx / imagesPerScene;
-			    var radian = toRadians(angle);
-
-				elem.object3D.position.x = Math.cos(parseFloat(radian)) * initialDistance;
-				elem.object3D.position.y = 0.5;
-				elem.object3D.position.z = Math.sin(parseFloat(radian)) * initialDistance;
-
-			    // current entry's rotation
-			    elem.object3D.rotation.x = 0;
-			    elem.object3D.rotation.y = toRadians(-angle - 90);
-			    elem.object3D.rotation.z = 0;
-		  	}
-		}
-
-		// convert radian to degree
-		const toDegrees = (radian) => {
-		  	return radian * (180 / Math.PI);
-		}
-
-		// convert degree to radian
-		const toRadians = (angle) => {
-		  	return angle * (Math.PI / 180);
-		}
-
-		// load another images
-		const changeImageArray = (sceneNumber) => {
-			let startnum = sceneNumber * imagesPerScene;
-			let endnum = Math.min(startnum + imagesPerScene, totalImages);
-
-			// move all images to future so that user cannot see any images
-			hideAllImages();
-
-			// move some images into the surround of camera so that user can see it
-			for(let i = startnum; i < endnum; i++) {
-				let elem = document.querySelector("#image" + i);
-				elem.object3D.visible = true;
-			}
-		}
-
-		// Hide all images
-		const hideAllImages = () => {
-			for(let i = 0; i < totalImages; i++) {
-				let elem = document.querySelector("#image" + i);
-
-				elem.object3D.visible = false;
-			}
-		}
-
-
-		function onceSceneLoaded() {
+		// Handle event for scene loading
+		const onceSceneLoaded = () => {
 		    let raycaster = document.querySelector('[ar-raycaster]');
 		    let marker = document.querySelector('#intersection');
 
@@ -238,78 +158,125 @@
 		    });
 		}
 
-		// Next Button event
-		// AFRAME.registerComponent('arnextbutton', {
-		//   init: function() {
-		//     this.el.sceneEl.addEventListener("click", this.handleNextButton.bind(this));
-		//   },
-		//   handleNextButton: function () {
-		//   	alert("AR next Button");
-		//     let totalPage = Math.ceil(totalImages / imagesPerScene);
-		//     let nextScene = currentScene = (currentScene + 1) % totalPage;
-
-		//     changeImageArray(nextScene);
-		//     // update current scene' number
-		//     currentScene = nextScene;
-		//   }
-
-		// });
-		AFRAME.registerComponent('exit-ar-button', {
-	      init: function () {
-	        console.log('exit-ar-button init');
-	        document.getElementById('exitbutton').addEventListener('click', ev => {
-	            console.log('exit-ar-button event ' + ev.type);
-	            // this.el.sceneEl.renderer.xr.getSession().end();
-	        });
-
-	        document.getElementById('controlstick').addEventListener('click', ev => {
-	            console.log('nextt-ar-button event ' + ev.type);
-	            // this.el.sceneEl.renderer.xr.getSession().end();
-	            // alert("Take picture Click");
-
-	            takePicture();
-	        });
-
-	        document.getElementById('nextbutton').addEventListener('click', ev => {
-	            console.log('nextt-ar-button event ' + ev.type);
-	            // this.el.sceneEl.renderer.xr.getSession().end();
-	            // alert("Next Button Click");
-				let totalPage = Math.ceil(totalImages / imagesPerScene);
-			    let nextScene = currentScene = (currentScene + 1) % totalPage;
-
-			    changeImageArray(nextScene);
-			    // update current scene' number
-			    currentScene = nextScene;
-	            // takePicture();
-	        });
-	      }
-	    })
-
-		function resizeCanvas(origCanvas, width, height)
-		{
-		    let resizedCanvas = document.createElement("canvas");
-		    let resizedContext = resizedCanvas.getContext("2d");
-
-		    if (screen.width < screen.height)
-		    {
-		        var w = height * (height / width);
-		        var h = width * (height / width);
-		        var offsetX = -(height - width);
-		    }
-		    else
-		    {
-		        var w = width;
-		        var h = height;
-		        var offsetX = 0;
-		    }
-		    resizedCanvas.height = height;
-		    resizedCanvas.width = width;
-
-		    resizedContext.drawImage(origCanvas, offsetX, 0, w, h);
-		    return resizedCanvas.toDataURL();
+		const activateFox = () => {
+		    walker = document.querySelector('#walker');
+		    fox = document.querySelector('#fox');
+		    idleAnimation = 'Fox_Idle';
+		    walkAnimation = 'Fox_Run';
 		}
 
-		function captureVideoFrame(video, format, width, height)
+		const activateDino = () => {
+		    walker = document.querySelector('#walker2');
+		    fox = document.querySelector('#dino');
+		    idleAnimation = 'Idle';
+		    walkAnimation = 'Walk';
+		}
+
+		const playAnimation = (animation) => {
+		    if (fox === document.querySelector('#dino')) {
+		        sitting = animation.startsWith('Sit') && animation !== 'Sit_Up';
+		        fox.setAttribute('animation-mixer', { clip: animation });
+		        const listener = () => {
+		            fox.setAttribute('animation-mixer', { clip: sitting ? 'Sit_Idle' : idleAnimation });
+		            fox.removeEventListener('animation-loop', listener);
+		        };
+		        fox.addEventListener('animation-loop', listener);
+		    }
+		}
+
+		// add images into scene when app start
+		const placeImages = () => {
+		  	for(var i = 0; i < totalImages; i++) {
+		  		let elem = document.querySelector("#image" + i);
+
+			    elem.setAttribute("width", initialWidth);
+			    elem.setAttribute("height", initialHeight);
+
+			    var idx = i % imagesPerScene;
+			    var angle = 360 * idx / imagesPerScene;
+			    var radian = toRadians(angle);
+
+				elem.object3D.position.x = Math.cos(parseFloat(radian)) * initialDistance;
+				elem.object3D.position.y = 0.5;
+				elem.object3D.position.z = Math.sin(parseFloat(radian)) * initialDistance;
+
+			    // current entry's rotation
+			    elem.object3D.rotation.x = 0;
+			    elem.object3D.rotation.y = toRadians(-angle - 90);
+			    elem.object3D.rotation.z = 0;
+		  	}
+		}
+
+		// convert radian to degree
+		const toDegrees = (radian) => {
+		  	return radian * (180 / Math.PI);
+		}
+
+		// convert degree to radian
+		const toRadians = (angle) => {
+		  	return angle * (Math.PI / 180);
+		}
+
+		// load another images
+		const changeImageArray = (sceneNumber) => {
+			let startnum = sceneNumber * imagesPerScene;
+			let endnum = Math.min(startnum + imagesPerScene, totalImages);
+
+			// move all images to future so that user cannot see any images
+			hideAllImages();
+
+			// move some images into the surround of camera so that user can see it
+			for(let i = startnum; i < endnum; i++) {
+				let elem = document.querySelector("#image" + i);
+				elem.object3D.visible = true;
+			}
+		}
+
+		// Hide all images
+		const hideAllImages = () => {
+			for(let i = 0; i < totalImages; i++) {
+				let elem = document.querySelector("#image" + i);
+
+				elem.object3D.visible = false;
+			}
+		}
+
+		// Take screenshot of gameplay in AR experience
+		const takePicture = () => {
+			let video = document.querySelector("video");
+			video.pause();
+
+			let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
+
+			let frame = captureVideoFrame("video", "png");
+
+			aScene = resizeCanvas(aScene, frame.width, frame.height);
+			frame = frame.dataUri;
+
+			mergeImages([frame, aScene]).then(b64 =>
+			{
+			    var fileName = 'webar-experience' + '-' + Date.now() + '.png';
+			    var linkEl = document.createElement('a');
+
+			    linkEl.href = b64;
+			    linkEl.setAttribute('download', fileName);
+			    linkEl.innerHTML = 'downloading...';
+			    linkEl.style.display = 'none';
+
+			    document.body.appendChild(linkEl);
+
+			    setTimeout(function () {
+			      linkEl.click();
+			      document.body.removeChild(linkEl);
+			    }, 1);
+			});
+
+		  	video.play();
+
+		}
+
+		// Take one frame of webcam video
+		const captureVideoFrame = (video, format, width, height) =>
 		{
 		    if (typeof video === 'string')
 		    {
@@ -345,55 +312,91 @@
 		    return { blob: blob, dataUri: dataUri, format: format, width: canvas.width, height: canvas.height };
 		}
 
-		const takePicture = () => {
-		  let video = document.querySelector("video");
-		  video.pause();
+		// Resize the canvas for rendering 3D view
+		const resizeCanvas = (origCanvas, width, height) =>
+		{
+		    let resizedCanvas = document.createElement("canvas");
+		    let resizedContext = resizedCanvas.getContext("2d");
 
-		  let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
-		  
-		  let frame = captureVideoFrame("video", "png");
-		  
-		  aScene = resizeCanvas(aScene, frame.width, frame.height);
-		  frame = frame.dataUri;
+		    if (screen.width < screen.height)
+		    {
+		        var w = height * (height / width);
+		        var h = width * (height / width);
+		        var offsetX = -(height - width);
+		    }
+		    else
+		    {
+		        var w = width;
+		        var h = height;
+		        var offsetX = 0;
+		    }
+		    resizedCanvas.height = height;
+		    resizedCanvas.width = width;
 
-		  mergeImages([frame, aScene]).then(b64 =>
-		  {
-		    var fileName = 'webar-experience' + '-' + Date.now() + '.png';
-		    var linkEl = document.createElement('a');
-
-		    linkEl.href = b64;
-		    linkEl.setAttribute('download', fileName);
-		    linkEl.innerHTML = 'downloading...';
-		    linkEl.style.display = 'none';
-
-		    document.body.appendChild(linkEl);
-
-		    setTimeout(function () {
-		      linkEl.click();
-		      document.body.removeChild(linkEl);
-		    }, 1);
-		  });
-
-		  video.play();
-
+		    resizedContext.drawImage(origCanvas, offsetX, 0, w, h);
+		    return resizedCanvas.toDataURL();
 		}
-
-		// AFRAME.registerComponent('arcapturebutton', {
-		//   init: function() {
-		//     this.el.addEventListener("click", this.handleCaptureButton.bind(this));
-		//   },
-		//   handleCaptureButton: function () {
-		//   	alert("Take Picture");
-		//     takePicture();
-		//   }
-
-		// });
 
 		// main load
 		window.onload = function () {
 			scene = document.querySelector('a-scene');
 			scene.addEventListener('loaded', onceSceneLoaded);
 		}
+
+
+		// Next Button event
+		// AFRAME.registerComponent('arnextbutton', {
+		//   init: function() {
+		//     this.el.sceneEl.addEventListener("click", this.handleNextButton.bind(this));
+		//   },
+		//   handleNextButton: function () {
+		//   	alert("AR next Button");
+		//     let totalPage = Math.ceil(totalImages / imagesPerScene);
+		//     let nextScene = currentScene = (currentScene + 1) % totalPage;
+
+		//     changeImageArray(nextScene);
+		//     // update current scene' number
+		//     currentScene = nextScene;
+		//   }
+
+		// });
+    </script>
+
+    <script>
+		AFRAME.registerComponent('exit-ar-button', {
+	      	init: function () {
+		        console.log('exit-ar-button init');
+		        // Handle event to exit this AR experience
+		        document.getElementById('exitbutton').addEventListener('click', ev => {
+		            console.log('exit-ar-button event ' + ev.type);
+		            // this.el.sceneEl.renderer.xr.getSession().end();
+		        });
+
+		        // Handle event for screenshot button
+		        document.getElementById('controlstick').addEventListener('click', ev => {
+		            console.log('nextt-ar-button event ' + ev.type);
+		            // this.el.sceneEl.renderer.xr.getSession().end();
+		            // alert("Take picture Click");
+
+		            takePicture();
+		        });
+
+		        // Handle event for next button to show another image bundle
+		        document.getElementById('nextbutton').addEventListener('click', ev => {
+		            console.log('nextt-ar-button event ' + ev.type);
+		            // this.el.sceneEl.renderer.xr.getSession().end();
+		            // alert("Next Button Click");
+					let totalPage = Math.ceil(totalImages / imagesPerScene);
+				    let nextScene = currentScene = (currentScene + 1) % totalPage;
+
+				    changeImageArray(nextScene);
+				    // update current scene' number
+				    currentScene = nextScene;
+		            // takePicture();
+		        });
+	      	}
+	    })
+    	
     </script>
     <!-- Prevent touch causing flicker on iOS. -->
     <style>
@@ -405,83 +408,71 @@
 
 <body style="margin: 0px; overflow: hidden;">
 
-	<!-- Next & Capture Button -->
-	<!-- <div class="buttons">
-      	<button class="next-button">Next</button> -->
-      	<!-- &nbsp;&nbsp; -->
-      	<!-- <button class="capture-button"></button> -->
-    <!-- </div> -->
-
 	<div id="overlay">
-      <div id="controls">
-        <div id="controlstick">
-        </div>
-      </div>
-      <div id="exitbutton">
-        Exit AR
-      </div>
-      <div id="nextbutton">
-        Next
-      </div>
+		<div id="controls">
+			<div id="controlstick">
+			</div>
+		</div>
+
+		<div id="exitbutton">
+			Exit AR
+		</div>
+
+		<div id="nextbutton">
+			Next
+		</div>
     </div>
 
-	    <a-scene ar raycaster-move="target:#intersection" webxr="optionalFeatures: dom-overlay; overlayElement: #overlay">
-	        <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
-	        <!-- <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none"> -->
-	        <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none">
-	        	<!-- <a-entity position="-0.08 -0.5 -1" scale="0.2 0.08 0.01" arnextbutton>
-		            <a-image src="assets/images/nextButton.png" preload="true"></a-image>
-	    		</a-entity>
-
-	    		<a-entity position="0.08 -0.5 -1" scale="0.1 0.1 0.01" arcapturebutton>
-		            <a-image src="assets/images/record.png" preload="true"></a-image>
-	    		</a-entity> -->
-	        </a-camera>
+    <a-scene ar raycaster-move="target:#intersection" webxr="optionalFeatures: dom-overlay; overlayElement: #overlay">
+        <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
+        <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none">
+        </a-camera>
 
 
-	        <a-entity id="walker" position="0 0 -5" visible="false">
-	            <a-plane width="0.4" height="0.4" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
-	                shadow-material></a-plane>
-	        </a-entity>
+        <a-entity id="walker" position="0 0 -5" visible="false">
+            <a-plane width="0.4" height="0.4" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
+                shadow-material></a-plane>
+        </a-entity>
 
-	        <a-entity id="walker2" position="0 0 -5" visible="false">
+        <a-entity id="walker2" position="0 0 -5" visible="false">
 
-	            <a-image id="image0" src="assets/images/Pic1.jpg" preload="true"></a-image>
+            <a-image id="image0" src="assets/images/Pic1.jpg" preload="true"></a-image>
 
-	            <a-image id="image1" src="assets/images/Pic2.jpg" preload="true"></a-image>
+            <a-image id="image1" src="assets/images/Pic2.jpg" preload="true"></a-image>
 
-	            <a-image id="image2" src="assets/images/Pic3.jpg" preload="true"></a-image>
+            <a-image id="image2" src="assets/images/Pic3.jpg" preload="true"></a-image>
 
-	            <a-image id="image3" src="assets/images/Pic4.jpg" preload="true"></a-image>
+            <a-image id="image3" src="assets/images/Pic4.jpg" preload="true"></a-image>
 
-	            <a-image id="image4" src="assets/images/Pic5.jpg" preload="true"></a-image>
+            <a-image id="image4" src="assets/images/Pic5.jpg" preload="true"></a-image>
 
-	            <a-image id="image5" src="assets/images/Pic6.jpg" visible="false" preload="true"></a-image>
+            <a-image id="image5" src="assets/images/Pic6.jpg" visible="false" preload="true"></a-image>
 
-	            <a-image id="image6" src="assets/images/Pic7.jpg" visible="false" preload="true"></a-image>
+            <a-image id="image6" src="assets/images/Pic7.jpg" visible="false" preload="true"></a-image>
 
-	            <a-image id="image7" src="assets/images/Pic8.jpg" visible="false" preload="true"></a-image>
+            <a-image id="image7" src="assets/images/Pic8.jpg" visible="false" preload="true"></a-image>
 
-	            <a-image id="image8" src="assets/images/Pic9.jpg" visible="false" preload="true"></a-image>
+            <a-image id="image8" src="assets/images/Pic9.jpg" visible="false" preload="true"></a-image>
 
-	            <a-image id="image9" src="assets/images/Pic10.jpg" visible="false" preload="true"></a-image>
+            <a-image id="image9" src="assets/images/Pic10.jpg" visible="false" preload="true"></a-image>
 
-	            <a-image id="image10" src="assets/images/Pic11.jpg" visible="false" preload="true"></a-image>
+            <a-image id="image10" src="assets/images/Pic11.jpg" visible="false" preload="true"></a-image>
 
-	            <a-image id="image11" src="assets/images/Pic12.jpg" visible="false" preload="true"></a-image>
-	 
-	            <a-image id="image12" src="assets/images/Pic13.jpg" visible="false" preload="true"></a-image>
-	 
-	            <a-image id="image13" src="assets/images/Pic14.jpg" visible="false" preload="true"></a-image>
+            <a-image id="image11" src="assets/images/Pic12.jpg" visible="false" preload="true"></a-image>
+ 
+            <a-image id="image12" src="assets/images/Pic13.jpg" visible="false" preload="true"></a-image>
+ 
+            <a-image id="image13" src="assets/images/Pic14.jpg" visible="false" preload="true"></a-image>
 
-	            <a-plane width="0.9" height="0.9" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
-	                shadow-material></a-plane>
-	        </a-entity>
-	        <a-sphere id="intersection" visible="false" radius="0.02" color="red">
-	        </a-sphere>
+            <a-plane width="0.9" height="0.9" position="0 0 0" rotation="-90 0 0" color="white" shadow="receive: true"
+                shadow-material></a-plane>
+        </a-entity>
 
-	        <a-entity exit-ar-button></a-entity>
-	    </a-scene>
+        <a-sphere id="intersection" visible="false" radius="0.02" color="red">
+        </a-sphere>
+
+        <a-entity exit-ar-button></a-entity>
+    </a-scene>
 
     <!-- <script src="assets/js/android/android_arcore.js"></script> -->
 </body>
