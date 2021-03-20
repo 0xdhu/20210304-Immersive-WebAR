@@ -69,19 +69,24 @@
 	        });
 
 	        document.getElementById('controlstick').addEventListener('click', ev => {
-	            // console.log('nextt-ar-button event ' + ev.type);
+	            console.log('nextt-ar-button event ' + ev.type);
 	            // this.el.sceneEl.renderer.xr.getSession().end();
-	            // alert("Next Button Click");
+	            alert("Take picture Click");
 
 	            takePicture();
 	        });
 
-	        document.getElementById('takePicture').addEventListener('click', ev => {
-	            // console.log('nextt-ar-button event ' + ev.type);
+	        document.getElementById('nextbutton').addEventListener('click', ev => {
+	            console.log('nextt-ar-button event ' + ev.type);
 	            // this.el.sceneEl.renderer.xr.getSession().end();
-	            // alert("Next Button Click");
+	            alert("Next Button Click");
+				let totalPage = Math.ceil(totalImages / imagesPerScene);
+			    let nextScene = currentScene = (currentScene + 1) % totalPage;
 
-	            takePicture();
+			    changeImageArray(nextScene);
+			    // update current scene' number
+			    currentScene = nextScene;
+	            // takePicture();
 	        });
 	      }
 	    })
@@ -263,21 +268,21 @@
 		}
 
 		// Next Button event
-		AFRAME.registerComponent('arnextbutton', {
-		  init: function() {
-		    this.el.sceneEl.addEventListener("click", this.handleNextButton.bind(this));
-		  },
-		  handleNextButton: function () {
-		  	alert("AR next Button");
-		    let totalPage = Math.ceil(totalImages / imagesPerScene);
-		    let nextScene = currentScene = (currentScene + 1) % totalPage;
+		// AFRAME.registerComponent('arnextbutton', {
+		//   init: function() {
+		//     this.el.sceneEl.addEventListener("click", this.handleNextButton.bind(this));
+		//   },
+		//   handleNextButton: function () {
+		//   	alert("AR next Button");
+		//     let totalPage = Math.ceil(totalImages / imagesPerScene);
+		//     let nextScene = currentScene = (currentScene + 1) % totalPage;
 
-		    changeImageArray(nextScene);
-		    // update current scene' number
-		    currentScene = nextScene;
-		  }
+		//     changeImageArray(nextScene);
+		//     // update current scene' number
+		//     currentScene = nextScene;
+		//   }
 
-		});
+		// });
 
 		function resizeCanvas(origCanvas, width, height)
 		{
@@ -372,16 +377,16 @@
 
 		}
 
-		AFRAME.registerComponent('arcapturebutton', {
-		  init: function() {
-		    this.el.addEventListener("click", this.handleCaptureButton.bind(this));
-		  },
-		  handleCaptureButton: function () {
-		  	alert("Take Picture");
-		    takePicture();
-		  }
+		// AFRAME.registerComponent('arcapturebutton', {
+		//   init: function() {
+		//     this.el.addEventListener("click", this.handleCaptureButton.bind(this));
+		//   },
+		//   handleCaptureButton: function () {
+		//   	alert("Take Picture");
+		//     takePicture();
+		//   }
 
-		});
+		// });
 
 		// main load
 		window.onload = function () {
