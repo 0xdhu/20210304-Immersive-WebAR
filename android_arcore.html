@@ -167,6 +167,8 @@
 
 		    activateDino();
 
+		    document.querySelector('.a-enter-vr-button').style.visible = 'none';
+
 		    raycaster.addEventListener('raycaster-intersection', function (event) {
 		        const intersection = event.detail.intersections[0]; //.find(i => i.object.type === 'Scene');
 		        if (intersection) {
@@ -387,7 +389,7 @@
         Exit AR
       </div>
     </div>
-    
+
 	    <a-scene ar raycaster-move="target:#intersection" webxr="optionalFeatures: dom-overlay; overlayElement: #overlay">
 	        <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
 	        <!-- <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none"> -->
