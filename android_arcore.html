@@ -60,36 +60,7 @@
             }
         });
 
-        AFRAME.registerComponent('exit-ar-button', {
-	      init: function () {
-	        console.log('exit-ar-button init');
-	        document.getElementById('exitbutton').addEventListener('click', ev => {
-	            console.log('exit-ar-button event ' + ev.type);
-	            this.el.sceneEl.renderer.xr.getSession().end();
-	        });
-
-	        document.getElementById('controlstick').addEventListener('click', ev => {
-	            console.log('nextt-ar-button event ' + ev.type);
-	            // this.el.sceneEl.renderer.xr.getSession().end();
-	            alert("Take picture Click");
-
-	            takePicture();
-	        });
-
-	        document.getElementById('nextbutton').addEventListener('click', ev => {
-	            console.log('nextt-ar-button event ' + ev.type);
-	            // this.el.sceneEl.renderer.xr.getSession().end();
-	            alert("Next Button Click");
-				let totalPage = Math.ceil(totalImages / imagesPerScene);
-			    let nextScene = currentScene = (currentScene + 1) % totalPage;
-
-			    changeImageArray(nextScene);
-			    // update current scene' number
-			    currentScene = nextScene;
-	            // takePicture();
-	        });
-	      }
-	    })
+        
     </script>
 
     <script>
@@ -283,6 +254,36 @@
 		//   }
 
 		// });
+		AFRAME.registerComponent('exit-ar-button', {
+	      init: function () {
+	        console.log('exit-ar-button init');
+	        document.getElementById('exitbutton').addEventListener('click', ev => {
+	            console.log('exit-ar-button event ' + ev.type);
+	            this.el.sceneEl.renderer.xr.getSession().end();
+	        });
+
+	        document.getElementById('controlstick').addEventListener('click', ev => {
+	            console.log('nextt-ar-button event ' + ev.type);
+	            // this.el.sceneEl.renderer.xr.getSession().end();
+	            // alert("Take picture Click");
+
+	            takePicture();
+	        });
+
+	        document.getElementById('nextbutton').addEventListener('click', ev => {
+	            console.log('nextt-ar-button event ' + ev.type);
+	            // this.el.sceneEl.renderer.xr.getSession().end();
+	            // alert("Next Button Click");
+				let totalPage = Math.ceil(totalImages / imagesPerScene);
+			    let nextScene = currentScene = (currentScene + 1) % totalPage;
+
+			    changeImageArray(nextScene);
+			    // update current scene' number
+			    currentScene = nextScene;
+	            // takePicture();
+	        });
+	      }
+	    })
 
 		function resizeCanvas(origCanvas, width, height)
 		{
