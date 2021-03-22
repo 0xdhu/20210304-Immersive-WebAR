@@ -243,51 +243,39 @@
 
 		// Take screenshot of gameplay in AR experience
 		const takePicture = () => {
-			// let video = document.querySelector("video");
-			// video.pause();
+			let video = document.querySelector("video");
+			video.pause();
 			
-			document.querySelector("a-scene").components.screenshot.capture("perspective");
+			// document.querySelector("a-scene").components.screenshot.capture("perspective");
 			
-			// let dataUri = document.querySelector("a-scene").components.screenshot.getCanvas("perspective").toDataURL('image/png');
+			
 
-			// var img = new Image();
-			// img.onload = function() {
-			// 	let picCanvas = document.createElement("canvas");
-			// 	let picContext = picCanvas.getContext('2d');
+			let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
 
-		 //        picContext.drawImage(img, 0, 0, screen.width, screen.height);
+			let frame = captureVideoFrame("video", "png");
 
-		 //        let cookedUri = 
-		 //    };
+			aScene = resizeCanvas(aScene, frame.width, frame.height);
+			frame = frame.dataUri;
 
-			// img.src = dataUri;
+			mergeImages([frame, aScene]).then(b64 =>
+			{
+			    var fileName = 'webar-experience' + '-' + Date.now() + '.png';
+			    var linkEl = document.createElement('a');
 
-			// let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
+			    linkEl.href = b64;
+			    linkEl.setAttribute('download', fileName);
+			    linkEl.innerHTML = 'downloading...';
+			    linkEl.style.display = 'none';
 
-			// let frame = captureVideoFrame("video", "png");
+			    document.body.appendChild(linkEl);
 
-			// aScene = resizeCanvas(aScene, frame.width, frame.height);
-			// frame = frame.dataUri;
+			    setTimeout(function () {
+			      linkEl.click();
+			      document.body.removeChild(linkEl);
+			    }, 1);
+			});
 
-			// mergeImages([frame, aScene]).then(b64 =>
-			// {
-			//     var fileName = 'webar-experience' + '-' + Date.now() + '.png';
-			//     var linkEl = document.createElement('a');
-
-			//     linkEl.href = b64;
-			//     linkEl.setAttribute('download', fileName);
-			//     linkEl.innerHTML = 'downloading...';
-			//     linkEl.style.display = 'none';
-
-			//     document.body.appendChild(linkEl);
-
-			//     setTimeout(function () {
-			//       linkEl.click();
-			//       document.body.removeChild(linkEl);
-			//     }, 1);
-			// });
-
-		  	// video.play();
+		  	video.play();
 
 		}
 
