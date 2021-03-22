@@ -199,8 +199,8 @@ const takePicture = () => {
   let video = document.querySelector("video");
 
   video.pause();
-  document.querySelector("a-scene").components.screenshot.capture("perspective");
-  /* let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
+  // document.querySelector("a-scene").components.screenshot.capture("perspective");
+  let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
 
   let frame = captureVideoFrame("video", "png");
 
@@ -224,7 +224,7 @@ const takePicture = () => {
       linkEl.click();
       document.body.removeChild(linkEl);
     }, 1);
-  }); */
+  });
 
   video.play();
 }

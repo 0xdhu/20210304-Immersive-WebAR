@@ -245,31 +245,47 @@
 		const takePicture = () => {
 			let video = document.querySelector("video");
 			video.pause();
+			
+			document.querySelector("a-scene").components.screenshot.capture("perspective");
+			
+			// let dataUri = document.querySelector("a-scene").components.screenshot.getCanvas("perspective").toDataURL('image/png');
 
-			let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
+			// var img = new Image();
+			// img.onload = function() {
+			// 	let picCanvas = document.createElement("canvas");
+			// 	let picContext = picCanvas.getContext('2d');
 
-			let frame = captureVideoFrame("video", "png");
+		 //        picContext.drawImage(img, 0, 0, screen.width, screen.height);
 
-			aScene = resizeCanvas(aScene, frame.width, frame.height);
-			frame = frame.dataUri;
+		 //        let cookedUri = 
+		 //    };
 
-			mergeImages([frame, aScene]).then(b64 =>
-			{
-			    var fileName = 'webar-experience' + '-' + Date.now() + '.png';
-			    var linkEl = document.createElement('a');
+			// img.src = dataUri;
 
-			    linkEl.href = b64;
-			    linkEl.setAttribute('download', fileName);
-			    linkEl.innerHTML = 'downloading...';
-			    linkEl.style.display = 'none';
+			// let aScene = document.querySelector("a-scene").components.screenshot.getCanvas("perspective");
 
-			    document.body.appendChild(linkEl);
+			// let frame = captureVideoFrame("video", "png");
 
-			    setTimeout(function () {
-			      linkEl.click();
-			      document.body.removeChild(linkEl);
-			    }, 1);
-			});
+			// aScene = resizeCanvas(aScene, frame.width, frame.height);
+			// frame = frame.dataUri;
+
+			// mergeImages([frame, aScene]).then(b64 =>
+			// {
+			//     var fileName = 'webar-experience' + '-' + Date.now() + '.png';
+			//     var linkEl = document.createElement('a');
+
+			//     linkEl.href = b64;
+			//     linkEl.setAttribute('download', fileName);
+			//     linkEl.innerHTML = 'downloading...';
+			//     linkEl.style.display = 'none';
+
+			//     document.body.appendChild(linkEl);
+
+			//     setTimeout(function () {
+			//       linkEl.click();
+			//       document.body.removeChild(linkEl);
+			//     }, 1);
+			// });
 
 		  	video.play();
 
