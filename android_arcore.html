@@ -129,7 +129,7 @@
 		        // const targetPosition = raycaster.components.cursor
 		        //     // this is broken in current A-Frame 1.0.x --> .intersection.point;
 		        //     .intersectedEventDetail.intersection.point;
-		        
+
 		        const targetPosition = document.querySelector("a-camera").object3D.position;
 		        if (!walker.getAttribute('visible')) {
 		            walker.setAttribute('visible', true);
@@ -382,7 +382,7 @@
     </div>
 
     <!-- <a-scene ar raycaster-move="target:#intersection" webxr="optionalFeatures: dom-overlay; overlayElement: #overlay" > -->
-	<a-scene arjs='sourceType: webcam; debugUIEnabled: false' raycaster-move="target:#intersection" webxr="optionalFeatures: dom-overlay; overlayElement: #overlay" >
+	<a-scene arjs='sourceType: webcam; debugUIEnabled: false' raycaster-move="target:#intersection" webxr="requiredFeatures: hit-test,local-floor; optionalFeatures: dom-overlay; overlayElement: #overlay" >
         <!-- Specify raycaster="objects:none" to avoid intersections with A-Frame entities like the fox. -->
         <a-camera user-height="0" cursor="fuse:false" ar-raycaster raycaster="objects:none">
         </a-camera>
