@@ -169,7 +169,7 @@ const addImageEntries = () => {
         subElem.setAttribute("height", initialHeight[i] / 2);
         // initial positon for each entry
         subElem.object3D.position.x = 0;
-        subElem.object3D.position.y = initialHeight[i] / 2 * 3;
+        subElem.object3D.position.y = initialHeight[i] / 4 * 3;
         subElem.object3D.position.z = initialHeight[i] / 4;
 
         // current entry's rotation
@@ -186,7 +186,7 @@ const addImageEntries = () => {
         subElem2.setAttribute("height", initialHeight[i] / 2 );
         // initial positon for each entry
         subElem2.object3D.position.x = 0;
-        subElem2.object3D.position.y = -initialHeight[i] / 2 * 3;
+        subElem2.object3D.position.y = -initialHeight[i] / 4 * 3;
         subElem2.object3D.position.z = initialHeight[i] / 4;
 
         // current entry's rotation
@@ -203,7 +203,7 @@ const addImageEntries = () => {
         subElem.setAttribute("width", initialWidth[i] / 2);
         subElem.setAttribute("height", initialHeight[i]);
         // initial positon for each entry
-        subElem.object3D.position.x = initialWidth[i] / 2 * 3;
+        subElem.object3D.position.x = initialWidth[i] / 4 * 3;
         subElem.object3D.position.y = 0;
         subElem.object3D.position.z = initialWidth[i] / 4;
 
