@@ -169,23 +169,51 @@ const addImageEntries = () => {
         subElem.setAttribute("height", initialHeight[i] / 2);
         // initial positon for each entry
         subElem.object3D.position.x = 0;
-        subElem.object3D.position.y = initialHeight[i];
+        subElem.object3D.position.y = initialHeight[i] / 2;
         subElem.object3D.position.z = 0;
 
         // current entry's rotation
-        subElem.object3D.rotation.x = toRadians(-40);
+        subElem.object3D.rotation.x = toRadians(40);
         subElem.object3D.rotation.y = 0;
         subElem.object3D.rotation.z = 0;
-
-        // current entry's ID
-        let tidx = i * 10 + j + 1;
-        subElem.setAttribute("id", "Frame1");
-        // current entry's rotation in radian
-        subElem.setAttribute("radian", toRadians(-40));
         // image source path
         subElem.setAttribute("src", imageURL + "Frame1.png");
         elem.appendChild(subElem);
 
+        var subElem2 = document.createElement('a-image');
+        // entry's size
+        subElem2.setAttribute("width", initialWidth[i] / 2);
+        subElem2.setAttribute("height", initialHeight[i] / 2);
+        // initial positon for each entry
+        subElem2.object3D.position.x = 0;
+        subElem2.object3D.position.y = -initialHeight[i] / 2;
+        subElem2.object3D.position.z = 0;
+
+        // current entry's rotation
+        subElem2.object3D.rotation.x = toRadians(-40);
+        subElem2.object3D.rotation.y = 0;
+        subElem2.object3D.rotation.z = 0;
+        // image source path
+        subElem2.setAttribute("src", imageURL + "Frame1.png");
+        elem.appendChild(subElem2);
+
+      } else {
+        var subElem = document.createElement('a-image');
+        // entry's size
+        subElem.setAttribute("width", initialWidth[i] / 2);
+        subElem.setAttribute("height", initialHeight[i]);
+        // initial positon for each entry
+        subElem.object3D.position.x = initialWidth[i] / 2;
+        subElem.object3D.position.y = 0;
+        subElem.object3D.position.z = 0;
+
+        // current entry's rotation
+        subElem.object3D.rotation.x = 0;
+        subElem.object3D.rotation.y = toRadians(40);
+        subElem.object3D.rotation.z = 0;
+        // image source path
+        subElem.setAttribute("src", imageURL + "Frame2.png");
+        elem.appendChild(subElem);
       }
     }
   }
