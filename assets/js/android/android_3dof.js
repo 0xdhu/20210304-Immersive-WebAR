@@ -132,7 +132,7 @@ const addImageEntries = () => {
 
       var idx = j;
       var angle = 360 * idx / imagesPerScene[i];
-      var radian = toRadians(angle);
+        var radian = toRadians(angle);
 
       // initial positon for each entry
       elem.object3D.position.x = 0;
@@ -160,6 +160,33 @@ const addImageEntries = () => {
 
 
       scene.appendChild(elem);
+
+      // long image
+      if(i == 0) {
+        var subElem = document.createElement('a-image');
+        // entry's size
+        subElem.setAttribute("width", initialWidth[i] / 2);
+        subElem.setAttribute("height", initialHeight[i] / 2);
+        // initial positon for each entry
+        subElem.object3D.position.x = 0;
+        subElem.object3D.position.y = initialHeight[i];
+        subElem.object3D.position.z = 0;
+
+        // current entry's rotation
+        subElem.object3D.rotation.x = toRadians(-40);
+        subElem.object3D.rotation.y = 0;
+        subElem.object3D.rotation.z = 0;
+
+        // current entry's ID
+        let tidx = i * 10 + j + 1;
+        subElem.setAttribute("id", "Frame1");
+        // current entry's rotation in radian
+        subElem.setAttribute("radian", toRadians(-40));
+        // image source path
+        subElem.setAttribute("src", imageURL + "Frame1.png");
+        elem.appendChild(subElem);
+
+      }
     }
   }
 }
