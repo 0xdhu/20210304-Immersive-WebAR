@@ -11,10 +11,10 @@ const imagesPerScene = [1,4,4,4];
 // const totalImages = 13;
 // Initial distance to each images from user
 const initialDistance = 20;
-// Initial width of image
-const initialWidth = 8;
+// Initial width of images for each scene
+const initialWidth = [11.3, 7.36, 7.67, 7.286];
 // Initial height of image
-const initialHeight = 5;
+const initialHeight = [5, 5, 5, 5];
 // Scene number
 let currentScene = 0;
 
@@ -120,14 +120,15 @@ window.onload = function () {
 const addImageEntries = () => {
   var scene = document.querySelector('a-scene');
 
+  // scene loop
   for(var i = 0; i < imagesPerScene.length; i++) {
-
+    // image loop in scene
     for(var j = 0; j < imagesPerScene[i]; j++) {
       var elem = document.createElement('a-image');
 
       // entry's size
-      elem.setAttribute("width", initialWidth);
-      elem.setAttribute("height", initialHeight);
+      elem.setAttribute("width", initialWidth[i]);
+      elem.setAttribute("height", initialHeight[i]);
 
       var idx = j;
       var angle = 360 * idx / imagesPerScene[i];
