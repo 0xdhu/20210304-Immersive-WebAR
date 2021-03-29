@@ -6,17 +6,19 @@ const imageURL = 'assets/images/';
 ************************/
 
 // Count of images to show for each scene
-const imagesPerScene = 5;
+const imagesPerScene = [1,4,4,4];
 // Total count of images to show in app
-const totalImages = 14;
+// const totalImages = 13;
 // Initial distance to each images from user
 const initialDistance = 20;
 // Initial width of image
-const initialWidth = 6.4;
+const initialWidth = 8;
 // Initial height of image
-const initialHeight = 4;
+const initialHeight = 5;
 // Scene number
 let currentScene = 0;
+
+
 
 /************************************************
 ** Main video and canvas for webcam and ar camera
@@ -67,8 +69,8 @@ window.onload = function () {
   // Event handler for next button to show another images
 	document.querySelector(".next-button").addEventListener("click", function () {
 
-    let totalPage = Math.ceil(totalImages / imagesPerScene);
-    let nextScene = currentScene = (currentScene + 1) % totalPage;
+    // let totalPage = Math.ceil(totalImages / imagesPerScene);
+    let nextScene = (currentScene + 1) % imagesPerScene.length;
 
     // Display next images bundle
     changeImageArray(nextScene);
@@ -118,42 +120,46 @@ window.onload = function () {
 const addImageEntries = () => {
   var scene = document.querySelector('a-scene');
 
-  for(var i = 0; i < totalImages; i++) {
-    var elem = document.createElement('a-image');
+  for(var i = 0; i < imagesPerScene.length; i++) {
 
-    // entry's size
-    elem.setAttribute("width", 6.4);
-    elem.setAttribute("height", 4);
+    for(var j = 0; j < imagesPerScene[i]; j++) {
+      var elem = document.createElement('a-image');
 
-    var idx = i % imagesPerScene;
-    var angle = 360 * idx / imagesPerScene;
-    var radian = toRadians(angle);
+      // entry's size
+      elem.setAttribute("width", initialWidth);
+      elem.setAttribute("height", initialHeight);
 
-    // initial positon for each entry
-    elem.object3D.position.x = 0;
-    elem.object3D.position.y = 0;
-    elem.object3D.position.z = 0;
+      var idx = j;
+      var angle = 360 * idx / imagesPerScene[i];
+      var radian = toRadians(angle);
 
-    // current entry's rotation
-    elem.object3D.rotation.x = 0;
-    elem.object3D.rotation.y = toRadians(-angle - 90);
-    elem.object3D.rotation.z = 0;
+      // initial positon for each entry
+      elem.object3D.position.x = 0;
+      elem.object3D.position.y = 0;
+      elem.object3D.position.z = 0;
 
-    // current entry's ID
-    elem.setAttribute("id", "image"+i);
-    // current entry's rotation in radian
-    elem.setAttribute("radian", radian);
-    // image source path
-    elem.setAttribute("src", imageURL + "Pic" + (i + 1) + ".jpg");
-    // gesture handler
-    elem.setAttribute("gesture-handler", "minScale: 1; maxScale: 2");
-    // only if true, gesture-handler work on this object.
-    // elem.setAttribute("raycaster-live", "false");
-    // add class's attribute
-    elem.setAttribute("class", "clickable");
+      // current entry's rotation
+      elem.object3D.rotation.x = 0;
+      elem.object3D.rotation.y = toRadians(-angle - 90);
+      elem.object3D.rotation.z = 0;
+
+      // current entry's ID
+      let tidx = i * 10 + j + 1;
+      elem.setAttribute("id", "image"+tidx);
+      // current entry's rotation in radian
+      elem.setAttribute("radian", radian);
+      // image source path
+      elem.setAttribute("src", imageURL + tidx + ".jpg");
+      // gesture handler
+      elem.setAttribute("gesture-handler", "minScale: 1; maxScale: 2");
+      // only if true, gesture-handler work on this object.
+      // elem.setAttribute("raycaster-live", "false");
+      // add class's attribute
+      elem.setAttribute("class", "clickable");
 
 
-    scene.appendChild(elem);
+      scene.appendChild(elem);
+    }
   }
 }
 // convert degree to radian
@@ -163,15 +169,16 @@ const toRadians = (angle) => {
 
 // load another images
 const changeImageArray = (sceneNumber) => {
-  let startnum = sceneNumber * imagesPerScene;
-  let endnum = Math.min(startnum + imagesPerScene, totalImages);
+  let startnum = 0; //sceneNumber * imagesPerScene;
+  let endnum = imagesPerScene[sceneNumber]; //Math.min(startnum + imagesPerScene, totalImages);
 
   // move all images to future so that user cannot see any images
   resetImagePosition();
 
   // move some images into the surround of camera so that user can see it
   for(let i = startnum; i < endnum; i++) {
-    let elem = document.querySelector("#image" + i);
+    let tidx = sceneNumber * 10 + i + 1;
+    let elem = document.querySelector("#image" + tidx);
     let radian = elem.getAttribute("radian");
 
 
@@ -184,12 +191,15 @@ const changeImageArray = (sceneNumber) => {
 }
 
 const resetImagePosition = () => {
-  for(let i = 0; i < totalImages; i++) {
-    let elem = document.querySelector("#image" + i);
+  for(let i = 0; i < imagesPerScene.length; i++) {
+    for(let j = 0; j < imagesPerScene[i]; j++) {
+      let tidx = i * 10 + j + 1;
+      let elem = document.querySelector("#image" + tidx);
 
-    elem.object3D.position.x = 1000;
-    elem.object3D.position.y = 1000;
-    elem.object3D.position.z = 1000;
+      elem.object3D.position.x = 1000;
+      elem.object3D.position.y = 1000;
+      elem.object3D.position.z = 1000;
+    }
   }
 }
 

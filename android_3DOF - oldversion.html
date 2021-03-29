@@ -1,0 +1,94 @@
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+  		<meta charset='utf-8'>
+  		<meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+		<title>Android 3DOF</title>
+
+		<!-- Custom Css -->
+		<link rel="stylesheet" type="text/css" href="assets/css/android/android_3dof.css">
+
+		<!-- Core AR JS Library -->
+	    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+	    
+	    <!-- We import arjs version without NFT but with marker based support -->
+	    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
+	    <!-- Merge Images -->
+	    <script src="https://unpkg.com/merge-images"></script>
+
+	    <!-- Detect Gesture -->
+	    <script src="assets/js/gestures-lib/gesture-detector.js"></script>
+
+	    <script src="assets/js/gestures-lib/gesture-handler.js"></script>
+
+	    <!-- video record library -->
+	    <script src="assets/js/android/whammy.js"></script>
+
+	    <!-- Custom Javascript -->
+	    <!-- This need to be declared before a-scene -->
+	    <script src="assets/js/android/android_3dof.js"></script>
+
+
+	</head>
+
+    <body style="margin : 0px; overflow: hidden;">
+    	<!-- minimal loader shown until image descriptors are loaded -->
+
+    	<!-- Next & Capture Button -->
+		<div class="buttons">
+	      	<button class="next-button">Next</button>
+	      	&nbsp;&nbsp;
+	      	<button class="capture-button"></button>
+	    </div>
+
+        <a-scene 
+        	vr-mode-ui='enabled: false'
+        	embedded
+        	gesture-detector
+        	arjs='sourceType: webcam; debugUIEnabled: false'    
+        	renderer=""	 
+        >
+        	<!-- Texts -->
+	        <!-- <a-box class="a-custombox clickable" color="yellow" position="4 1.6 4" scale="0.3 0.3 0.3" gesture-handler="minScale: 0.2; maxScale: 1" soundhandler></a-box> -->
+
+	        <!-- Images Start -->
+	        <!-- <a-image class="image" src="assets/images/ARButton.png" position="5 1.6 5" rotation="0 50 0"></a-image>
+ 
+	        <a-image class="image" src="assets/images/ARButton.png" position="5 1.6 -5" rotation="0 180 0"></a-image>
+ 
+	        <a-image class="image" src="assets/images/ARButton.png" position="-5 1.6 5" rotation="0 120 0"></a-image> -->
+	        <!-- Images End -->
+
+	        <!-- Audios Start-->
+			<!-- <a-assets>
+	            <audio id="sound" src="assets/audios/L1.mp3" preload="true"></audio>
+	        </a-assets>
+
+	        <a-entity sound="src: #sound" autoplay="false"></a-entity> -->
+	        <!-- Audios End -->
+
+	        <!-- AR Camera and Raycaster -->
+        	<a-camera camera="fov: 80;" id="camera" rotation-reader position="0 0 0" listener look-controls="reverseMouseDrag:true; touchEnabled: false">
+        		<!-- <a-entity position="-0.06 -0.3 -1" scale="0.10 0.04 0.01" >
+		            <a-image class="nextarbutton" src="assets/images/nextButton.png" preload="true" ></a-image>
+	    		</a-entity> -->
+
+        		<a-entity class="raycaster"
+					position="0 0 -1"
+					scale="0.008 0.008 0.008"
+					cursor="fuse: true; fuseTimeout: 500"
+					geometry="primitive: ring"
+					material="color: black; shader: flat" 
+					raycaster="interval:1000; objects: .clickable; ">
+        		</a-entity>
+			</a-camera>
+			<!-- AR Camera End -->
+        </a-scene>
+        <canvas id="resultCanvas" style="display:none"></canvas>
+		<a style="display:none" id="download" download="video.webm"></a>
+    </body>
+</html>
