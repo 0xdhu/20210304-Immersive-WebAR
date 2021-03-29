@@ -169,8 +169,8 @@ const addImageEntries = () => {
         subElem.setAttribute("height", initialHeight[i] / 2);
         // initial positon for each entry
         subElem.object3D.position.x = 0;
-        subElem.object3D.position.y = initialHeight[i] / 2;
-        subElem.object3D.position.z = 0;
+        subElem.object3D.position.y = initialHeight[i] / 2 * 3;
+        subElem.object3D.position.z = initialHeight[i] / 2;
 
         // current entry's rotation
         subElem.object3D.rotation.x = toRadians(40);
@@ -183,11 +183,11 @@ const addImageEntries = () => {
         var subElem2 = document.createElement('a-image');
         // entry's size
         subElem2.setAttribute("width", initialWidth[i] / 2);
-        subElem2.setAttribute("height", initialHeight[i] / 2);
+        subElem2.setAttribute("height", initialHeight[i] / 2 );
         // initial positon for each entry
         subElem2.object3D.position.x = 0;
-        subElem2.object3D.position.y = -initialHeight[i] / 2;
-        subElem2.object3D.position.z = 0;
+        subElem2.object3D.position.y = -initialHeight[i] / 2 * 3;
+        subElem2.object3D.position.z = initialHeight[i] / 2;
 
         // current entry's rotation
         subElem2.object3D.rotation.x = toRadians(-40);
@@ -203,13 +203,13 @@ const addImageEntries = () => {
         subElem.setAttribute("width", initialWidth[i] / 2);
         subElem.setAttribute("height", initialHeight[i]);
         // initial positon for each entry
-        subElem.object3D.position.x = initialWidth[i] / 2;
+        subElem.object3D.position.x = initialWidth[i] / 2 * 3;
         subElem.object3D.position.y = 0;
-        subElem.object3D.position.z = 0;
+        subElem.object3D.position.z = initialWidth[i] / 2;
 
         // current entry's rotation
         subElem.object3D.rotation.x = 0;
-        subElem.object3D.rotation.y = toRadians(40);
+        subElem.object3D.rotation.y = toRadians(-40);
         subElem.object3D.rotation.z = 0;
         // image source path
         subElem.setAttribute("src", imageURL + "Frame2.png");
