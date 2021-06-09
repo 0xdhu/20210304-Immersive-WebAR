@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <title>WebAR Project</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  </head>
+  <body>
+        <div style="height: 100vh;">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="height: calc(100% - 3em);">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div style="background-color: blue; padding:2em; height: 100%;">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <h3 style="color: white;">Escull el grup de fotos que vols fer servir i prem “Entrar”</h3>
+                            <img style="padding-top: 2em;" src="assets/images/tips/Android/Tip1.gif" class="d-block w-100">
+                        </div>
+                        <div class="carousel-item">
+                            <h3 style="color: white;">Mou, gira, amplia, redueix, juga...</h3>
+                            <img style="padding-top: 2em;" src="assets/images/tips/Android/Tip2.gif" class="d-block w-100">
+                        </div>
+                        <div class="carousel-item">
+                            <h2 style="color: white;">Si vols sortir a la foto demana a algú que te la faci</h2>
+                            <img style="padding-top: 2em;" src="assets/images/tips/Android/Tip4.png" class="d-block w-100">
+                        </div>
+                        <div class="carousel-item"></div>
+                    </div>
+                </div>
+            </div>    
+            <h5 style="color: black; padding-top: 0.5em; text-align: center; height: 3em;">Omet</h5>
+        </div>
+    <script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+            var carouselLength = $('.carousel-item').length - 1;
+            // If there is more than one item
+            $('.carousel').carousel({
+                interval: false,
+                wrap: false
+            }).on('slide.bs.carousel', function (e) {
+                // last item
+                if (e.to == carouselLength) {
+                    const android_3dof = 'android_3DOF.html';
+                    let baseURL = "";
+                    location.href = baseURL + android_3dof;
+                }
+            });
+		});
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
+</html>
