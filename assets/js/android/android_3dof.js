@@ -150,7 +150,7 @@ const addImageEntries = () => {
       // current entry's rotation in radian
       elem.setAttribute("radian", radian);
       // image source path
-      elem.setAttribute("src", imageURL + tidx + ".jpg");
+      elem.setAttribute("src", imageURL + tidx + ".png");
       // gesture handler
       elem.setAttribute("gesture-handler", "minScale: 1; maxScale: 2");
       // only if true, gesture-handler work on this object.
