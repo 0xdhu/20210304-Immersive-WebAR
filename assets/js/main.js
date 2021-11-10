@@ -25,6 +25,17 @@ const redirect_ios_3dof = () => {
     location.href = baseURL + ios_3dof;
 }
 
+const launchxr = () => {
+    console.log("entrando a funcion XR4");
+    if ("xr" in window.navigator) {
+        console.log("SOPORTA XR");
+        location.href = baseURL + android_arcore;
+    } else {
+        console.log("NO SOPORTA XR");
+        location.href = baseURL + android_3dof;
+    }
+}
+
 
 // Display warning message if user doesnot use iPhone/iPad/Android
 const warningText = "You need to browse this website on iPhone/iPad or Android";
@@ -53,6 +64,8 @@ const checkPlatform = () => {
 
                 if(isBrowser_Support()) {
                     // now we need to check XRsession and ARcore
+                    console.log("entrando a support5");
+                    launchxr();
                     navigator.xr.addEventListener('devicechange', checkForXRSupport);    
                 } else {
                     // this browser doesnot support xr
@@ -106,9 +119,10 @@ const checkForXRSupport = () => {
     // presentation (for example: displaying in a headset). If the device has that
     // capability the page will want to add an "Enter VR" button to the page (similar to
     // a "Fullscreen" button) that starts the display of immersive VR content.
+    console.log("comprobando");
     navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
         if (supported) {
-            console.log("Session supported");
+            console.log("Session supported NEW");
 
             var enterXrBtn = document.createElement("button");
             enterXrBtn.innerHTML = "Tap on this button to enter AR experience";
