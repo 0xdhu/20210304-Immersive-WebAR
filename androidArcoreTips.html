@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>    
-            <h5 style="color: black; padding-top: 0.5em; text-align: center; height: 3em;">Omet</h5>
+            <h5 style="color: black; padding-top: 0.5em; text-align: center; height: 3em;" id="nextBtn">Omet</h5>
         </div>
     <script>
 		document.addEventListener("DOMContentLoaded", function(event) {
@@ -59,6 +59,11 @@
                     location.href = baseURL + android_arcore;
                 }
             });
+			document.getElementById('nextBtn').addEventListener('click', ev => {
+                const android_arcore = 'androidArcore/index.html';
+                let baseURL = "";
+                location.href = baseURL + android_arcore;
+			});
 		});
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

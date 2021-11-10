@@ -56,7 +56,7 @@
         window.switchSrc = (element, name) => {
             const base = "assets/models/" + name;
             modelViewer.src = base + '.glb';
-            modelViewer.poster = base + '.png';
+            modelViewer.poster = base + '.PNG';
             const slides = document.querySelectorAll(".slide");
             slides.forEach((element) => {element.classList.remove("selected");});
             element.classList.add("selected");

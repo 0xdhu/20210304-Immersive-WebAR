@@ -66,7 +66,7 @@ const checkPlatform = () => {
                     // now we need to check XRsession and ARcore
                     console.log("entrando a support5");
                     launchxr();
-                    navigator.xr.addEventListener('devicechange', checkForXRSupport);    
+                    // navigator.xr.addEventListener('devicechange', checkForXRSupport);    
                 } else {
                     // this browser doesnot support xr
                     redirect_android_3dof();
