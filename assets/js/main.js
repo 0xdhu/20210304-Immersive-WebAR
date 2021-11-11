@@ -3,8 +3,7 @@
 // In this case, we do this in another way
 const android_arcore = 'androidArcoreTips.html';
 const android_3dof = 'android3DOFTips.html';
-const ios_composer =  'assets/models/ios/uocTest.reality'; //'assets/models/ios/model.usdz';
-const ios_3dof = 'iosTips.html';
+const iosTips = 'iosTips.html';
 
 let baseURL = "";
 let xrSession = null;
@@ -18,11 +17,8 @@ const redirect_android_arcore = () => {
     location.href = baseURL + android_arcore;
 }
 
-const redirect_ios_arkit = () => {
-    location.href = baseURL + ios_composer;
-}
-const redirect_ios_3dof = () => {
-    location.href = baseURL + ios_3dof;
+const redirect_ios_Tips = () => {
+    location.href = baseURL + iosTips;
 }
 
 const launchxr = () => {
@@ -76,12 +72,7 @@ const checkPlatform = () => {
     		// iOS Platform
     		else if(String(toMatchItem) === "/iPhone/i" || String(toMatchItem) === "/iPad/i") {
     			isMobile = true;
-    			// Navigate to iOS page
-    			if(is_ARkit_support()) {
-                    redirect_ios_arkit();
-    			} else {
-                    redirect_ios_3dof();
-                }
+                redirect_ios_Tips();
     		}
     	}	
     });
@@ -183,12 +174,3 @@ const onSessionStarted = (session) => {
 //         // return false;
 //     }
 // }
-
-// check if your ios mobile browser support AR
-const is_ARkit_support = () => {
-    const a = document.createElement("a");
-    if (a.relList.supports("ar")) {
-      // AR is available.
-      return true;
-    } else return false;
-}

@@ -43,8 +43,16 @@
             </div>    
             <h5 style="color: black; padding-top: 0.5em; text-align: center; height: 3em;" id="nextBtn">Omet</h5>
         </div>
-    <script>
+    <script>        
 		document.addEventListener("DOMContentLoaded", function(event) {
+            function is_ARkit_support (){
+                const a = document.createElement("a");
+                if (a.relList.supports("ar")) {
+                    // AR is available.
+                    return true;
+                } else return false;
+            }
+
             var carouselLength = $('.carousel-item').length - 1;
             // If there is more than one item
             $('.carousel').carousel({
@@ -53,15 +61,27 @@
             }).on('slide.bs.carousel', function (e) {
                 // last item
                 if (e.to == carouselLength) {
+                    if(is_ARkit_support()) {
+                        const ios_3dof = 'assets/models/ios/uocTest.reality';
+                        let baseURL = "";
+                        location.href = baseURL + ios_3dof;
+                    } else {
+                        const ios_3dof = 'ios.html';
+                        let baseURL = "";
+                        location.href = baseURL + ios_3dof;
+                    }
+                }
+            });
+			document.getElementById('nextBtn').addEventListener('click', ev => {
+    			if(is_ARkit_support()) {
+                    const ios_3dof = 'assets/models/ios/uocTest.reality';
+                    let baseURL = "";
+                    location.href = baseURL + ios_3dof;
+    			} else {
                     const ios_3dof = 'ios.html';
                     let baseURL = "";
                     location.href = baseURL + ios_3dof;
                 }
-            });
-			document.getElementById('nextBtn').addEventListener('click', ev => {
-                const ios_3dof = 'ios.html';
-                let baseURL = "";
-                location.href = baseURL + ios_3dof;
 			});
 		});
     </script>
